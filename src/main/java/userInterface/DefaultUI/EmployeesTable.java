@@ -18,41 +18,34 @@ public class EmployeesTable extends VerticalLayout {
     final private int WIDTH = 11;
 
     /**
-     *A constructor for the table full of the staff members (could be current or deleted members)
-     * @param tabName: the name of the table
-     * @param height: Height of table
-     * @param viewType: Whether deleted or current members. True for Current, false for Deleted
+     *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
     @Autowired
-    public EmployeesTable(String tabName, String height, boolean viewType) {
+    public EmployeesTable() {
 
         this.setMargin(true);
         this.setSpacing(true);
-        // Table containing all the working members
-        Table membersTable = new Table();
 
-        membersTable.addContainerProperty("ID", Integer.class, null);
+        // Table containing all the working members
+        TreeTable membersTable = new TreeTable();
+
+        membersTable.addContainerProperty("Employment ID", Integer.class, null);
         membersTable.addContainerProperty("First Name", String.class, null);
         membersTable.addContainerProperty("Last Name", String.class, null);
+        membersTable.addContainerProperty("Start date", String.class, null);
+        membersTable.addContainerProperty("End date", String.class, null);
 
         // Editing table layout
         editTable(membersTable);
 
         // Search field for member
         TextField searchField = new TextField();
-        searchField.setCaption(tabName);
         searchField.setInputPrompt("Search by ID");
         searchField.setWidth(WIDTH, Unit.CM);
-        this.setHeight(height);
 
         //Adding dummy members to the table
-        String deleted = "";
-        if(!viewType)               //If the viewType is Deleted, then add "Deleted" before every staff member
-             deleted = "Deleted";
-        Employments specialMember = new Employments(0, deleted + " Mark", deleted + " Knopfler");
-        membersTable.addItem(new Object[]{specialMember.getStaffId(), specialMember.getFirstName(), specialMember.getLastName()}, 1);
         for(int i = 1; i < 5; i++) {
-            Employments staffMember = new Employments(i, deleted + "firstName "+i, deleted + "lastName "+i);
+            Employments staffMember = new Employments(i, "firstName "+i, "lastName "+i);
             membersTable.addItem(new Object[]{staffMember.getStaffId(), staffMember.getFirstName(), staffMember.getLastName()}, i + 1);
         }
         this.addComponents(searchField, membersTable);
@@ -64,7 +57,7 @@ public class EmployeesTable extends VerticalLayout {
      */
     private void editTable(Table membersTable){
         membersTable.setEnabled(false);
-        membersTable.setWidth(WIDTH, Sizeable.Unit.CM);
+        membersTable.setWidth("100%");
 
         membersTable.setSelectable(true);
         membersTable.setImmediate(true);
