@@ -10,6 +10,8 @@ import com.vaadin.ui.*;
  */
 public class LoginView extends GridLayout {
 
+    //TODO: Fix positioning of components, hide password characters from field
+
     private Label userLabel;
     private Label passLabel;
     private Button loginButton;
