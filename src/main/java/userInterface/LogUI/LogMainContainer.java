@@ -2,22 +2,12 @@ package userInterface.LogUI;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.server.Sizeable;
-import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.themes.ValoTheme;
-import org.springframework.beans.factory.annotation.Autowired;
-import userInterface.DefaultUI.EmployeesTable;
 
 import javax.annotation.PostConstruct;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * The page for the log info table
@@ -33,6 +23,7 @@ public class LogMainContainer extends VerticalLayout implements View {
     void init() {
         setMargin(true);
         setSpacing(true);
+      //  setSizeFull();
 
         //Searches the log by any info e.x. day, time or employee
         TextField searchField = new TextField();

@@ -9,8 +9,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import userInterface.DefaultUI.DefaultView;
-import userInterface.LogUI.DeletedEmployments;
 import userInterface.LogUI.LogMainContainer;
+import userInterface.LoginUI.LoginView;
 
 /**
  * A demo interface for HRM. This is the "main container" where everything is put together
@@ -34,6 +34,7 @@ public class WebAppUI extends UI{
 
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+        navigationBar.addComponent(viewNewPage("View login", LoginView.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Log", LogMainContainer.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Current members", DefaultView.VIEW_NAME));
         root.addComponent(navigationBar);
