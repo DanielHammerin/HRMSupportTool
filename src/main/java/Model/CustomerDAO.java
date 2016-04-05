@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by Simon on 12/03/2016. 555
+ * Created by Simon on 12/03/2016.
  */
 public class CustomerDAO extends DAO<Customer> {
 
