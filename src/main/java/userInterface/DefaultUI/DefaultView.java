@@ -4,19 +4,18 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
-import userInterface.LogUI.LogMainContainer;
 
 import javax.annotation.PostConstruct;
 
 @SpringView(name = DefaultView.VIEW_NAME)
 public class DefaultView extends HorizontalLayout implements View {
-    public static final String VIEW_NAME = "";
+    public static final String VIEW_NAME = "default";
 
     @PostConstruct
     void init() {
         this.setSpacing(true);
 
-        EmployeesTable membersTable = new EmployeesTable();
+        EmployeesGrid membersTable = new EmployeesGrid();
 
         EmployeeInfoTab memberInfoTab = new EmployeeInfoTab();
 

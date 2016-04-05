@@ -1,6 +1,11 @@
 package userInterface.LoginUI;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+
+import javax.annotation.PostConstruct;
 
 /**
  * Created by totte on 04.04.16.
@@ -8,7 +13,10 @@ import com.vaadin.ui.*;
  * A VerticalLayout containing components of a login view.
  * Functionality is missing and needs to be implemented
  */
-public class LoginView extends GridLayout {
+@SpringView(name = LoginView.VIEW_NAME)
+public class LoginView extends GridLayout implements View {
+
+    public static final String VIEW_NAME = "";
 
     //TODO: Fix positioning of components, hide password characters from field
 
@@ -20,7 +28,8 @@ public class LoginView extends GridLayout {
     private HorizontalLayout userHlayout;
     private HorizontalLayout passHlayout;
 
-    public LoginView(){
+    @PostConstruct
+    void init() {
 
         userLabel = new Label("Username");
         passLabel = new Label("Password");
@@ -51,6 +60,11 @@ public class LoginView extends GridLayout {
         setSpacing(true);
         userHlayout.setSpacing(true);
         passHlayout.setSpacing(true);
+
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
     }
 }

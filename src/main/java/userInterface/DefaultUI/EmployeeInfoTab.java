@@ -15,7 +15,6 @@ import Model.Employments;
 @SpringComponent
 @UIScope
 public class EmployeeInfoTab extends VerticalLayout {
-    final private int WIDTH = 8;
     private Employments staffMember = new Employments(0, "Mark", "Knopfler");
 
     Grid memberInfoGrid = new Grid();
@@ -44,7 +43,7 @@ public class EmployeeInfoTab extends VerticalLayout {
         lastName.setEnabled(false);
         id.setEnabled(false);
 
-        memberInfoGrid.setWidth(WIDTH, Unit.CM);
+        memberInfoGrid.setWidth(7, Unit.CM);
 
         memberInfoGrid.addColumn("", String.class);
         memberInfoGrid.addColumn("Info", String.class);
