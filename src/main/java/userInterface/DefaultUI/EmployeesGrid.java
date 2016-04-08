@@ -34,7 +34,10 @@ public class EmployeesGrid extends VerticalLayout {
         //select multiple items
         membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 
-        membersGrid.addColumn("Employment ID", Integer.class);
+        membersGrid.addColumn("Company ID", String.class);
+        membersGrid.addColumn("Person ID", String.class);
+        membersGrid.addColumn("EmploymentID", String.class);
+        membersGrid.addColumn("RowID", Integer.class);
         membersGrid.addColumn("First Name", String.class);
         membersGrid.addColumn("Last Name", String.class);
         membersGrid.addColumn("Start date", String.class);
@@ -48,8 +51,9 @@ public class EmployeesGrid extends VerticalLayout {
 
         //Adding dummy members to the table
         for(int i = 1; i <= 5; i++) {
-            Employments staffMember = new Employments(i, "firstName "+i, "lastName "+i);
-            membersGrid.addRow(staffMember.getStaffId(), staffMember.getFirstName(), staffMember.getLastName(), "2015", "");
+            Employments staffMember = new Employments("Company ID" + i, "Person ID" + i, "Employment ID"+ i,"firstName "+i, "lastName "+i);
+            membersGrid.addRow(staffMember.getCompanyId(), staffMember.getPersonId(), staffMember.getEmploymentId(), i,
+                    staffMember.getFirstName(), staffMember.getLastName(), "2015", "-");
         }
 
 

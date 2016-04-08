@@ -5,22 +5,26 @@ package Model;
  */
 
 public class Employments {
-    private int staffId;
+    private String companyId;
+    private String personId;
+    private String employmentId;
     private String firstName;
     private String lastName;
 
-    public Employments(int staffId, String firstName, String lastName){
-        this.staffId = staffId;
+    public Employments(String companyId, String personId, String employmentId, String firstName, String lastName){
+        this.companyId = companyId;
+        this.personId = personId;
+        this. employmentId = employmentId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public int getStaffId() {
-        return staffId;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getFirstName() {
@@ -37,5 +41,21 @@ public class Employments {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
+    }
+
+    public String getEmploymentId() {
+        return employmentId;
+    }
+
+    public void setEmploymentId(String employmentId) {
+        this.employmentId = employmentId;
     }
 }
