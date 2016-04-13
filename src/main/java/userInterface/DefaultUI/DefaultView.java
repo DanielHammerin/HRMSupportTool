@@ -19,7 +19,7 @@ public class DefaultView extends HorizontalLayout implements View {
 
         EmployeeInfoTab memberInfoTab = new EmployeeInfoTab();
 
-        addComponents(membersTable, memberInfoTab);
+        addComponents(membersTable);
     }
 
     @Override
