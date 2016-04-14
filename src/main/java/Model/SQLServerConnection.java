@@ -37,7 +37,7 @@ public class SQLServerConnection {
      * @return
      */
 
-    /* @TODO Connection test program
+     /* Connection test program
     public static void main(String[] args) {
         System.err.println("Program start.");
         try {
@@ -55,7 +55,8 @@ public class SQLServerConnection {
             System.out.println("Not OK !");
         }
         System.out.println("Program end.");
-    }*/
+    }
+    */
 
 
 
