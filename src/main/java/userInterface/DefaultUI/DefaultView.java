@@ -4,22 +4,27 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+import userInterface.LogoutHLayout;
 
 import javax.annotation.PostConstruct;
 
 @SpringView(name = DefaultView.VIEW_NAME)
-public class DefaultView extends HorizontalLayout implements View {
+public class DefaultView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "default";
 
     @PostConstruct
     void init() {
-        this.setSpacing(true);
+
 
         EmployeesGrid membersTable = new EmployeesGrid();
 
-        EmployeeInfoTab memberInfoTab = new EmployeeInfoTab();
-
-        addComponents(membersTable);
+        LogoutHLayout logoutHLayout = new LogoutHLayout("Abeer Alkhars");
+        addComponent(logoutHLayout);
+        addComponent(membersTable);
+        setSpacing(true);
+        setMargin(true);
+        setComponentAlignment(logoutHLayout, Alignment.BOTTOM_RIGHT);
+        setComponentAlignment(membersTable, Alignment.MIDDLE_CENTER);
     }
 
     @Override

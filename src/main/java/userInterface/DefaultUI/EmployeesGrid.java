@@ -8,8 +8,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
+import com.vaadin.ui.renderers.Renderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import Model.Employments;
+import userInterface.LogoutHLayout;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -49,6 +51,7 @@ public class EmployeesGrid extends VerticalLayout {
         }
         BeanItemContainer<Employments> container =new BeanItemContainer<Employments>(Employments.class, member);
         GeneratedPropertyContainer gpc = new GeneratedPropertyContainer(container);
+
         gpc.addGeneratedProperty("Delete",
                 new PropertyValueGenerator<String>() {
 
@@ -86,10 +89,6 @@ public class EmployeesGrid extends VerticalLayout {
                 });
 
 
-        // Create a grid bound to the container
-
-
-
 
 
         Grid membersGrid = new Grid(gpc);
@@ -104,7 +103,7 @@ public class EmployeesGrid extends VerticalLayout {
         // Render a button that deletes the data row (item)
         membersGrid.getColumn("Delete")
                 .setRenderer(new ButtonRenderer(e -> {
-                   UI.getCurrent().addWindow(  new DeleteSingleEmployee(membersGrid , e) );
+                   UI.getCurrent().addWindow(  new EmployeeDeletionSubWindow(membersGrid , e) );
                 }));
 
 
@@ -132,7 +131,7 @@ public class EmployeesGrid extends VerticalLayout {
         Button deleteSelected = new Button("Delete Selected", e -> {
             if(membersGrid.getSelectedRows().size() > 0){
 
-                UI.getCurrent().addWindow(  new EmployeesDeletion(membersGrid)  );
+                UI.getCurrent().addWindow(  new EmployeesDeletionSubWindow(membersGrid)  );
             }
             else
 

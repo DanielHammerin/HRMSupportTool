@@ -37,7 +37,7 @@ public class WebAppUI extends UI{
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(viewNewPage("View login", LoginView.VIEW_NAME));
-        navigationBar.addComponent(viewNewPage("View Database selection", DatabaseSeletion.VIEW_NAME));
+       // navigationBar.addComponent(viewNewPage("View Database selection", DatabaseSeletion.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Database selection", DatabaseSelection2.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Log", LogMainContainer.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Current members", DefaultView.VIEW_NAME));

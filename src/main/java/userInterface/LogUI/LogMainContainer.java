@@ -4,8 +4,10 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.spring.annotation.UIScope;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import userInterface.LogoutHLayout;
 
 import javax.annotation.PostConstruct;
 
@@ -21,18 +23,20 @@ public class LogMainContainer extends VerticalLayout implements View {
 
     @PostConstruct
     void init() {
-        setMargin(true);
-        setSpacing(true);
+
       //  setSizeFull();
 
-        //Searches the log by any info e.x. day, time or employee
-        TextField searchField = new TextField();
-        searchField.setInputPrompt("Search log");
+        LogoutHLayout logoutHLayout = new LogoutHLayout("Abeer Alkhars");
+        LogGrid logGrid = new LogGrid();
 
-        //The table for log info
-        LogTable logTable = new LogTable();
+        addComponent(logoutHLayout);
+        addComponent(logGrid);
+        setSpacing(true);
+        setMargin(true);
+        setComponentAlignment(logoutHLayout, Alignment.TOP_RIGHT);
+        setComponentAlignment(logGrid, Alignment.MIDDLE_CENTER);
 
-        addComponents(searchField, logTable);
+
     }
 
     @Override
