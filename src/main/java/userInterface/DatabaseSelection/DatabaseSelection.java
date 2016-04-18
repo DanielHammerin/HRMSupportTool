@@ -21,9 +21,9 @@ import userInterface.LogoutHLayout;
  */
 
 
-@SpringView(name = DatabaseSelection2.VIEW_NAME)
-public class DatabaseSelection2 extends VerticalLayout implements View{
-    public static final String VIEW_NAME = "databaseSelection2";
+@SpringView(name = DatabaseSelection.VIEW_NAME)
+public class DatabaseSelection extends VerticalLayout implements View{
+    public static final String VIEW_NAME = "databaseSelection";
 
     private Label databaseLabel;
     private HorizontalLayout databaseHlayout;

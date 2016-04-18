@@ -1,5 +1,6 @@
 package userInterface.LogUI;
 
+import Model.DeletionLog;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -10,29 +11,30 @@ import com.vaadin.ui.VerticalLayout;
 import userInterface.LogoutHLayout;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 
 /**
  * The page for the log info table
  * Created by Hatem on 3/20/2016.
  */
-@UIScope
+
 @SpringView(name = LogMainContainer.VIEW_NAME)
 public class LogMainContainer extends VerticalLayout implements View {
 
     public static final String VIEW_NAME = "log";
+    private   LogoutHLayout logoutHLayout;
+    private   LogGrid logGrid;
 
     @PostConstruct
-    void init() {
+    void init() throws IOException {
 
-      //  setSizeFull();
-
-        LogoutHLayout logoutHLayout = new LogoutHLayout("Abeer Alkhars");
-        LogGrid logGrid = new LogGrid();
-
-        addComponent(logoutHLayout);
-        addComponent(logGrid);
+      logoutHLayout = new LogoutHLayout("Abeer Alkhars");
+       logGrid = new LogGrid();
         setSpacing(true);
         setMargin(true);
+        addComponent(logoutHLayout);
+        addComponent(logGrid);
+
         setComponentAlignment(logoutHLayout, Alignment.TOP_RIGHT);
         setComponentAlignment(logGrid, Alignment.MIDDLE_CENTER);
 

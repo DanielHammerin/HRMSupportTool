@@ -3,6 +3,7 @@ package userInterface.DefaultUI;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import userInterface.LogoutHLayout;
 
@@ -11,14 +12,16 @@ import javax.annotation.PostConstruct;
 @SpringView(name = DefaultView.VIEW_NAME)
 public class DefaultView extends VerticalLayout implements View {
     public static final String VIEW_NAME = "default";
+    private   EmployeesGrid membersTable ;
+    private   LogoutHLayout logoutHLayout ;
 
     @PostConstruct
     void init() {
 
 
-        EmployeesGrid membersTable = new EmployeesGrid();
+      membersTable = new EmployeesGrid();
 
-        LogoutHLayout logoutHLayout = new LogoutHLayout("Abeer Alkhars");
+       logoutHLayout = new LogoutHLayout("Abeer Alkhars");
         addComponent(logoutHLayout);
         addComponent(membersTable);
         setSpacing(true);

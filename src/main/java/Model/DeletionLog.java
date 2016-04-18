@@ -1,11 +1,12 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by Hussain on 4/13/2016.
+ * Created by Abeer on 4/13/2016.
  */
-public class DeletionLog {
+public class DeletionLog implements Serializable {
     private String whoDelete;
     private String whoWasDeleted;
     private Date date ;
