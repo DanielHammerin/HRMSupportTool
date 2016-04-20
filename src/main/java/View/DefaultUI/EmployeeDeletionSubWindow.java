@@ -1,4 +1,4 @@
-package userInterface.DefaultUI;
+package View.DefaultUI;
 
 import Model.Employments;
 import com.vaadin.ui.*;

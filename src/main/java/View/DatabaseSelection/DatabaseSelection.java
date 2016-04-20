@@ -1,18 +1,15 @@
-package userInterface.DatabaseSelection;
+package View.DatabaseSelection;
 
 import javax.annotation.PostConstruct;
 
 
 import com.vaadin.ui.*;
-import userInterface.DefaultUI.DefaultView;
-import userInterface.DefaultUI.LogoutSubWindow;
-import userInterface.LoginUI.LoginView;
-import Model.Employments;
+import View.DefaultUI.DefaultView;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
-import userInterface.LogoutHLayout;
+import View.Buttons.LogoutHLayout;
 
 /**
  * Created by Abeer on 04.06.16.

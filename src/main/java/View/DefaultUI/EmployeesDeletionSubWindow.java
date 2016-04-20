@@ -1,15 +1,11 @@
-package userInterface.DefaultUI;
+package View.DefaultUI;
 
 import Model.DeletionLog;
 import Model.Employments;
 import Model.FileRepo.logFileRepository;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ClickableRenderer;
-import userInterface.LogUI.LogGrid;
-import userInterface.LogUI.LogMainContainer;
-import userInterface.LogUI.LogTable;
 
-import java.io.IOException;
 import java.util.Date;
 
 /**
