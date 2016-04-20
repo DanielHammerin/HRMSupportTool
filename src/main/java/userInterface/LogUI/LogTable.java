@@ -13,8 +13,8 @@ import java.util.Date;
  * The table that has all the log info
  * Created by Hatem on 3/31/2016.
  */
-@SpringComponent
-@UIScope
+//@SpringComponent
+//@UIScope
 public class LogTable extends Table{
 
     @Autowired

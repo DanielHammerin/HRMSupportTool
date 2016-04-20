@@ -8,9 +8,14 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
+import userInterface.DatabaseSelection.DatabaseSelection;
+import userInterface.DatabaseSelection.DatabaseSeletion;
 import userInterface.DefaultUI.DefaultView;
+import userInterface.LogUI.LogGrid;
 import userInterface.LogUI.LogMainContainer;
 import userInterface.LoginUI.LoginView;
+
+import java.io.IOException;
 
 /**
  * A demo interface for HRM. This is the "main container" where everything is put together
@@ -35,6 +40,7 @@ public class WebAppUI extends UI{
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(viewNewPage("View login", LoginView.VIEW_NAME));
+        navigationBar.addComponent(viewNewPage("View Database selection", DatabaseSelection.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Log", LogMainContainer.VIEW_NAME));
         navigationBar.addComponent(viewNewPage("View Current members", DefaultView.VIEW_NAME));
         root.addComponent(navigationBar);
@@ -52,8 +58,10 @@ public class WebAppUI extends UI{
     private Button viewNewPage(String caption, final String viewName) {
         Button button = new Button(caption);
         button.addStyleName(ValoTheme.BUTTON_SMALL);
+        button.addClickListener(event -> {
+            getUI().getNavigator().navigateTo(viewName);
 
-        button.addClickListener(event -> getUI().getNavigator().navigateTo(viewName));
+        });
 
         return button;
     }

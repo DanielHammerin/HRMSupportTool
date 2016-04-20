@@ -15,7 +15,7 @@ import Model.Employments;
 @SpringComponent
 @UIScope
 public class EmployeeInfoTab extends VerticalLayout {
-    private Employments staffMember = new Employments(0, "Mark", "Knopfler");
+    private Employments staffMember = new Employments("0", "0", "0", "Mark", "Knopfler");
 
     Grid memberInfoGrid = new Grid();
 
@@ -23,11 +23,6 @@ public class EmployeeInfoTab extends VerticalLayout {
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
     TextField id = new TextField("ID");
-
-    /* Action buttons */
-    Button cancel = new Button("Cancel");
-    Button delete = new Button("Delete", FontAwesome.TRASH_O);
-    CssLayout actions = new CssLayout(delete, cancel);
 
     @Autowired
     public EmployeeInfoTab(){
@@ -37,7 +32,7 @@ public class EmployeeInfoTab extends VerticalLayout {
 
         firstName.setValue(staffMember.getFirstName());
         lastName.setValue(staffMember.getLastName());
-        id.setValue(String.valueOf(staffMember.getStaffId()));
+        id.setValue(String.valueOf(staffMember.getCompanyId()));
 
         firstName.setEnabled(false);
         lastName.setEnabled(false);
@@ -50,12 +45,9 @@ public class EmployeeInfoTab extends VerticalLayout {
 
         memberInfoGrid.addRow("First name", staffMember.getFirstName());
         memberInfoGrid.addRow("Last name", staffMember.getLastName());
-        memberInfoGrid.addRow("ID", String.valueOf(staffMember.getStaffId()));
+        memberInfoGrid.addRow("ID", String.valueOf(staffMember.getCompanyId()));
         memberInfoGrid.addRow("Birthday", "1949/8/12");
 
-        actions.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-        delete.setClickShortcut(ShortcutAction.KeyCode.DELETE);
-
-        addComponents(actions, firstName, lastName, id, memberInfoGrid);
+        addComponents(firstName, lastName, id, memberInfoGrid);
     }
 }
