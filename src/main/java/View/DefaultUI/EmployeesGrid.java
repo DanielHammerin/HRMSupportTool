@@ -1,10 +1,19 @@
-package userInterface.DefaultUI;
+package View.DefaultUI;
 
+import Model.FileRepo.logFileRepository;
+import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.GeneratedPropertyContainer;
+import com.vaadin.data.util.PropertyValueGenerator;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
+import com.vaadin.ui.renderers.ButtonRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import Model.Employments;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * A tab for the current staff members
@@ -19,6 +28,14 @@ public class EmployeesGrid extends VerticalLayout {
     private EmploymentDAO daoEmployment;
     Grid membersGrid;
 
+    private logFileRepository logRepo;
+    private TextField searchField ;
+    private BeanItemContainer<Employments> container;
+    private Collection<Employments> member;
+    private GeneratedPropertyContainer gpc;
+    private Grid membersGrid;
+    private Button deleteSelected;
+    private Employments selectedEmployee;
     /**
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
@@ -27,6 +44,11 @@ public class EmployeesGrid extends VerticalLayout {
 
         this.setMargin(true);
         this.setSpacing(true);
+        this.setSizeFull();
+        try {
+            logRepo = new logFileRepository();
+        } catch (IOException e) {
+            Notification.show(e.getMessage());
 
         // Table containing all the working members
         membersGrid = new Grid();
@@ -52,12 +74,15 @@ public class EmployeesGrid extends VerticalLayout {
         membersGrid.addColumn("End date", String.class);
         */
 
+        }
         // Search field for member
-        TextField searchField = new TextField();
+        searchField = new TextField();
         searchField.focus();
         searchField.setInputPrompt("Search by ID");
         searchField.setWidth(WIDTH, Unit.CM);
-        Collection<Employments> member = new ArrayList<>();
+        member = new ArrayList<>();
+
+
         //Adding dummy members to the table
 
         daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
@@ -70,17 +95,15 @@ public class EmployeesGrid extends VerticalLayout {
 
         /*
         for(int i = 1; i <= 5; i++) {
-          Employments staffMember = new Employments("Company ID" + i, "Person ID" + i, "Employment ID"+ i,"firstName "+i, "lastName "+i);
+          Employments staffMember = new Employments("Company ID" + i,
+                  "Person ID" + i, "Employment ID"+ i,"firstName "+i, "lastName "+i);
             member.add(staffMember);
         }
-        BeanItemContainer<Employments> container =new BeanItemContainer<Employments>(Employments.class, member);
-        GeneratedPropertyContainer gpc = new GeneratedPropertyContainer(container);
+         container =new BeanItemContainer<Employments>(Employments.class, member);
+         gpc = new GeneratedPropertyContainer(container);
 
         gpc.addGeneratedProperty("Delete",
                 new PropertyValueGenerator<String>() {
-
-
-
 
                     @Override
                     public Class<String> getType() {
@@ -115,9 +138,14 @@ public class EmployeesGrid extends VerticalLayout {
 
 
 
-        Grid membersGrid = new Grid(gpc);
-        membersGrid.setColumnOrder("companyId","personId",
-        "employmentId", "firstName","lastName");
+        initGird();
+        this.addComponents(searchField, membersGrid, deleteSelected);
+    }
+
+    private void initGird() {
+        membersGrid = new Grid(gpc);
+        membersGrid.setColumnOrder("companyId", "personId",
+                "employmentId", "firstName", "lastName");
 
         membersGrid.setHeight(300, Unit.PIXELS);
         membersGrid.setWidth(28, Unit.CM);
@@ -127,34 +155,24 @@ public class EmployeesGrid extends VerticalLayout {
         // Render a button that deletes the data row (item)
         membersGrid.getColumn("Delete")
                 .setRenderer(new ButtonRenderer(e -> {
-                   UI.getCurrent().addWindow(  new EmployeeDeletionSubWindow(membersGrid , e) );
+                    UI.getCurrent().addWindow(new EmployeesDeletionSubWindow(logRepo, membersGrid, e));
                 }));
 
 
         membersGrid.getColumn("Show Information")
                 .setRenderer(new ButtonRenderer(e ->{ // Java 8
                     Employments emp = (Employments)e.getItemId();
-                   UI.getCurrent().addWindow(new EmployeeInfo(emp));
-                    }
+                    UI.getCurrent().addWindow(new EmployeeInfo(emp));
+                }
                 ));
 
         //select multiple items
         membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
-        // Allow deleting the selected items
-        Grid.MultiSelectionModel selection = (Grid.MultiSelectionModel) membersGrid.getSelectionModel();
-        selection.setSelected();
 
-        membersGrid. addItemClickListener(event -> {
-
-            Employments emp = (Employments)event.getItemId();
-            if(event.isDoubleClick())
-                UI.getCurrent().addWindow(new EmployeeInfo(emp));
-
-        });
-
-        Button deleteSelected = new Button("Delete Selected", e -> {
+        deleteSelected = new Button("Delete Selected", e -> {
             if(membersGrid.getSelectedRows().size() > 0){
 
+                UI.getCurrent().addWindow(  new EmployeesDeletionSubWindow(logRepo,membersGrid)  );
             deleteEmployments(selection.getSelectedRows());
             // Otherwise out of sync with container
             membersGrid.getSelectionModel().reset();
@@ -164,9 +182,6 @@ public class EmployeesGrid extends VerticalLayout {
 
                 Notification.show("Nothing selected");
         });
-       // deleteSelected.setEnabled(membersGrid.getSelectedRows().size() > 0);
-
-        this.addComponents(searchField, membersGrid, deleteSelected);
     }
 
     public void deleteEmployments(Collection<Object> listOfIds) {

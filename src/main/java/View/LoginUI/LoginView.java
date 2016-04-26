@@ -1,4 +1,4 @@
-package userInterface.LoginUI;
+package View.LoginUI;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
