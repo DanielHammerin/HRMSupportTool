@@ -7,7 +7,7 @@ import com.vaadin.ui.renderers.ClickableRenderer;
 /**
  * Created by Abeer on 4/13/2016.
  */
-public class EmployeeDeletionSubWindow extends Window {
+public class DeletionConfiWindow extends Window {
 
     Button yesButton = new Button("Yes");
     Button noButton = new Button("No");
@@ -15,7 +15,7 @@ public class EmployeeDeletionSubWindow extends Window {
     VerticalLayout content = new VerticalLayout();
 
 
-    public EmployeeDeletionSubWindow(Grid grid , ClickableRenderer.RendererClickEvent e) {
+    public DeletionConfiWindow(Grid grid , ClickableRenderer.RendererClickEvent e) {
 
         super("Delete Employee"); // Set window caption
         Employments emp = (Employments)e.getItemId();

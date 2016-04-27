@@ -9,7 +9,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 import View.Buttons.LogoutHLayout;
-import View.DefaultUI.DefaultView;
+import View.DefaultUI.DeletingEmploymentsWindow;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class LogMainContainer extends VerticalLayout implements View {
         //Show the navigation button to show the Default deleting employments view
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-        navigationBar.addComponent(viewNewPage("View Current members", DefaultView.VIEW_NAME));
+        navigationBar.addComponent(viewNewPage("View Current members", DeletingEmploymentsWindow.VIEW_NAME));
 
         addComponents(navigationBar, logoutHLayout, logGrid);
 
