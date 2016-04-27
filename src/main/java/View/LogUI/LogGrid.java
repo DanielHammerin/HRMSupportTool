@@ -1,4 +1,4 @@
-package userInterface.LogUI;
+package View.LogUI;
 
 import Model.DeletionLog;
 import Model.FileRepo.logFileRepository;

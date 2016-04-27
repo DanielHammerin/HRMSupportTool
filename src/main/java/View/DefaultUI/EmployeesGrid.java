@@ -1,4 +1,4 @@
-package userInterface.DefaultUI;
+package View.DefaultUI;
 
 import Model.FileRepo.logFileRepository;
 import com.vaadin.data.Item;
@@ -9,18 +9,15 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
-import com.vaadin.ui.renderers.Renderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import Model.Employments;
-import userInterface.LogoutHLayout;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * A tab for the current staff members
- * Created by Hatem  on 3/20/2016.
+ * Created by Hatem on 3/20/2016.
  * modified by Abeer
  */
 @SpringComponent
@@ -43,6 +40,7 @@ public class EmployeesGrid extends VerticalLayout {
 
         this.setMargin(true);
         this.setSpacing(true);
+        this.setSizeFull();
         try {
             logRepo = new logFileRepository();
         } catch (IOException e) {
@@ -65,8 +63,6 @@ public class EmployeesGrid extends VerticalLayout {
         }
          container =new BeanItemContainer<Employments>(Employments.class, member);
          gpc = new GeneratedPropertyContainer(container);
-
-
 
         gpc.addGeneratedProperty("Delete",
                 new PropertyValueGenerator<String>() {
@@ -110,8 +106,8 @@ public class EmployeesGrid extends VerticalLayout {
 
     private void initGird() {
         membersGrid = new Grid(gpc);
-        membersGrid.setColumnOrder("companyId","personId",
-                "employmentId", "firstName","lastName");
+        membersGrid.setColumnOrder("companyId", "personId",
+                "employmentId", "firstName", "lastName");
 
         membersGrid.setHeight(300, Unit.PIXELS);
         membersGrid.setWidth(28, Unit.CM);
@@ -121,7 +117,7 @@ public class EmployeesGrid extends VerticalLayout {
         // Render a button that deletes the data row (item)
         membersGrid.getColumn("Delete")
                 .setRenderer(new ButtonRenderer(e -> {
-                    UI.getCurrent().addWindow(  new EmployeesDeletionSubWindow(logRepo, membersGrid , e) );
+                    UI.getCurrent().addWindow(new EmployeesDeletionSubWindow(logRepo, membersGrid, e));
                 }));
 
 

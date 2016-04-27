@@ -1,15 +1,11 @@
-package userInterface.DefaultUI;
-
-import java.util.function.Consumer;
-
-import Model.Employments;
+package View.DefaultUI;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import userInterface.LoginUI.LoginView;
+import View.LoginUI.LoginView;
 
 /**
  * Created by Abeer on 04.06.16.
