@@ -21,6 +21,7 @@ import java.util.List;
  * A tab for the current staff members
  * Created by Hatem on 3/20/2016.
  * modified by Abeer
+ * modified by Simon on 2016/04/28 to make the table get real employment from online DB
  */
 @SpringComponent
 @UIScope

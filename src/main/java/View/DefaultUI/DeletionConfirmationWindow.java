@@ -1,5 +1,4 @@
 package View.DefaultUI;
-
 import Model.*;
 import com.vaadin.ui.*;
 import java.sql.Connection;
@@ -8,6 +7,7 @@ import java.util.Date;
 
 /**
  * Created by Abeer on 4/13/2016.
+ * modified by Simon on 2016/04/28 to make it work with real employment from online DB
  */
 public class DeletionConfirmationWindow extends Window {
 
