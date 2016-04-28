@@ -1,10 +1,6 @@
 package View.DefaultUI;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
+import com.vaadin.ui.*;
 import View.LoginUI.LoginView;
 
 /**
@@ -37,7 +33,6 @@ public class LogoutConfirmationWindow extends Window  {
 
 
         yesButton.addClickListener(e -> {
-            getSession().close();
             getUI().getNavigator().navigateTo(LoginView.VIEW_NAME);
             close();
 
