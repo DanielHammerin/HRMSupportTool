@@ -1,6 +1,6 @@
 package View.DefaultUI;
 
-import Model.Employments;
+import Model.Employment;
 import com.vaadin.ui.*;
 
 /**
@@ -9,11 +9,11 @@ import com.vaadin.ui.*;
 public class EmploymentInfo extends Window {
 
 
-    Button    CloseButton = new Button("Close");
-    HorizontalLayout action = new HorizontalLayout( CloseButton);
+    Button closeButton = new Button("Close");
+    HorizontalLayout action = new HorizontalLayout(closeButton);
     VerticalLayout content = new VerticalLayout();
 
-    public EmploymentInfo(Employments member) {
+    public EmploymentInfo(Employment member) {
         super("Employment Information"); // Set window caption
         center();
         action.setSpacing(true);
@@ -25,34 +25,24 @@ public class EmploymentInfo extends Window {
         setWidth("30%");
         setHeight("70%");
 
+        // Label containing information you want to display
+        Label companyID = new Label("CompanyID : " + member.getCompanyID());
+        Label personID = new Label("PersonID : " + member.getPersonID());
+        Label employmentID = new Label("EmploymentID : " + member.getEmploymentID());
+        Label rowID = new Label("RowID : " + member.getRowID());
+        Label firstName = new Label("FirstName : " + member.getFirstName());
+        Label lastName = new Label("LastName : " + member.getLastName());
 
-
-        Label Id  = new Label("CompanyID :  "+ member.getCompanyId());
-        Label firstName  = new Label("First Name:  "+ member.getFirstName());
-        Label lastName = new Label("Last Name:  "+ member.getLastName());
-
-
-
-
-
-        CloseButton.addClickListener(e -> {
-
+        // Close the pop-ip window
+        closeButton.addClickListener(e -> {
             close();
-
         });
 
-
-
-        content.addComponents(new Label("Personal Information  ") , Id,
-                firstName,lastName);
-
-        content.setSpacing(true);
-
-        content.addComponent(new Label ("Other Information"));
+        // Add the label created before
+        content.addComponents(new Label("Personal Information"), companyID, personID,
+                employmentID, rowID, firstName, lastName);
         content.setSpacing(true);
         content.addComponent(action);
-
-
         setContent(content);
     }
 }

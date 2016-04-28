@@ -1,12 +1,9 @@
 package View.DefaultUI;
 
-import Model.DeletionLog;
-import Model.DeletionLogModel;
-import Model.Employments;
-import Model.FileRepo.logFileRepository;
+import Model.*;
 import com.vaadin.ui.*;
-import com.vaadin.ui.renderers.ClickableRenderer;
-
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -18,72 +15,50 @@ public class DeletionConfirmationWindow extends Window {
     Button noButton = new Button("No");
     HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     VerticalLayout content = new VerticalLayout();
-    private DeletionLogModel logModel ;
-    private Employments selectedEmployee;
+    private Employment selectedEmployment;
 
     public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid) {
-        super("Delete Employmees"); // Set window caption
-        this.logModel =logModel;
+        super("Delete employments"); // Set window caption;
         init(grid);
 
         yesButton.addClickListener(e -> {
 
             Grid.MultiSelectionModel selection = (Grid.MultiSelectionModel) grid.getSelectionModel();
 
-            for (Object itemId: selection.getSelectedRows()) {
-                selectedEmployee = (Employments)itemId;
-                grid.getContainerDataSource().removeItem(itemId);
 
-               if(! logModel.createLog("Abeer Alkhars",
-                       selectedEmployee.getFirstName()+" "+
-                               selectedEmployee.getLastName(), new Date())){
+            try {
+                Connection connect = SQLServerConnection.getInstance();
+                EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
+                for (Object itemId: selection.getSelectedRows()) {
+                    selectedEmployment = (Employment)itemId;
+                    daoEmployment.delete(selectedEmployment);
+                    grid.getContainerDataSource().removeItem(itemId);
 
-                   new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
-                           .show(getUI().getPage());
-                    return;
-               }
+                    if(! logModel.createLog("Abeer Alkhars",
+                            selectedEmployment.getFirstName()+" "+
+                                    selectedEmployment.getLastName(), new Date())){
 
+                        new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
+                                .show(getUI().getPage());
+                        return;
+                    }
+
+                }
+
+
+                // Otherwise out of sync with container
+                grid.getSelectionModel().reset();
+                close();
+                Notification.show("Detetion is done successfully");
+                connect.close();
+            } catch (SQLException sqle) {
+                sqle.printStackTrace();
             }
-
-
-            // Otherwise out of sync with container
-            grid.getSelectionModel().reset();
-            close();
-            Notification.show("Detetion is done successfully");
 
         });
 
 
         content.addComponents(new Label("Are you sure you want to delete the selected employees?"), actions);
-
-        setContent(content);
-    }
-
-
-    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid , ClickableRenderer.RendererClickEvent e) {
-
-        super("Delete Employee"); // Set window caption
-        this.logModel = logModel;
-        init(grid);
-        Employments selectedEmployee = (Employments)e.getItemId();
-
-        yesButton.addClickListener(event -> {
-            grid.getContainerDataSource()
-                    .removeItem(e.getItemId());
-            if(! logModel.createLog("Abeer Alkhars", selectedEmployee.getFirstName()+" "+
-                    selectedEmployee.getLastName(), new Date())){
-                new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
-                        .show(getUI().getPage());
-                return;
-            }
-            close();
-            Notification.show("Detetion is done successfully");
-
-
-        });
-
-        content.addComponents(new Label("Are you sure you want to delete '"+selectedEmployee.getFirstName()+
-                " "+selectedEmployee.getLastName()+"'?"), actions);
 
         setContent(content);
     }
