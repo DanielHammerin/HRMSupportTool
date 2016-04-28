@@ -10,16 +10,16 @@ import View.LogUI.LogMainContainer;
 
 import javax.annotation.PostConstruct;
 
-@SpringView(name = DefaultView.VIEW_NAME)
-public class DefaultView extends VerticalLayout implements View {
+@SpringView(name = DeletingEmploymentsWindow.VIEW_NAME)
+public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     public static final String VIEW_NAME = "default";
-    private   EmployeesGrid membersTable;
+    private EmploymentsView membersTable;
     private   LogoutHLayout logoutHLayout;
 
     @PostConstruct
     void init() {
 
-        membersTable = new EmployeesGrid();
+        membersTable = new EmploymentsView();
 
         LogoutHLayout logoutHLayout = new LogoutHLayout("Abeer Alkhars");
 

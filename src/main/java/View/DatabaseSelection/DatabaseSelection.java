@@ -1,10 +1,8 @@
 package View.DatabaseSelection;
 
-import javax.annotation.PostConstruct;
-
 
 import com.vaadin.ui.*;
-import View.DefaultUI.DefaultView;
+import View.DefaultUI.DeletingEmploymentsWindow;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -28,8 +26,8 @@ public class DatabaseSelection extends VerticalLayout implements View{
     private Button OKButton;
     private FormLayout content;
     private LogoutHLayout logoutHLayout;
-    @PostConstruct
-    void init() {
+
+   public DatabaseSelection (){
         Panel panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
         addComponent(panel);
@@ -45,10 +43,10 @@ public class DatabaseSelection extends VerticalLayout implements View{
         OKButton = new Button("OK", new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
                 databaseCombobox.getValue();
-                getUI().getNavigator().navigateTo(DefaultView.VIEW_NAME);
+                getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+  databaseCombobox.getValue());
             }
         });
-
+      OKButton.setDisableOnClick(true);
         databaseHlayout = new HorizontalLayout(databaseLabel, databaseCombobox);
         databaseHlayout.setSpacing(true);
 
@@ -77,8 +75,10 @@ public class DatabaseSelection extends VerticalLayout implements View{
 
     @Override
     public void enter(ViewChangeEvent event) {
-        // TODO Auto-generated method stub
 
-    }
+
+        }
+
+
 
 }
