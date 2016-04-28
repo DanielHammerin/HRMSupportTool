@@ -1,10 +1,10 @@
 package View.LoginUI;
 
+import View.DatabaseSelection.DatabaseSelection;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
-
 import javax.annotation.PostConstruct;
 
 /**
@@ -28,8 +28,9 @@ public class LoginView extends GridLayout implements View {
     private HorizontalLayout userHlayout;
     private HorizontalLayout passHlayout;
 
-    @PostConstruct
-    void init() {
+    //@PostConstruct
+    //void init() {
+    public LoginView (){
 
         userLabel = new Label("Username");
         passLabel = new Label("Password");
@@ -41,6 +42,7 @@ public class LoginView extends GridLayout implements View {
             public void buttonClick(Button.ClickEvent event) {
                 userField.getValue(); //This just show you how to get the data from the input by user
                 passField.getValue();
+                getUI().getNavigator().navigateTo(DatabaseSelection.VIEW_NAME+"/"+userField.getValue());
             }
         });
 

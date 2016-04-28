@@ -12,7 +12,7 @@ import View.LoginUI.LoginView;
  *
  *
  */
-public class LogoutSubWindow  extends Window  {
+public class LogoutConfirmationWindow extends Window  {
 
 
     Button yesButton = new Button("Yes");
@@ -20,7 +20,7 @@ public class LogoutSubWindow  extends Window  {
     HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     VerticalLayout content = new VerticalLayout();
 
-    public LogoutSubWindow() {
+    public LogoutConfirmationWindow() {
         super("Logout  person"); // Set window caption
         center();
         actions.setSpacing(true);
@@ -48,5 +48,6 @@ public class LogoutSubWindow  extends Window  {
         content.addComponents(configuration, actions);
 
         setContent(content);
+
     }
 }

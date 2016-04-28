@@ -1,6 +1,7 @@
 package View.DefaultUI;
 
 import Model.DeletionLog;
+import Model.DeletionLogModel;
 import Model.Employments;
 import Model.FileRepo.logFileRepository;
 import com.vaadin.ui.*;
@@ -11,19 +12,18 @@ import java.util.Date;
 /**
  * Created by Abeer on 4/13/2016.
  */
-public class EmployeesDeletionSubWindow extends Window {
+public class DeletionConfirmationWindow extends Window {
 
     Button yesButton = new Button("Yes");
     Button noButton = new Button("No");
     HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     VerticalLayout content = new VerticalLayout();
-    private logFileRepository logRepo ;
-    private DeletionLog deletionLog ;
+    private DeletionLogModel logModel ;
     private Employments selectedEmployee;
 
-    public EmployeesDeletionSubWindow(logFileRepository logRepo, Grid grid) {
+    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid) {
         super("Delete Employmees"); // Set window caption
-        this.logRepo = logRepo;
+        this.logModel =logModel;
         init(grid);
 
         yesButton.addClickListener(e -> {
@@ -32,13 +32,14 @@ public class EmployeesDeletionSubWindow extends Window {
 
             for (Object itemId: selection.getSelectedRows()) {
                 selectedEmployee = (Employments)itemId;
-                deletionLog = new DeletionLog("Abeer Alkhars",
-                        selectedEmployee.getFirstName()+" "+
-                        selectedEmployee.getLastName(), new Date());
                 grid.getContainerDataSource().removeItem(itemId);
 
-               if(! logRepo.createDeletionLog(deletionLog)){
-                   Notification.show("deletion log is not saved");
+               if(! logModel.createLog("Abeer Alkhars",
+                       selectedEmployee.getFirstName()+" "+
+                               selectedEmployee.getLastName(), new Date())){
+
+                   new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
+                           .show(getUI().getPage());
                     return;
                }
 
@@ -59,20 +60,21 @@ public class EmployeesDeletionSubWindow extends Window {
     }
 
 
-    public EmployeesDeletionSubWindow(logFileRepository logRepo ,Grid grid , ClickableRenderer.RendererClickEvent e) {
+    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid , ClickableRenderer.RendererClickEvent e) {
 
         super("Delete Employee"); // Set window caption
-        this.logRepo = logRepo;
+        this.logModel = logModel;
         init(grid);
         Employments selectedEmployee = (Employments)e.getItemId();
 
         yesButton.addClickListener(event -> {
-            deletionLog = new DeletionLog("Abeer Alkhars", selectedEmployee.getFirstName()+" "+
-                    selectedEmployee.getLastName(), new Date());
             grid.getContainerDataSource()
                     .removeItem(e.getItemId());
-            if(! logRepo.createDeletionLog(deletionLog)){
-                Notification.show("deletion log is not saved");
+            if(! logModel.createLog("Abeer Alkhars", selectedEmployee.getFirstName()+" "+
+                    selectedEmployee.getLastName(), new Date())){
+                new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
+                        .show(getUI().getPage());
+                return;
             }
             close();
             Notification.show("Detetion is done successfully");

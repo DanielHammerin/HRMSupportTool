@@ -6,14 +6,14 @@ import com.vaadin.ui.*;
 /**
  * Created by Abeer on 4/13/2016.
  */
-public class EmployeeInfo extends Window {
+public class EmploymentInfo extends Window {
 
 
     Button    CloseButton = new Button("Close");
     HorizontalLayout action = new HorizontalLayout( CloseButton);
     VerticalLayout content = new VerticalLayout();
 
-    public EmployeeInfo(Employments member) {
+    public EmploymentInfo(Employments member) {
         super("Employment Information"); // Set window caption
         center();
         action.setSpacing(true);

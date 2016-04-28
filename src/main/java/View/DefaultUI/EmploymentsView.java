@@ -1,6 +1,6 @@
 package View.DefaultUI;
 
-import Model.FileRepo.logFileRepository;
+import Model.DeletionLogModel;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
@@ -22,9 +22,9 @@ import java.util.Collection;
  */
 @SpringComponent
 @UIScope
-public class EmployeesGrid extends VerticalLayout {
+public class EmploymentsView extends VerticalLayout {
     final private int WIDTH = 11;
-    private logFileRepository logRepo;
+    private DeletionLogModel logModel ;
     private TextField searchField ;
     private BeanItemContainer<Employments> container;
     private Collection<Employments> member;
@@ -36,13 +36,13 @@ public class EmployeesGrid extends VerticalLayout {
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
     @Autowired
-    public EmployeesGrid() {
+    public EmploymentsView() {
 
         this.setMargin(true);
         this.setSpacing(true);
         this.setSizeFull();
         try {
-            logRepo = new logFileRepository();
+            logModel = new DeletionLogModel();
         } catch (IOException e) {
             Notification.show(e.getMessage());
 
@@ -117,14 +117,16 @@ public class EmployeesGrid extends VerticalLayout {
         // Render a button that deletes the data row (item)
         membersGrid.getColumn("Delete")
                 .setRenderer(new ButtonRenderer(e -> {
-                    UI.getCurrent().addWindow(new EmployeesDeletionSubWindow(logRepo, membersGrid, e));
+
+                 UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel, membersGrid , e) );
+
                 }));
 
 
         membersGrid.getColumn("Show Information")
                 .setRenderer(new ButtonRenderer(e ->{ // Java 8
                     Employments emp = (Employments)e.getItemId();
-                    UI.getCurrent().addWindow(new EmployeeInfo(emp));
+                    UI.getCurrent().addWindow(new EmploymentInfo(emp));
                 }
                 ));
 
@@ -134,7 +136,7 @@ public class EmployeesGrid extends VerticalLayout {
         deleteSelected = new Button("Delete Selected", e -> {
             if(membersGrid.getSelectedRows().size() > 0){
 
-                UI.getCurrent().addWindow(  new EmployeesDeletionSubWindow(logRepo,membersGrid)  );
+                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel,membersGrid)  );
             }
             else
 
