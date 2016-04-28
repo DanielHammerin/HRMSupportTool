@@ -11,6 +11,7 @@ import View.DefaultUI.LogoutConfirmationWindow;
  * Created by Abeer on 4/13/2016.
  */
 public class LogoutHLayout extends HorizontalLayout {
+    //@TODO Use of this attribute ?
     private String currentUser ;
     @Autowired
     public LogoutHLayout( String currentUser){

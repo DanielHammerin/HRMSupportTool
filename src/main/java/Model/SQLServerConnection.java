@@ -9,39 +9,21 @@ import java.sql.SQLException;
  */
 public class SQLServerConnection {
 
-
-
+    // Used only for test on a local computer
     private static String urlWithWindowsAuthentification = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;databaseName=bddvadin;integratedSecurity=true";
-
-    /**
-     * URL de connection
-     */
-    private static String url = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;DatabaseName=bddvadin;";
-
-    /**
-     * Nom du user
-     */
-    private static String user = "hrmconnection";
-    /**
-     * Mot de passe du user
-     */
-    private static String password = "hrmpassword";
-    /**
-     * Objet Connection
-     */
+    // The URL connection string
+    // private static String url = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;DatabaseName=bddvadin;";
     private static Connection connect;
+    private static String connecionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;";
+    private static String user = "HRMTEST_SQLLogin_1";
+    private static String password = "iwb6wm4m8k";
 
-    /**
-     * Méthode qui va nous retourner notre instance
-     * et la créer si elle n'existe pas...
-     * @return
-     */
-
-     /* Connection test program
+    /*
+    // This is just a main method to test the connection in an easier way
     public static void main(String[] args) {
         System.err.println("Program start.");
         try {
-            connect = DriverManager.getConnection(url, user, password);
+            connect = DriverManager.getConnection(connecionString, user, password);
         } catch (SQLException e) {
             System.err.println("Error : Can't connect to database.");
             e.printStackTrace();
@@ -59,12 +41,16 @@ public class SQLServerConnection {
     */
 
 
-
+    /**
+     * Method to get a connection with this SQLServer Database.
+     * Singleton class, create a connection if it's null, or return teh existing instance of it
+     * @return a connection object for this database
+     */
     public static Connection getInstance(){
         if(connect == null){
             try {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                connect = DriverManager.getConnection(url, user, password);
+                connect = DriverManager.getConnection(connecionString, user, password);
             } catch (SQLException e) {
                 System.err.println("Error : Can't connect to database.");
                 e.printStackTrace();
