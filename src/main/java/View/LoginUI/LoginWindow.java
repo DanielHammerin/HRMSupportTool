@@ -5,8 +5,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
-import javax.annotation.PostConstruct;
-import javax.swing.*;
 
 /**
  * Created by totte on 04.04.16.
@@ -14,8 +12,8 @@ import javax.swing.*;
  * A VerticalLayout containing components of a login view.
  * Functionality is missing and needs to be implemented
  */
-@SpringView(name = LoginView.VIEW_NAME)
-public class LoginView extends GridLayout implements View {
+@SpringView(name = LoginWindow.VIEW_NAME)
+public class LoginWindow extends GridLayout implements View {
 
     public static final String VIEW_NAME = "";
 
@@ -26,10 +24,10 @@ public class LoginView extends GridLayout implements View {
     private TextField passField;
     private HorizontalLayout userHlayout;
     private HorizontalLayout passHlayout;
-    //@TODO Use a JPassWord field for the password
+
     //@PostConstruct
     //void init() {
-    public LoginView (){
+    public LoginWindow(){
 
         userLabel = new Label("Username");
         passLabel = new Label("Password");

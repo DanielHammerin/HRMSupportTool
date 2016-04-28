@@ -5,7 +5,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import View.Buttons.LogoutHLayout;
+import View.Buttons.LogoutOption;
 import View.DefaultUI.DeletingEmploymentsWindow;
 
 import javax.annotation.PostConstruct;
@@ -20,13 +20,13 @@ import java.io.IOException;
 public class LogMainContainer extends VerticalLayout implements View {
 
     public static final String VIEW_NAME = "log";
-    private LogoutHLayout logoutHLayout;
+    private LogoutOption logoutHLayout;
     private LogGrid logGrid;
 
     @PostConstruct
     void init() throws IOException {
 
-        logoutHLayout = new LogoutHLayout(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
+       logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         logGrid = new LogGrid();
         setSpacing(true);
         setMargin(true);

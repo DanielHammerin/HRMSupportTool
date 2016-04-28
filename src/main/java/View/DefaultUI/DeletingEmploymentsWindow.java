@@ -5,23 +5,23 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
-import View.Buttons.LogoutHLayout;
+import View.Buttons.LogoutOption;
 import View.LogUI.LogMainContainer;
-
 import javax.annotation.PostConstruct;
 
 @SpringView(name = DeletingEmploymentsWindow.VIEW_NAME)
 public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     public static final String VIEW_NAME = "default";
+
     private EmploymentsView membersTable;
-    private   LogoutHLayout logoutHLayout;
+    private LogoutOption logoutHLayout;
 
     @PostConstruct
     void init() {
 
         membersTable = new EmploymentsView();
 
-        logoutHLayout = new LogoutHLayout(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
+        logoutHLayout = new LogoutOption("Abeer Alkhars");
 
         //Show the navigation button to show the Log view
         final CssLayout navigationBar = new CssLayout();

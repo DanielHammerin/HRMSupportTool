@@ -7,7 +7,7 @@ import View.DefaultUI.DeletingEmploymentsWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
-import View.Buttons.LogoutHLayout;
+import View.Buttons.LogoutOption;
 
 /**
  * Created by Abeer on 04.06.16.
@@ -25,13 +25,13 @@ public class DatabaseSelection extends VerticalLayout implements View{
     private ComboBox databaseCombobox;
     private Button OKButton;
     private FormLayout content;
-    private LogoutHLayout logoutHLayout;
+    private LogoutOption logoutHLayout;
 
-   public DatabaseSelection (){
+    public DatabaseSelection (){
         Panel panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
         addComponent(panel);
-        logoutHLayout = new LogoutHLayout(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
+        logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         databaseLabel = new Label("HRM Databases: ");
         databaseCombobox = new ComboBox();
         databaseCombobox.setInputPrompt("select one ");
@@ -40,13 +40,17 @@ public class DatabaseSelection extends VerticalLayout implements View{
         databaseCombobox.addItems("database 1", "database 2", "database 3", "database 4");
 
         //Button
-        OKButton = new Button("OK", new Button.ClickListener() {
+        OKButton = new Button("OK");
+        OKButton.addClickListener(new Button.ClickListener() {
+
             public void buttonClick(Button.ClickEvent event) {
                 databaseCombobox.getValue();
                 getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+  databaseCombobox.getValue());
+
             }
         });
-      OKButton.setDisableOnClick(true);
+
+        OKButton.setDisableOnClick(true);
         databaseHlayout = new HorizontalLayout(databaseLabel, databaseCombobox);
         databaseHlayout.setSpacing(true);
 
