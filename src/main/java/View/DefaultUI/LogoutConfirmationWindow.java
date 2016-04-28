@@ -37,6 +37,7 @@ public class LogoutConfirmationWindow extends Window  {
 
 
         yesButton.addClickListener(e -> {
+            getSession().close();
             getUI().getNavigator().navigateTo(LoginView.VIEW_NAME);
             close();
 

@@ -31,7 +31,7 @@ public class DatabaseSelection extends VerticalLayout implements View{
         Panel panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
         addComponent(panel);
-        logoutHLayout = new LogoutHLayout("Abeer Alkhars");
+        logoutHLayout = new LogoutHLayout(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         databaseLabel = new Label("HRM Databases: ");
         databaseCombobox = new ComboBox();
         databaseCombobox.setInputPrompt("select one ");

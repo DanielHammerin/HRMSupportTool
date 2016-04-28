@@ -21,7 +21,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         membersTable = new EmploymentsView();
 
-        LogoutHLayout logoutHLayout = new LogoutHLayout("Abeer Alkhars");
+        logoutHLayout = new LogoutHLayout(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
 
         //Show the navigation button to show the Log view
         final CssLayout navigationBar = new CssLayout();
