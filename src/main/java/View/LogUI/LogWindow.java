@@ -16,8 +16,8 @@ import java.io.IOException;
  * Created by Hatem on 3/20/2016.
  */
 
-@SpringView(name = LogMainContainer.VIEW_NAME)
-public class LogMainContainer extends VerticalLayout implements View {
+@SpringView(name = LogWindow.VIEW_NAME)
+public class LogWindow extends VerticalLayout implements View {
 
     public static final String VIEW_NAME = "log";
     private LogoutOption logoutHLayout;
@@ -25,8 +25,8 @@ public class LogMainContainer extends VerticalLayout implements View {
 
     @PostConstruct
     void init() throws IOException {
-
-       logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
+        //TODO: Change the session of the user to thread
+        logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         logGrid = new LogGrid();
         setSpacing(true);
         setMargin(true);

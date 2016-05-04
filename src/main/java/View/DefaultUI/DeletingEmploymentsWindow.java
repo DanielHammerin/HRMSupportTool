@@ -6,7 +6,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import View.Buttons.LogoutOption;
-import View.LogUI.LogMainContainer;
+import View.LogUI.LogWindow;
 import javax.annotation.PostConstruct;
 
 @SpringView(name = DeletingEmploymentsWindow.VIEW_NAME)
@@ -26,7 +26,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         //Show the navigation button to show the Log view
         final CssLayout navigationBar = new CssLayout();
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-        navigationBar.addComponent(viewNewPage("View Log", LogMainContainer.VIEW_NAME));
+        navigationBar.addComponent(viewNewPage("View Log", LogWindow.VIEW_NAME));
 
         addComponents(navigationBar, logoutHLayout, membersTable);
         setSpacing(true);

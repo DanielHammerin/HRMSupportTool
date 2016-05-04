@@ -1,6 +1,6 @@
 package View.LoginUI;
 
-import View.DatabaseSelection.DatabaseSelection;
+import View.DatabaseSelection.DatabaseSelectionWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -8,6 +8,7 @@ import com.vaadin.ui.*;
 
 /**
  * Created by totte on 04.04.16.
+ * Edited by Hatem Houssein on 04/05/2016
  *
  * A VerticalLayout containing components of a login view.
  * Functionality is missing and needs to be implemented
@@ -41,7 +42,7 @@ public class LoginWindow extends GridLayout implements View {
                 passField.getValue();
                 // @TODO check the password and login, if of then ->
                 getUI().getSession().setAttribute("user", userField.getValue());
-                getUI().getNavigator().navigateTo(DatabaseSelection.VIEW_NAME);
+                getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
             }
         });
 

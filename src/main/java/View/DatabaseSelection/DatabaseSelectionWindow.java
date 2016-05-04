@@ -11,13 +11,13 @@ import View.Buttons.LogoutOption;
 
 /**
  * Created by Abeer on 04.06.16.
- *
+ * Edited by Hatem Houssein on 04/05/2016
  *
  */
 
 
-@SpringView(name = DatabaseSelection.VIEW_NAME)
-public class DatabaseSelection extends VerticalLayout implements View{
+@SpringView(name = DatabaseSelectionWindow.VIEW_NAME)
+public class DatabaseSelectionWindow extends VerticalLayout implements View{
     public static final String VIEW_NAME = "databaseSelection";
 
     private Label databaseLabel;
@@ -27,7 +27,7 @@ public class DatabaseSelection extends VerticalLayout implements View{
     private FormLayout content;
     private LogoutOption logoutHLayout;
 
-    public DatabaseSelection (){
+    public DatabaseSelectionWindow(){
         Panel panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
         addComponent(panel);

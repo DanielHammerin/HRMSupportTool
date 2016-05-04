@@ -33,8 +33,8 @@ public class DeletionConfirmationWindow extends Window {
                     selectedEmployment = (Employment)itemId;
                     daoEmployment.delete(selectedEmployment);
                     grid.getContainerDataSource().removeItem(itemId);
-
-                    if(! logModel.createLog("Abeer Alkhars",
+                    //TODO: Change the session of the user to thread
+                    if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")),
                             selectedEmployment.getFirstName()+" "+
                                     selectedEmployment.getLastName(), new Date())){
 
@@ -49,7 +49,7 @@ public class DeletionConfirmationWindow extends Window {
                 // Otherwise out of sync with container
                 grid.getSelectionModel().reset();
                 close();
-                Notification.show("Detetion is done successfully");
+                Notification.show("Deletion is done successfully");
                 connect.close();
             } catch (SQLException sqle) {
                 sqle.printStackTrace();
