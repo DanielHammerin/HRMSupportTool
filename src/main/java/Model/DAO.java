@@ -23,22 +23,23 @@ public abstract class DAO<T> {
     /**
      * To create an object
      * @param obj the object to create
-     * @return the T object
+     * @return true if creation has succeeded, false otherwise
      */
-    public abstract T create(T obj);
+    public abstract boolean create(T obj);
 
     /**
      * To delete an object
      * @param obj the object to delete
+     * @return true if deletion has succeeded, false otherwise
      */
-    public abstract void delete(T obj);
+    public abstract boolean delete(T obj);
 
     /**
      * To update an object
      * @param obj the object to update
-     * @return the T object
+     * @return true if update has succeeded, false otherwise
      */
-    public abstract T update(T obj);
+    public abstract boolean update(T obj);
 
     /**
      * To find a object with its ID
