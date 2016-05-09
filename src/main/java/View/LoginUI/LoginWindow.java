@@ -1,5 +1,6 @@
 package View.LoginUI;
 
+import Presenter.WebPresenter;
 import View.DatabaseSelection.DatabaseSelectionWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -18,6 +19,8 @@ public class LoginWindow extends GridLayout implements View {
 
     public static final String VIEW_NAME = "";
 
+    private WebPresenter presenter;
+
     private Label userLabel;
     private Label passLabel;
     private Button loginButton;
@@ -30,6 +33,8 @@ public class LoginWindow extends GridLayout implements View {
     //void init() {
     public LoginWindow(){
 
+        presenter = new WebPresenter(this);
+
         userLabel = new Label("Username");
         passLabel = new Label("Password");
         userField = new TextField();
@@ -38,11 +43,10 @@ public class LoginWindow extends GridLayout implements View {
         //Button
         loginButton = new Button("Login", new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
-                userField.getValue(); //This just show you how to get the data from the input by user
-                passField.getValue();
+                presenter.loginEmployee(userField.getValue(), passField.getValue()); //This just show you how to get the data from the input by user
+
                 // @TODO check the password and login, if of then ->
-                getUI().getSession().setAttribute("user", userField.getValue());
-                getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
+
             }
         });
 
@@ -68,5 +72,21 @@ public class LoginWindow extends GridLayout implements View {
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
+    }
+
+    /**
+     * A method to open the Database Selection window when the login credentials are correct
+     */
+    public void showDatabaseSelectionWindow(){
+        getUI().getSession().setAttribute("user", userField.getValue());
+        getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
+    }
+
+    /**
+     * A method to show an error message when the login credentials are incorrect
+     */
+    public void showLoginErrorMessage(){
+        new Notification("Incorrect username/password", Notification.TYPE_ERROR_MESSAGE)
+                .show(getUI().getPage());
     }
 }
