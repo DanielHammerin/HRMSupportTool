@@ -1,6 +1,6 @@
-package userInterface.DefaultUI;
+package View.DefaultUI;
 
-import Model.FileRepo.logFileRepository;
+import Model.*;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
@@ -9,42 +9,42 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
-import com.vaadin.ui.renderers.Renderer;
 import org.springframework.beans.factory.annotation.Autowired;
-import Model.Employments;
-import userInterface.LogoutHLayout;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * A tab for the current staff members
- * Created by Hatem  on 3/20/2016.
+ * Created by Hatem on 3/20/2016.
  * modified by Abeer
+ * modified by Simon on 2016/04/28 to make the table get real employment from online DB
  */
 @SpringComponent
 @UIScope
-public class EmployeesGrid extends VerticalLayout {
+public class EmploymentsView extends VerticalLayout {
     final private int WIDTH = 11;
-    private logFileRepository logRepo;
+    private DeletionLogModel logModel ;
     private TextField searchField ;
-    private BeanItemContainer<Employments> container;
-    private Collection<Employments> member;
+    private BeanItemContainer<Employment> container;
+    private Collection<Employment> member;
     private GeneratedPropertyContainer gpc;
     private Grid membersGrid;
     private Button deleteSelected;
-    private Employments selectedEmployee;
     /**
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
     @Autowired
-    public EmployeesGrid() {
+    public EmploymentsView() {
 
         this.setMargin(true);
         this.setSpacing(true);
+        this.setSizeFull();
         try {
-            logRepo = new logFileRepository();
+            logModel = new DeletionLogModel();
         } catch (IOException e) {
             Notification.show(e.getMessage());
 
@@ -56,33 +56,18 @@ public class EmployeesGrid extends VerticalLayout {
         searchField.setWidth(WIDTH, Unit.CM);
         member = new ArrayList<>();
 
+        Connection connect = SQLServerConnection.getInstance();
+        EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
+        List<Employment> listEmployments = daoEmployment.getEmployments();
+        member = listEmployments;
 
-        //Adding dummy members to the table
-        for(int i = 1; i <= 5; i++) {
-          Employments staffMember = new Employments("Company ID" + i,
-                  "Person ID" + i, "Employment ID"+ i,"firstName "+i, "lastName "+i);
-            member.add(staffMember);
-        }
-         container =new BeanItemContainer<Employments>(Employments.class, member);
-         gpc = new GeneratedPropertyContainer(container);
+        //for (Employment e : listEmployments) {
+            //membersGrid.addRow(e.getCompanyID(), e.getPersonID(), e.getEmploymentID(),
+             //       e.getRowID(), e.getFirstName(), e.getLastName());
+        //}
 
-
-
-        gpc.addGeneratedProperty("Delete",
-                new PropertyValueGenerator<String>() {
-
-                    @Override
-                    public Class<String> getType() {
-                        return String.class;
-                    }
-
-                    @Override
-                    public String getValue(Item item, Object itemId,
-                                           Object propertyId) {
-                        // TODO Auto-generated method stub
-                        return "Delete";
-                    }
-                });
+        container =new BeanItemContainer<Employment>(Employment.class, member);
+        gpc = new GeneratedPropertyContainer(container);
 
         gpc.addGeneratedProperty("Show Information",
                 new PropertyValueGenerator<String>() {
@@ -96,7 +81,6 @@ public class EmployeesGrid extends VerticalLayout {
                     @Override
                     public String getValue(Item item, Object itemId,
                                            Object propertyId) {
-                        // TODO Auto-generated method stub
                         return "Show Info";
                     }
                 });
@@ -110,25 +94,19 @@ public class EmployeesGrid extends VerticalLayout {
 
     private void initGird() {
         membersGrid = new Grid(gpc);
-        membersGrid.setColumnOrder("companyId","personId",
-                "employmentId", "firstName","lastName");
+        // Column should fetch the Employment class attribute names
+        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName", "lastName");
+        membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         membersGrid.setHeight(300, Unit.PIXELS);
         membersGrid.setWidth(28, Unit.CM);
         //   membersGrid.setSizeFull();
         membersGrid.setImmediate(true);
 
-        // Render a button that deletes the data row (item)
-        membersGrid.getColumn("Delete")
-                .setRenderer(new ButtonRenderer(e -> {
-                    UI.getCurrent().addWindow(  new EmployeesDeletionSubWindow(logRepo, membersGrid , e) );
-                }));
-
-
         membersGrid.getColumn("Show Information")
                 .setRenderer(new ButtonRenderer(e ->{ // Java 8
-                    Employments emp = (Employments)e.getItemId();
-                    UI.getCurrent().addWindow(new EmployeeInfo(emp));
+                    Employment emp = (Employment)e.getItemId();
+                    UI.getCurrent().addWindow(new EmploymentInfo(emp));
                 }
                 ));
 
@@ -138,7 +116,7 @@ public class EmployeesGrid extends VerticalLayout {
         deleteSelected = new Button("Delete Selected", e -> {
             if(membersGrid.getSelectedRows().size() > 0){
 
-                UI.getCurrent().addWindow(  new EmployeesDeletionSubWindow(logRepo,membersGrid)  );
+                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel,membersGrid)  );
             }
             else
 

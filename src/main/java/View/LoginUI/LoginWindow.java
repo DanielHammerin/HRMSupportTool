@@ -1,20 +1,20 @@
-package userInterface.LoginUI;
+package View.LoginUI;
 
+import View.DatabaseSelection.DatabaseSelectionWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 
-import javax.annotation.PostConstruct;
-
 /**
  * Created by totte on 04.04.16.
+ * Edited by Hatem Houssein on 04/05/2016
  *
  * A VerticalLayout containing components of a login view.
  * Functionality is missing and needs to be implemented
  */
-@SpringView(name = LoginView.VIEW_NAME)
-public class LoginView extends GridLayout implements View {
+@SpringView(name = LoginWindow.VIEW_NAME)
+public class LoginWindow extends GridLayout implements View {
 
     public static final String VIEW_NAME = "";
 
@@ -26,8 +26,9 @@ public class LoginView extends GridLayout implements View {
     private HorizontalLayout userHlayout;
     private HorizontalLayout passHlayout;
 
-    @PostConstruct
-    void init() {
+    //@PostConstruct
+    //void init() {
+    public LoginWindow(){
 
         userLabel = new Label("Username");
         passLabel = new Label("Password");
@@ -39,6 +40,9 @@ public class LoginView extends GridLayout implements View {
             public void buttonClick(Button.ClickEvent event) {
                 userField.getValue(); //This just show you how to get the data from the input by user
                 passField.getValue();
+                // @TODO check the password and login, if of then ->
+                getUI().getSession().setAttribute("user", userField.getValue());
+                getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
             }
         });
 

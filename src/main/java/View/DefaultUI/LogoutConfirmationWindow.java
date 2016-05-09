@@ -1,22 +1,18 @@
-package userInterface.DefaultUI;
-
-import java.util.function.Consumer;
-
-import Model.Employments;
+package View.DefaultUI;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import userInterface.LoginUI.LoginView;
+import View.LoginUI.LoginWindow;
 
 /**
  * Created by Abeer on 04.06.16.
  *
  *
  */
-public class LogoutSubWindow  extends Window  {
+public class LogoutConfirmationWindow extends Window  {
 
 
     Button yesButton = new Button("Yes");
@@ -24,7 +20,7 @@ public class LogoutSubWindow  extends Window  {
     HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     VerticalLayout content = new VerticalLayout();
 
-    public LogoutSubWindow() {
+    public LogoutConfirmationWindow() {
         super("Logout  person"); // Set window caption
         center();
         actions.setSpacing(true);
@@ -41,7 +37,7 @@ public class LogoutSubWindow  extends Window  {
 
 
         yesButton.addClickListener(e -> {
-            getUI().getNavigator().navigateTo(LoginView.VIEW_NAME);
+            getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
             close();
 
         });
@@ -52,5 +48,6 @@ public class LogoutSubWindow  extends Window  {
         content.addComponents(configuration, actions);
 
         setContent(content);
+
     }
 }
