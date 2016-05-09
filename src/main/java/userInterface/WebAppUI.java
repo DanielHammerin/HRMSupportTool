@@ -9,7 +9,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import userInterface.DatabaseSelection.DatabaseSelection;
-import userInterface.DatabaseSelection.DatabaseSeletion;
+
 import userInterface.DefaultUI.DefaultView;
 import userInterface.LogUI.LogGrid;
 import userInterface.LogUI.LogMainContainer;
