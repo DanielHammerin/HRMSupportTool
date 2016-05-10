@@ -15,15 +15,16 @@ public class SQLServerConnection {
     // private static String url = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;DatabaseName=bddvadin;";
     private static Connection connect;
     private static String connectionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;";
-    private static String user = "HRMTEST_SQLLogin_1";
-    private static String password = "iwb6wm4m8k";
+    private static String user = "HRMTEST223_SQLLogin_1";
+    private static String password = "anpkc9z788";
 
     /*
     // This is just a main method to test the connection in an easier way
     public static void main(String[] args) {
         System.err.println("Program start.");
         try {
-            connect = DriverManager.getConnection(connecionString, user, password);
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            connect = DriverManager.getConnection(connectionString, user, password);
         } catch (SQLException e) {
             System.err.println("Error : Can't connect to database.");
             e.printStackTrace();
@@ -38,7 +39,7 @@ public class SQLServerConnection {
         }
         System.out.println("Program end.");
     }
-    */
+*/
 
 
     /**
