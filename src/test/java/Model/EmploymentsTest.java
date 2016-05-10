@@ -4,10 +4,7 @@
     Description: JUnit tests for the class Employments in the Model package. The tests are being created
     in order to achive as much code coverage as possible.
  */
-package userInterface;
-import Model.Employment;
-import Model.FileRepo.*;
-import static org.junit.Assert.*;
+package Model;
 
 import View.DemoApplication;
 import org.junit.Assert;
@@ -27,23 +24,43 @@ public class EmploymentsTest {
     private int rowID = 12312313;
     private String EmploymentId = "0123Cs4";
     private String lastName = "Lyconhold";
-    String FirstName = "Markus";
-
-    private Employment employments = new Employment(companyId, personId, EmploymentId, rowID, lastName, FirstName);
+    private String firstName ="Markus";
+    private Employment employments = new Employment(companyId, personId, EmploymentId, rowID, lastName, firstName);
 	@Test
 	public void CompanyIdTest() {
             Assert.assertTrue(employments.getCompanyID().equals(companyId));
 
 	}
     @Test
+    public void PersonIDTest() {
+
+        Assert.assertTrue(employments.getPersonID().equals(personId));
+    }
+    @Test
+    public void EmploymentIDTest() {
+        Assert.assertTrue(employments.getEmploymentID().equals(EmploymentId));
+    }
+  /*  @Test
+    public void RowIDTest(){
+        Assert.assertTrue(employments.getRowID().equals(rowID));
+    }
+    */
+    @Test
     public void FirstNameTest() {
-         String firstName = "Markus";
 
         Assert.assertTrue(employments.getFirstName().equals(firstName));
     }
     @Test
     public void LastNameTest() {
+
         Assert.assertTrue(employments.getLastName().equals(lastName));
+    }
+
+    @Test
+    public void ToStringTest()
+    {
+        String expected = ""; // put the expected value here
+        Assert.assertEquals(expected, employments.toString());
     }
 
 
