@@ -1,5 +1,6 @@
 package View.LogUI;
 
+import View.LoginUI.LoginWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -7,13 +8,12 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import View.Buttons.LogoutOption;
 import View.DefaultUI.DeletingEmploymentsWindow;
-
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 /**
  * The page for the log info table
  * Created by Hatem on 3/20/2016.
+ * modified by Abeer on 5/10/2016
  */
 
 @SpringView(name = LogWindow.VIEW_NAME)
@@ -23,8 +23,11 @@ public class LogWindow extends VerticalLayout implements View {
     private LogoutOption logoutHLayout;
     private LogGrid logGrid;
 
-    @PostConstruct
-    void init() throws IOException {
+    public LogWindow () throws IOException {
+
+    }
+
+    private void init() throws IOException {
         //TODO: Change the session of the user to thread
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         logGrid = new LogGrid();
@@ -41,10 +44,20 @@ public class LogWindow extends VerticalLayout implements View {
         setComponentAlignment(logoutHLayout, Alignment.TOP_RIGHT);
         setComponentAlignment(logGrid, Alignment.MIDDLE_CENTER);
     }
-
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        // the view is constructed in the init() method()
+
+        if(getUI().getSession().getAttribute("user")!=null){
+            try {
+                init();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
+
+
     }
 
     private Button viewNewPage(String caption, final String viewName) {
