@@ -36,17 +36,18 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
     }
 
     private void init() {
+        databaseCombobox = new ComboBox();
         DBselectionPresenter = new DatabaseSelectionPresenter(this);
         Panel panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
         addComponent(panel);
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         databaseLabel = new Label("HRM Databases: ");
-        databaseCombobox = new ComboBox();
+
         databaseCombobox.setInputPrompt("select one ");
         databaseCombobox.setInvalidAllowed(false);
         databaseCombobox.setNullSelectionAllowed(false);
-        databaseCombobox.addItems("database 1", "database 2", "database 3", "database 4");
+        // databaseCombobox.addItems("database 1", "database 2", "database 3", "database 4");
 
         //Button
         OKButton = new Button("OK");
@@ -99,6 +100,10 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
     public void showDBSelectionErrorMessage() {
         new Notification("No Database selected", Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
+    }
+
+    public void addDatabaseToSelection(String databaseName) {
+        databaseCombobox.addItem(databaseName);
     }
 
 }
