@@ -1,6 +1,8 @@
 package View.DatabaseSelection;
 
 
+import Presenter.DatabaseSelectionPresenter;
+import View.LoginUI.LoginWindow;
 import com.vaadin.ui.*;
 import View.DefaultUI.DeletingEmploymentsWindow;
 
@@ -26,8 +28,15 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
     private Button OKButton;
     private FormLayout content;
     private LogoutOption logoutHLayout;
+    private DatabaseSelectionPresenter DBselectionPresenter;
 
     public DatabaseSelectionWindow(){
+
+        //init();
+    }
+
+    private void init() {
+        DBselectionPresenter = new DatabaseSelectionPresenter(this);
         Panel panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
         addComponent(panel);
@@ -45,12 +54,13 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
             //TODO: Do not proceed if no databases are chosen
             public void buttonClick(Button.ClickEvent event) {
                 databaseCombobox.getValue();
-                getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+  databaseCombobox.getValue());
+                DBselectionPresenter.handleSelectedDB( databaseCombobox.getValue());
+
+            //    getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+  databaseCombobox.getValue());
 
             }
         });
 
-        OKButton.setDisableOnClick(true);
         databaseHlayout = new HorizontalLayout(databaseLabel, databaseCombobox);
         databaseHlayout.setSpacing(true);
 
@@ -76,13 +86,19 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
     }
 
 
-
     @Override
     public void enter(ViewChangeEvent event) {
 
+    if(getUI().getSession().getAttribute("user")!=null){
+       init();
+    }
+        else
+        getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
 
-        }
-
-
+}
+    public void showDBSelectionErrorMessage() {
+        new Notification("No Database selected", Notification.TYPE_ERROR_MESSAGE)
+                .show(getUI().getPage());
+    }
 
 }

@@ -20,7 +20,9 @@ import java.util.List;
 /**
  * A tab for the current staff members
  * Created by Hatem on 3/20/2016.
- * modified by Abeer
+ * modified by Abeer on 3/ 28/ 2016 bind the grid to Employments data using BeanItemContainer
+ *which is wrapped around GeneratedPropertyContainer ,
+ *  adding ButtonRenderer ( button to show employee info),handling deleteSelected button
  * modified by Simon on 2016/04/28 to make the table get real employment from online DB
  */
 @SpringComponent

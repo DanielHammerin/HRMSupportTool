@@ -1,6 +1,7 @@
 package Presenter;
 
 import Model.UserModel;
+import View.DatabaseSelection.DatabaseSelectionWindow;
 import View.LoginUI.LoginWindow;
 
 /**
@@ -11,6 +12,7 @@ public class WebPresenter {
 
     private LoginWindow loginWindow;
     private UserModel loginDb;
+    private DatabaseSelectionWindow DBselectionWindow;
 
     public WebPresenter(LoginWindow currentWindow){
         loginWindow = currentWindow;

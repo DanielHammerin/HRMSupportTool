@@ -10,6 +10,7 @@ import com.vaadin.ui.*;
 /**
  * Created by totte on 04.04.16.
  * Edited by Hatem Houssein on 04/05/2016
+ * Edited by Abeer Alkhars on 5/9/2016, changed the passField from TextField to passwordField
  *
  * A VerticalLayout containing components of a login view.
  * Functionality is missing and needs to be implemented
@@ -25,7 +26,7 @@ public class LoginWindow extends GridLayout implements View {
     private Label passLabel;
     private Button loginButton;
     private TextField userField;
-    private TextField passField;
+    private PasswordField  passField;
     private HorizontalLayout userHlayout;
     private HorizontalLayout passHlayout;
 
@@ -38,7 +39,7 @@ public class LoginWindow extends GridLayout implements View {
         userLabel = new Label("Username");
         passLabel = new Label("Password");
         userField = new TextField();
-        passField = new TextField();
+        passField = new PasswordField ();
 
         //Button
         loginButton = new Button("Login", new Button.ClickListener() {
@@ -86,7 +87,9 @@ public class LoginWindow extends GridLayout implements View {
      * A method to show an error message when the login credentials are incorrect
      */
     public void showLoginErrorMessage(){
+        passField.clear();
         new Notification("Incorrect username/password", Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
+
     }
 }
