@@ -5,7 +5,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
-import View.LoginUI.LoginView;
+import View.LoginUI.LoginWindow;
 
 /**
  * Created by Abeer on 04.06.16.
@@ -37,7 +37,8 @@ public class LogoutConfirmationWindow extends Window  {
 
 
         yesButton.addClickListener(e -> {
-            getUI().getNavigator().navigateTo(LoginView.VIEW_NAME);
+            getUI().getSession().setAttribute("user", null);
+            getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
             close();
 
         });

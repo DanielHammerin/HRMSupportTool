@@ -13,10 +13,11 @@ import java.util.logging.Logger;
 
 /**
  * Created by Abeer on 4/21/2016.
+ * Updated by Hatem Houssein 4/28/2016 (Changed the logFilePath to "demo\LocalDatabase\Users_DB.ser")
  */
 public class UserFileRepository implements IRepository{
-    private final String prefixPath = "D:\\HRM_SupportTool_Users\\";
-    private final String UserFilePath = prefixPath + "Users_DB.ser";
+   // private final String prefixPath = "D:\\HRM_SupportTool_Users\\";
+    private final String UserFilePath = "LocalDatabase\\Users_DB.ser";
 
     public UserFileRepository() {
         try {

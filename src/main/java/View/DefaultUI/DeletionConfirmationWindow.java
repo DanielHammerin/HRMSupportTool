@@ -1,5 +1,4 @@
 package View.DefaultUI;
-
 import Model.*;
 import com.vaadin.ui.*;
 import java.sql.Connection;
@@ -8,6 +7,7 @@ import java.util.Date;
 
 /**
  * Created by Abeer on 4/13/2016.
+ * modified by Simon on 2016/04/28 to make it work with real employment from online DB
  */
 public class DeletionConfirmationWindow extends Window {
 
@@ -33,8 +33,8 @@ public class DeletionConfirmationWindow extends Window {
                     selectedEmployment = (Employment)itemId;
                     daoEmployment.delete(selectedEmployment);
                     grid.getContainerDataSource().removeItem(itemId);
-
-                    if(! logModel.createLog("Abeer Alkhars",
+                    //TODO: Change the session of the user to thread
+                    if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")),
                             selectedEmployment.getFirstName()+" "+
                                     selectedEmployment.getLastName(), new Date())){
 
@@ -49,7 +49,7 @@ public class DeletionConfirmationWindow extends Window {
                 // Otherwise out of sync with container
                 grid.getSelectionModel().reset();
                 close();
-                Notification.show("Detetion is done successfully");
+                Notification.show("Deletion is done successfully");
                 connect.close();
             } catch (SQLException sqle) {
                 sqle.printStackTrace();

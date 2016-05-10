@@ -5,6 +5,7 @@ import com.vaadin.ui.*;
 
 /**
  * Created by Abeer on 4/13/2016.
+ * modified by Simon on 2016/04/28 to make it work with Employment (without s) class
  */
 public class EmploymentInfo extends Window {
 

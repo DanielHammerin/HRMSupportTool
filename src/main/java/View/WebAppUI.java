@@ -36,7 +36,13 @@ public class WebAppUI extends UI{
 
         Navigator navigator = new Navigator(this, viewContainer);
         navigator.addProvider(viewProvider);
+
+    }
+
+    public void showWindow(String viewName){
+
+    }
     }
 
 
-}
+

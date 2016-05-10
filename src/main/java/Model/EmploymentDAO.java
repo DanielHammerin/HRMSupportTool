@@ -59,9 +59,9 @@ public class EmploymentDAO extends DAO<Employment> {
     /**
      * To create an employment row in the database (not used here)
      * @param obj the employment to create in the database
-     * @return the employment
+     * @return true if creation has succeeded, false otherwise
      */
-    public Employment create(Employment obj) {
+    public boolean create(Employment obj) {
         try {
             String query = "INSERT INTO " + TABLE_NAME + " (" + COLUMN_ROWID + ", " +
                     COLUMN_COMPANYID + ", " + COLUMN_PERSONID + ", " +
@@ -77,7 +77,7 @@ public class EmploymentDAO extends DAO<Employment> {
 
             int rowCreated = statement.executeUpdate();
             if (rowCreated != 1) {
-                throw new Exception();
+                return false;
             }
         } catch (SQLException e) {
             System.err.println("Error during the create process.");
@@ -86,7 +86,7 @@ public class EmploymentDAO extends DAO<Employment> {
             System.err.println("Error during the create process. Not a valid number of rows created");
             e.printStackTrace();
         }
-        return obj;
+        return true;
     }
 
     /**
@@ -120,9 +120,9 @@ public class EmploymentDAO extends DAO<Employment> {
     /**
      * To update an employment row in the database (not used here)
      * @param obj the employment to update in the database
-     * @return the employment
+     * @return true if updaten has succeeded, false otherwise
      */
-    public Employment update(Employment obj) {
+    public boolean update(Employment obj) {
         try {
             String query = "UPDATE " + TABLE_NAME + " SET " + COLUMN_COMPANYID  + " = '" + obj.getCompanyID() + "'" +
                     " , " + COLUMN_PERSONID  + " = '" + obj.getCompanyID() + "'" +
@@ -133,7 +133,7 @@ public class EmploymentDAO extends DAO<Employment> {
             PreparedStatement statement = this.connect.prepareStatement(query);
             int rowUpdated = statement.executeUpdate();
             if (rowUpdated != 1) {
-                throw new Exception();
+                return false;
             }
         } catch (SQLException e) {
             System.err.println("Error during the update process.");
@@ -142,20 +142,21 @@ public class EmploymentDAO extends DAO<Employment> {
             System.err.println("Error during the update process. Not a valid number of rows updated");
             e.printStackTrace();
         }
-        return obj;
+        return true;
     }
 
     /** @TODO should return boolean to know if process has suceeded
      * To delete an employment row in the database
      * @param obj the object to delete in the database
+     * @return true if deletion has succeeded, false otherwise
      */
-    public void delete(Employment obj) {
+    public boolean delete(Employment obj) {
         try {
             String query = "DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ROWID + " = " + obj.getRowID();
             PreparedStatement statement = this.connect.prepareStatement(query);
             int rowDeleted = statement.executeUpdate();
             if (rowDeleted != 1) {
-                throw new Exception();
+               return false;
             }
         } catch (SQLException e) {
             System.err.println("Error during the delete process.");
@@ -164,5 +165,6 @@ public class EmploymentDAO extends DAO<Employment> {
             System.err.println("Error during the delete process. Not a valid number of rows deleted");
             e.printStackTrace();
         }
+        return true;
     }
 }

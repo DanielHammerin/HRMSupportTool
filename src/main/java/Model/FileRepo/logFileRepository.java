@@ -13,12 +13,12 @@ import java.util.logging.Logger;
 
 /**
  * Created by Abeer on 4/14/2016.
+ * Updated by Hatem Houssein 28/4/2016. (Changed the logFilePath to "demo\\LocalDatabase\\DeletionLog_DB.ser")
  */
 public class logFileRepository {
 
-
-    private final String prefixPath = "C:\\DeletionLog\\";
-    private final String logFilePath = prefixPath + "DeletionLog_DB.ser";
+   // private final String prefixPath = "D:\\DeletionLog\\";
+    private final String logFilePath = "LocalDatabase\\DeletionLog_DB.ser";
 
     public logFileRepository() throws IOException {
         try {
