@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class UserFileRepository implements IRepository{
    // private final String prefixPath = "D:\\HRM_SupportTool_Users\\";
-    private final String UserFilePath = "demo\\LocalDatabase\\Users_DB.ser";
+    private final String UserFilePath = "LocalDatabase\\Users_DB.ser";
 
     public UserFileRepository() {
         try {

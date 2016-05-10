@@ -42,7 +42,7 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
         //Button
         OKButton = new Button("OK");
         OKButton.addClickListener(new Button.ClickListener() {
-
+            //TODO: Do not proceed if no databases are chosen
             public void buttonClick(Button.ClickEvent event) {
                 databaseCombobox.getValue();
                 getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+  databaseCombobox.getValue());
