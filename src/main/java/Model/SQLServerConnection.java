@@ -14,7 +14,7 @@ public class SQLServerConnection {
     // The URL connection string
     // private static String url = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;DatabaseName=bddvadin;";
     private static Connection connect;
-    private static String connectionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;";
+    private static String connectionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788";
     private static String user = "HRMTEST223_SQLLogin_1";
     private static String password = "anpkc9z788";
 
@@ -24,7 +24,7 @@ public class SQLServerConnection {
         System.err.println("Program start.");
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connect = DriverManager.getConnection(connectionString, user, password);
+            connect = DriverManager.getConnection(connectionString);
         } catch (SQLException e) {
             System.err.println("Error : Can't connect to database.");
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class SQLServerConnection {
         }
         System.out.println("Program end.");
     }
-*/
+    */
 
 
     /**
@@ -52,7 +52,7 @@ public class SQLServerConnection {
             if(connect == null || connect.isClosed() ){
                 try {
                     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                    connect = DriverManager.getConnection(connectionString, user, password);
+                    connect = DriverManager.getConnection(connectionString);
                 } catch (SQLException e) {
                     System.err.println("Error : Can't connect to database.");
                     e.printStackTrace();

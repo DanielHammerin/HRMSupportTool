@@ -20,7 +20,7 @@ public class WebPresenter {
 
     public void loginEmployee(String username, String password){
         loginDb = new UserModel();
-       // loginDb.createUser("","",username, password,"",false);
+        loginDb.createUser("","",username, password,"",false);
 
         //If the login credentials are correct
         if(loginDb.findUser(username, password) != null){
