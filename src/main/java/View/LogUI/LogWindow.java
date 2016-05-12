@@ -24,7 +24,7 @@ public class LogWindow extends VerticalLayout implements View {
     private LogGrid logGrid;
 
     public LogWindow () throws IOException {
-
+    init();
     }
 
     private void init() throws IOException {
@@ -48,11 +48,13 @@ public class LogWindow extends VerticalLayout implements View {
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
         if(getUI().getSession().getAttribute("user")!=null){
+
             try {
-                init();
+                new LogWindow();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
         else
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);

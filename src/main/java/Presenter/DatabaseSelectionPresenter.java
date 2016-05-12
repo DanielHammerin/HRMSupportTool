@@ -27,7 +27,7 @@ public class DatabaseSelectionPresenter {
       if(selectedDB==null){
           DBselectionWindow.showDBSelectionErrorMessage();
       } else {
-          DBselectionWindow.getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME);
+          DBselectionWindow.getDeletingEmploymentsWindow(selectedDB);
       }
   }
 }

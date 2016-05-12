@@ -29,46 +29,35 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
     private FormLayout content;
     private LogoutOption logoutHLayout;
     private DatabaseSelectionPresenter DBselectionPresenter;
+    private Panel panel ;
 
     public DatabaseSelectionWindow(){
-
-        //init();
-    }
-
-    private void init() {
         databaseCombobox = new ComboBox();
         DBselectionPresenter = new DatabaseSelectionPresenter(this);
-        Panel panel = new Panel("HRM Databases");
+        panel = new Panel("HRM Databases");
         panel.setSizeUndefined(); // Shrink to fit content
-        addComponent(panel);
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         databaseLabel = new Label("HRM Databases: ");
 
         databaseCombobox.setInputPrompt("select one ");
         databaseCombobox.setInvalidAllowed(false);
         databaseCombobox.setNullSelectionAllowed(false);
-        // databaseCombobox.addItems("database 1", "database 2", "database 3", "database 4");
+
 
         //Button
         OKButton = new Button("OK");
         OKButton.addClickListener(new Button.ClickListener() {
             //TODO: Do not proceed if no databases are chosen
             public void buttonClick(Button.ClickEvent event) {
-                databaseCombobox.getValue();
                 DBselectionPresenter.handleSelectedDB( databaseCombobox.getValue());
-
-            //    getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+  databaseCombobox.getValue());
-
             }
+
         });
 
         databaseHlayout = new HorizontalLayout(databaseLabel, databaseCombobox);
         databaseHlayout.setSpacing(true);
-
-
         content = new FormLayout();
 
-        addComponent(logoutHLayout);
         content.addComponent(databaseHlayout);
         content.addComponent(OKButton);
         content.setSizeUndefined(); // Shrink to fit
@@ -77,29 +66,35 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
 
 
         setSpacing(true);
-        addComponent(panel);
-
-
         setWidth("100%");
-        setComponentAlignment(logoutHLayout, Alignment.TOP_RIGHT);
-        setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
         setMargin(true);
     }
+    private void addWindowComponents(){
+        addComponents(logoutHLayout,panel);
+        setComponentAlignment(logoutHLayout, Alignment.TOP_RIGHT);
+        setComponentAlignment(panel, Alignment.MIDDLE_CENTER);
+    }
+
 
 
     @Override
     public void enter(ViewChangeEvent event) {
 
     if(getUI().getSession().getAttribute("user")!=null){
-       init();
+        addWindowComponents();
     }
         else
         getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
+
+
 
 }
     public void showDBSelectionErrorMessage() {
         new Notification("No Database selected", Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
+    }
+    public void getDeletingEmploymentsWindow (Object selectedDB){
+        getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+selectedDB);
     }
 
     public void addDatabaseToSelection(String databaseName) {
