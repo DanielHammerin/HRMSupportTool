@@ -1,6 +1,6 @@
 package View.LoginUI;
 
-import Presenter.WebPresenter;
+import Presenter.LoginPresenter;
 import View.DatabaseSelection.DatabaseSelectionWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -15,12 +15,13 @@ import com.vaadin.ui.*;
  * A VerticalLayout containing components of a login view.
  * Functionality is missing and needs to be implemented
  */
+
 @SpringView(name = LoginWindow.VIEW_NAME)
 public class LoginWindow extends GridLayout implements View {
 
     public static final String VIEW_NAME = "";
 
-    private WebPresenter presenter;
+    private LoginPresenter presenter;
 
     private Label userLabel;
     private Label passLabel;
@@ -34,7 +35,7 @@ public class LoginWindow extends GridLayout implements View {
     //void init() {
     public LoginWindow(){
 
-        presenter = new WebPresenter(this);
+        presenter = new LoginPresenter(this);
 
         userLabel = new Label("Username");
         passLabel = new Label("Password");
@@ -45,8 +46,6 @@ public class LoginWindow extends GridLayout implements View {
         loginButton = new Button("Login", new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
                 presenter.loginEmployee(userField.getValue(), passField.getValue()); //This just show you how to get the data from the input by user
-
-                // @TODO check the password and login, if of then ->
 
             }
         });

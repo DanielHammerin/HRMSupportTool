@@ -13,7 +13,7 @@ import View.Buttons.LogoutOption;
 
 /**
  * Created by Abeer on 04.06.16.
- * Edited by Hatem Houssein on 04/05/2016
+ * Edited by Hatem Houssein on 04/05/2016 and 11/05/2016
  *
  */
 
@@ -85,10 +85,8 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
     }
         else
         getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
-
-
-
 }
+    
     public void showDBSelectionErrorMessage() {
         new Notification("No Database selected", Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());

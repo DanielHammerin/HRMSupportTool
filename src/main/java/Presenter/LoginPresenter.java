@@ -8,13 +8,13 @@ import View.LoginUI.LoginWindow;
  * Created by Hatem Houssein on 04-May-16.
  * A class that acts as the presenter for the Login window according to the MVP (Model-View-Presenter) pattern.
  */
-public class WebPresenter {
+public class LoginPresenter {
 
     private LoginWindow loginWindow;
     private UserModel loginDb;
     private DatabaseSelectionWindow DBselectionWindow;
 
-    public WebPresenter(LoginWindow currentWindow){
+    public LoginPresenter(LoginWindow currentWindow){
         loginWindow = currentWindow;
     }
 
@@ -23,7 +23,7 @@ public class WebPresenter {
         loginDb.createUser("","",username, password,"",false);
 
         //If the login credentials are correct
-        if(loginDb.findUser(username, password) != null){
+        if(loginDb.findUser(username, password) != null && !username.equals("") && !password.equals("")){
             loginWindow.showDatabaseSelectionWindow();
         }
         //If the login credentials are incorrect

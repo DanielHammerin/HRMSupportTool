@@ -33,7 +33,7 @@ public class DeletionConfirmationWindow extends Window {
                     selectedEmployment = (Employment)itemId;
                     daoEmployment.delete(selectedEmployment);
                     grid.getContainerDataSource().removeItem(itemId);
-                    //TODO: Change the session of the user to thread
+
                     if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")),
                             selectedEmployment.getFirstName()+" "+
                                     selectedEmployment.getLastName(), new Date())){
