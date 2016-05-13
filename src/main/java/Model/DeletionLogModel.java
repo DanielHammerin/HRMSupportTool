@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by Abeer on 4/22/2016.
+ * DeletionLogModel class for logic operation between DeletionLog and logFileRepository
  */
 public class DeletionLogModel {
 

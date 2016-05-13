@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * Created by Abeer on 4/21/2016.
+ * userModel class for the opertions between User and UserFileRepository
  */
 public class UserModel {
     private final IRepository repo;
