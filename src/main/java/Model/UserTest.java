@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Entity.User;
+
 import java.util.ArrayList;
 
 /**

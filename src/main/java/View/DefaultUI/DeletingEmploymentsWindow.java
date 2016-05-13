@@ -1,5 +1,5 @@
 package View.DefaultUI;
-
+import Presenter.DeletingEmploymentsPresenter;
 import View.DatabaseSelection.DatabaseSelectionWindow;
 import View.LogUI.LogGrid;
 import View.LoginUI.LoginWindow;
@@ -23,20 +23,28 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private LogoutOption logoutHLayout;
     private Button viewlogButton;
     private Button viewEmploymentsButton;
+    private Button viewDatabaseSeletionButton;
+    private DeletingEmploymentsPresenter deletingEmploymentsPresenter ;
+
     public DeletingEmploymentsWindow( ) {
         ButtonsLayout = new HorizontalLayout();
         panel = new Panel();
         viewlogButton = new Button("View Log");
         viewEmploymentsButton = new Button("view Current Employments");
-
+        viewDatabaseSeletionButton = new Button("view Database Seletion");
+        logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
+        deletingEmploymentsPresenter = new DeletingEmploymentsPresenter(this);
 
     }
     private void addWindowComponents (String DB){
         // we should add the selected db as a field in the EmploymentView constructor
         panel.setContent( new EmploymentsView());
-        logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         viewEmploymentsButton.setVisible(false);
+        viewDatabaseSeletionButton.setVisible(true);
 
+        viewDatabaseSeletionButton.addClickListener(e -> {
+            getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
+        });
         viewlogButton.addClickListener(e -> {
             try {
                 panel.setContent( new LogGrid());
@@ -45,9 +53,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-
         });
-
 
         viewEmploymentsButton.addClickListener(e -> {
             viewlogButton.setVisible(true);
@@ -57,7 +63,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         });
 
-        ButtonsLayout.addComponents(viewlogButton,viewEmploymentsButton);
+        ButtonsLayout.addComponents(viewDatabaseSeletionButton,viewlogButton,viewEmploymentsButton);
         setSpacing(true);
         setMargin(true);
         addComponents( logoutHLayout,ButtonsLayout, panel);

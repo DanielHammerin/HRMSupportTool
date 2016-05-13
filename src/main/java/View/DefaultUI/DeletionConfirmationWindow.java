@@ -1,5 +1,6 @@
 package View.DefaultUI;
 import Model.*;
+import Model.Entity.Employment;
 import com.vaadin.ui.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,9 +35,7 @@ public class DeletionConfirmationWindow extends Window {
                     daoEmployment.delete(selectedEmployment);
                     grid.getContainerDataSource().removeItem(itemId);
 
-                    if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")),
-                            selectedEmployment.getFirstName()+" "+
-                                    selectedEmployment.getLastName(), new Date())){
+                    if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())){
 
                         new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
                                 .show(getUI().getPage());

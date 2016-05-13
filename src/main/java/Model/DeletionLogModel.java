@@ -1,5 +1,8 @@
 package Model;
 
+import Model.Entity.DeletionLog;
+import Model.Entity.Employment;
+import Model.Entity.User;
 import Model.FileRepo.logFileRepository;
 
 import java.io.IOException;
@@ -17,8 +20,8 @@ public class DeletionLogModel {
         repo = new logFileRepository();
     }
 
-    public boolean createLog (String whoDelete , String whoWasDeleted , Date date){
-        DeletionLog log = new DeletionLog(whoDelete , whoWasDeleted ,date);
+    public boolean createLog (String whoDelete , Employment employment , Date date){
+        DeletionLog log = new DeletionLog(whoDelete , employment.getPersonID(), employment.getFirstName(),employment.getLastName() ,date);
         return repo.createDeletionLog(log);
     }
 

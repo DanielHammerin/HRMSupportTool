@@ -1,6 +1,6 @@
 package Model.FileRepo;
 
-import Model.DeletionLog;
+import Model.Entity.DeletionLog;
 
 import java.io.*;
 import java.nio.file.Files;

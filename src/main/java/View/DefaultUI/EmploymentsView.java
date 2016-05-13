@@ -1,14 +1,17 @@
 package View.DefaultUI;
 
 import Model.*;
+import Model.Entity.Employment;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
 import com.vaadin.data.util.PropertyValueGenerator;
+import com.vaadin.data.util.filter.SimpleStringFilter;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.renderers.ButtonRenderer;
+import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -32,10 +35,11 @@ public class EmploymentsView extends VerticalLayout {
     private DeletionLogModel logModel ;
     private TextField searchField ;
     private BeanItemContainer<Employment> container;
-    private Collection<Employment> member;
+    private Collection<Employment>  member = new ArrayList<>();
     private GeneratedPropertyContainer gpc;
     private Grid membersGrid;
     private Button deleteSelected;
+    private Label currentDB;
     /**
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
@@ -51,22 +55,13 @@ public class EmploymentsView extends VerticalLayout {
             Notification.show(e.getMessage());
 
         }
-        // Search field for member
-        searchField = new TextField();
-        searchField.focus();
-        searchField.setInputPrompt("Search by ID");
-        searchField.setWidth(WIDTH, Unit.CM);
-        member = new ArrayList<>();
 
+        currentDB = new Label("Current Databse:");
         Connection connect = SQLServerConnection.getInstance();
         EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
         List<Employment> listEmployments = daoEmployment.getEmployments();
         member = listEmployments;
 
-        //for (Employment e : listEmployments) {
-            //membersGrid.addRow(e.getCompanyID(), e.getPersonID(), e.getEmploymentID(),
-             //       e.getRowID(), e.getFirstName(), e.getLastName());
-        //}
 
         container =new BeanItemContainer<Employment>(Employment.class, member);
         gpc = new GeneratedPropertyContainer(container);
@@ -87,11 +82,9 @@ public class EmploymentsView extends VerticalLayout {
                     }
                 });
 
-
-
-
         initGird();
-        this.addComponents(searchField, membersGrid, deleteSelected);
+        initFilter();
+        this.addComponents( currentDB, membersGrid, deleteSelected);
     }
 
     private void initGird() {
@@ -124,5 +117,38 @@ public class EmploymentsView extends VerticalLayout {
 
                 Notification.show("Nothing selected");
         });
+
+    }
+
+    private void initFilter(){
+
+        // Create a header row to hold column filters
+        Grid.HeaderRow filterRow = membersGrid.appendHeaderRow();
+
+        // Set up a filter for all columns
+        for (Object pid: membersGrid.getContainerDataSource()
+                .getContainerPropertyIds()) {
+            Grid.HeaderCell cell = filterRow.getCell(pid);
+
+            // Have an input field to use for filter
+            TextField filterField = new TextField();
+            filterField.setColumns(8);
+            filterField.setInputPrompt("Filter");
+            filterField.addStyleName(ValoTheme.TEXTFIELD_TINY);
+
+            // Update filter When the filter input is changed
+            filterField.addTextChangeListener(change -> {
+                // Can't modify filters so need to replace
+                container.removeContainerFilters(pid);
+
+                // (Re)create the filter if necessary
+                if (! change.getText().isEmpty())
+                    container.addContainerFilter(
+                            new SimpleStringFilter(pid,
+                                    change.getText(), true, false));
+            });
+            cell.setComponent(filterField);
+            membersGrid.setWidth("100%");
+        }
     }
 }

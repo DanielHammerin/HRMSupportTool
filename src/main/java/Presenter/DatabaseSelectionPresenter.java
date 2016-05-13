@@ -14,7 +14,7 @@ public class DatabaseSelectionPresenter {
 
     private DatabaseSelectionModel DBselectionModel;
     private DatabaseSelectionWindow DBselectionWindow ;
-   // we should add DatabaseSelectionModel in the constructor;
+
     public DatabaseSelectionPresenter(DatabaseSelectionWindow DBselectionWindow){
         this.DBselectionWindow = DBselectionWindow;
         DBselectionModel = new DatabaseSelectionModel();

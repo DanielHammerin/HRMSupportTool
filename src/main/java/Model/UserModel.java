@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Entity.User;
 import Model.FileRepo.IRepository;
 import Model.FileRepo.UserFileRepository;
 

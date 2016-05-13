@@ -1,6 +1,6 @@
 package View.DefaultUI;
 
-import Model.Employment;
+import Model.Entity.Employment;
 import com.vaadin.ui.*;
 
 /**

@@ -6,6 +6,7 @@
  */
 package Model;
 
+import Model.Entity.Employment;
 import View.DemoApplication;
 import org.junit.Assert;
 import org.junit.Test;

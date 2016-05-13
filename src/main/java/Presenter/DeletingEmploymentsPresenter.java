@@ -1,8 +1,6 @@
 package Presenter;
 
-import Model.Employment;
 import View.DefaultUI.DeletingEmploymentsWindow;
-import View.LoginUI.LoginWindow;
 
 /**
  * Created by Hatem on 10-May-16.
