@@ -25,6 +25,7 @@ import java.util.Collection;
 
 /**
  * Created by Abeer on 4/13/2016.
+ * logGrid class creates grid contains deletion log
  */
 @SpringComponent
 @UIScope

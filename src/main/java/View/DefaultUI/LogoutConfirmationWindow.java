@@ -9,7 +9,7 @@ import View.LoginUI.LoginWindow;
 
 /**
  * Created by Abeer on 04.06.16.
- *
+ *  sub window to confirm user logout
  *
  */
 public class LogoutConfirmationWindow extends Window  {
