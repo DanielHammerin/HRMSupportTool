@@ -25,10 +25,10 @@ public class DeletionLogInfo  extends Window {
 
         // Label containing information you want to display
         Label whoDelete = new Label("Who delete : " + log.getWhoDelete());
-        Label deletedPersonID = new Label("Deleted PersonID : " + log.getDeletedId());
-        Label deletedFirstName = new Label("Deleted LastName: " + log.getDeletedFirstName());
-        Label deletedLastName = new Label("Deleted lastName : " + log.getDeletedLastName());
-
+        Label deletedPersonID = new Label("Deleted Person ID : " + log.getDeletedId());
+        Label deletedFirstName = new Label("Deleted Last Name: " + log.getDeletedFirstName());
+        Label deletedLastName = new Label("Deleted last Name : " + log.getDeletedLastName());
+       Label deletionDate = new Label ("Deletion Date: "+log.getDate());
         // Close the pop-ip window
         closeButton.addClickListener(e -> {
             close();
@@ -36,7 +36,7 @@ public class DeletionLogInfo  extends Window {
 
         // Add the label created before
         content.addComponents(new Label("log Information"), whoDelete, deletedPersonID,
-                deletedFirstName, deletedLastName);
+                deletedFirstName, deletedLastName,deletionDate);
         content.setSpacing(true);
         content.addComponent(action);
         setContent(content);
