@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * Created by Abeer on 4/13/2016.
+ *  Class DeletionLog representing the deletion log entity
  */
 public class DeletionLog implements Serializable {
     private String whoDelete;

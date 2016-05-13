@@ -61,6 +61,7 @@ public class EmploymentsView extends VerticalLayout {
 
 
         container =new BeanItemContainer<Employment>(Employment.class, member);
+
         gpc = new GeneratedPropertyContainer(container);
 
         gpc.addGeneratedProperty("Show Information",
@@ -94,10 +95,11 @@ public class EmploymentsView extends VerticalLayout {
         membersGrid.setWidth(28, Unit.CM);
         //   membersGrid.setSizeFull();
         membersGrid.setImmediate(true);
-
+          //generating show info buttons
         membersGrid.getColumn("Show Information")
-                .setRenderer(new ButtonRenderer(e ->{ // Java 8
+                .setRenderer(new ButtonRenderer(e ->{
                     Employment emp = (Employment)e.getItemId();
+                    // adding sub window to show employment info
                     UI.getCurrent().addWindow(new EmploymentInfo(emp));
                 }
                 ));
@@ -106,6 +108,7 @@ public class EmploymentsView extends VerticalLayout {
         membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         deleteSelected = new Button("Delete Selected", e -> {
+            // checking if there are some  selected employments
             if(membersGrid.getSelectedRows().size() > 0){
 
                 UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel,membersGrid)  );

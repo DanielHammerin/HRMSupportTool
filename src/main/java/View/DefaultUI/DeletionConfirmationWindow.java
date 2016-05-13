@@ -26,28 +26,26 @@ public class DeletionConfirmationWindow extends Window {
 
             Grid.MultiSelectionModel selection = (Grid.MultiSelectionModel) grid.getSelectionModel();
 
-
             try {
                 Connection connect = SQLServerConnection.getInstance();
                 EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
                 for (Object itemId: selection.getSelectedRows()) {
                     selectedEmployment = (Employment)itemId;
+                    // delete employment from db
                     daoEmployment.delete(selectedEmployment);
                     grid.getContainerDataSource().removeItem(itemId);
-
+                    // create log when the employment is deleted
                     if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())){
-
+                       // showing error  notification when error happens in saving deletion log
                         new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
                                 .show(getUI().getPage());
                         return;
                     }
 
                 }
-
-
-                // Otherwise out of sync with container
                 grid.getSelectionModel().reset();
                 close();
+
                 Notification.show("Deletion is done successfully");
                 connect.close();
             } catch (SQLException sqle) {

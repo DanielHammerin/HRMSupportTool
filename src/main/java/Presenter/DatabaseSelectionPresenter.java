@@ -6,6 +6,7 @@ import View.DefaultUI.DeletingEmploymentsWindow;
 
 /**
  * Created by Abeer on 5/10/2016.
+ *  class that acts as the presenter for the Database selection window according to the MVP (Model-View-Presenter) pattern.
  * Modified by Simon on 5/10/2016
  */
 

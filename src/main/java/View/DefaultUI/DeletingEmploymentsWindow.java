@@ -71,6 +71,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     }
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        // checking if the user logged in and the database is selected before showing the window
          if((getUI().getSession().getAttribute("user")==null)){
              getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);}
             else

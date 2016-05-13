@@ -5,7 +5,7 @@ import com.vaadin.ui.*;
 
 /**
  * Created by Abeer on 5/13/2016.
- * sub window to some deletion log information
+ * sub window to show deletion log information
  */
 public class DeletionLogInfo  extends Window {
     Button closeButton = new Button("Close");

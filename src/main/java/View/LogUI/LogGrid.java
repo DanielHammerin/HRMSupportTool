@@ -40,12 +40,14 @@ public class LogGrid extends VerticalLayout {
 
     @Autowired
     public LogGrid () throws IOException {
-        logModel = new DeletionLogModel();
+          logModel = new DeletionLogModel();
           collection = logModel.readLogs();
+        // BeanItemContainer contains deletionlog collection
           container = new BeanItemContainer<DeletionLog>(DeletionLog.class,collection);
+        //  container is wrapped into GeneratedPropertyContainer
           gpc = new GeneratedPropertyContainer(container);
 
-        gpc.addGeneratedProperty("Show Information",
+          gpc.addGeneratedProperty("Show Information",
                 new PropertyValueGenerator<String>() {
 
 
@@ -73,8 +75,10 @@ public class LogGrid extends VerticalLayout {
     //   grid.setWidth("500px");
     //   grid.setWidth(28, Unit.CM);
        grid.focus();
+
+       // buttons to show log info
        grid.getColumn("Show Information")
-               .setRenderer(new ButtonRenderer(e ->{ // Java 8
+               .setRenderer(new ButtonRenderer(e ->{
                    DeletionLog log = (DeletionLog)e.getItemId();
                    UI.getCurrent().addWindow(new DeletionLogInfo(log));
                }

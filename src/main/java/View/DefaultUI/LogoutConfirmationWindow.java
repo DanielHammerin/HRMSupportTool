@@ -30,13 +30,13 @@ public class LogoutConfirmationWindow extends Window  {
         content.setMargin(true);
         content.setSpacing(true);
 
-        //
         Label configuration  = new Label("Are you sure you want to log out ");
 
 
 
 
         yesButton.addClickListener(e -> {
+            // close the session and  move to login window
             getUI().getSession().setAttribute("user", null);
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
             close();
