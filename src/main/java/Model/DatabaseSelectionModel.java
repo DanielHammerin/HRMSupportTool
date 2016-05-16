@@ -11,7 +11,7 @@ import java.util.List;
 public class DatabaseSelectionModel {
 
     private List<Database> listDatabases;
-    private final static String DATABASES_FILE = "LocalDatabase\\databases";
+    private final static String DATABASES_FILE = "LocalDatabase" + File.separator + "databases";
     private final static String SEPARATOR = ":::";
 
     public static void main(String[] args) {
