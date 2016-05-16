@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class logFileRepository {
 
    // private final String prefixPath = "D:\\DeletionLog\\";
-    private final String logFilePath = "LocalDatabase\\DeletionLog_DB.ser";
+    private final String logFilePath = "LocalDatabase" + File.separator + "DeletionLog_DB.ser";
 
     public logFileRepository() throws IOException {
         try {
