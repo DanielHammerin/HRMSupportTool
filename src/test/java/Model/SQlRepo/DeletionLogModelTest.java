@@ -4,7 +4,7 @@
     Description: JUnit tests for the class Employments in the Model package. The tests are being created
     in order to achive as much code coverage as possible.
  */
-package Model;
+package Model.SQlRepo;
 
 import Model.FileRepo.logFileRepository;
 import View.DemoApplication;

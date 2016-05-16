@@ -1,4 +1,4 @@
-package Model;
+package Model.SQlRepo;
 
 /**
  * Created by Markus on 15/05/16.
