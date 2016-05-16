@@ -26,18 +26,21 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private Button viewDatabaseSeletionButton;
     private DeletingEmploymentsPresenter deletingEmploymentsPresenter ;
 
-    public DeletingEmploymentsWindow( ) {
+    public DeletingEmploymentsWindow( ) throws IOException {
         ButtonsLayout = new HorizontalLayout();
         panel = new Panel();
+        // navigation buttons
         viewlogButton = new Button("View Log");
-        viewEmploymentsButton = new Button("view Current Employments");
-        viewDatabaseSeletionButton = new Button("view Database Seletion");
+        viewEmploymentsButton = new Button("View Current Employments");
+        viewDatabaseSeletionButton = new Button("View Database Selection");
+        // logout button
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         deletingEmploymentsPresenter = new DeletingEmploymentsPresenter(this);
 
     }
     private void addWindowComponents (String DB){
         // we should add the selected db as a field in the EmploymentView constructor
+        // setting employments table to the panel
         panel.setContent( new EmploymentsView());
         viewEmploymentsButton.setVisible(false);
         viewDatabaseSeletionButton.setVisible(true);

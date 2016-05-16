@@ -9,6 +9,7 @@ import View.DefaultUI.DeletingEmploymentsWindow;
 public class DeletingEmploymentsPresenter {
     private DeletingEmploymentsWindow view;
 
+
     public DeletingEmploymentsPresenter(DeletingEmploymentsWindow currentWindow){
         view = currentWindow;
     }
