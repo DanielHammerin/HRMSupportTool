@@ -55,7 +55,7 @@ public class EmploymentsView extends VerticalLayout {
 
         }
 
-        currentDB = new Label("Current Databse:");
+        currentDB = new Label("Current Database:");
         Connection connect = SQLServerConnection.getInstance();
         EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
         List<Employment> listEmployments = daoEmployment.getEmployments();
@@ -90,7 +90,7 @@ public class EmploymentsView extends VerticalLayout {
     private void initGird() {
         membersGrid = new Grid(gpc);
         // Column should fetch the Employment class attribute names
-        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName", "lastName");
+        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName", "lastName", "startDate", "endDate");
         membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         membersGrid.setHeight(300, Unit.PIXELS);
