@@ -2,6 +2,8 @@ package View.DefaultUI;
 
 import Model.*;
 import Model.Entity.Employment;
+import Model.SQlRepo.EmploymentDAO;
+import Model.SQlRepo.SQLServerConnection;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;

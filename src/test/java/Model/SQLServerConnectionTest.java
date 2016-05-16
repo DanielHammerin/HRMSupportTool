@@ -4,14 +4,9 @@ package Model;
  * Created by Markus Lyconhold on 15/05/16.
  */
 
-import Model.Entity.Employment;
-import View.DemoApplication;
+import Model.SQlRepo.SQLServerConnection;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Connection;
 

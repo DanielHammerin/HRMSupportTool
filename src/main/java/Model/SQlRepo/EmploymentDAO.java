@@ -1,6 +1,7 @@
-package Model;
+package Model.SQlRepo;
 
 import Model.Entity.Employment;
+import Model.SQlRepo.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,6 +1,8 @@
 package View.DefaultUI;
 import Model.*;
 import Model.Entity.Employment;
+import Model.SQlRepo.EmploymentDAO;
+import Model.SQlRepo.SQLServerConnection;
 import com.vaadin.ui.*;
 import java.sql.Connection;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package Model;
+package Model.SQlRepo;
 
 import java.sql.Connection;
 
