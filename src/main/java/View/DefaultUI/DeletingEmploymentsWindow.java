@@ -24,9 +24,10 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private Button viewlogButton;
     private Button viewEmploymentsButton;
     private Button viewDatabaseSeletionButton;
-    private DeletingEmploymentsPresenter deletingEmploymentsPresenter ;
+    private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
 
-    public DeletingEmploymentsWindow( ) {
+    public DeletingEmploymentsWindow() {
+        System.out.println("TEST");
         ButtonsLayout = new HorizontalLayout();
         panel = new Panel();
         viewlogButton = new Button("View Log");
@@ -34,11 +35,10 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         viewDatabaseSeletionButton = new Button("view Database Seletion");
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         deletingEmploymentsPresenter = new DeletingEmploymentsPresenter(this);
-
     }
-    private void addWindowComponents (String DB){
+    private void addWindowComponents (){
         // we should add the selected db as a field in the EmploymentView constructor
-        panel.setContent( new EmploymentsView());
+        panel.setContent( new EmploymentsView(deletingEmploymentsPresenter));
         viewEmploymentsButton.setVisible(false);
         viewDatabaseSeletionButton.setVisible(true);
 
@@ -57,7 +57,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         viewEmploymentsButton.addClickListener(e -> {
             viewlogButton.setVisible(true);
-            panel.setContent( new EmploymentsView());
+            panel.setContent( new EmploymentsView(deletingEmploymentsPresenter));
             viewlogButton.setVisible(true);
             viewEmploymentsButton.setVisible(false);
 
@@ -71,17 +71,22 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     }
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        System.out.println("TEST 2");
         // checking if the user is logged in and the database is selected before showing the window
          if((getUI().getSession().getAttribute("user")==null)){
-             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);}
-            else
-             if(event.getParameters()==null||event.getParameters().isEmpty()){
+             System.out.println("Not connected");
+             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
+         } else {
+             System.out.println("Connected");
+             addWindowComponents();
+             /*
+             if (event.getParameters() == null || event.getParameters().isEmpty()) {
                  getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
-             }else
-                 if(getUI().getSession().getAttribute("user") != null&&event.getParameters()!=null&&
-                        ! event.getParameters().isEmpty()){
-                      addWindowComponents(event.getParameters().toString());
-                 }
+             } else if (getUI().getSession().getAttribute("user") != null && event.getParameters() != null &&
+                     !event.getParameters().isEmpty()) {
+                 addWindowComponents();
+             }*/
+         }
     }
 
 

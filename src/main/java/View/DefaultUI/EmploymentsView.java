@@ -4,6 +4,7 @@ import Model.*;
 import Model.Entity.Employment;
 import Model.SQlRepo.EmploymentDAO;
 import Model.SQlRepo.SQLServerConnection;
+import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
@@ -39,12 +40,13 @@ public class EmploymentsView extends VerticalLayout {
     private Grid membersGrid;
     private Button deleteSelected;
     private Label currentDB;
+    private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
     /**
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
     @Autowired
-    public EmploymentsView() {
-
+    public EmploymentsView(DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
+        this.deletingEmploymentsPresenter = deletingEmploymentsPresenter;
         this.setMargin(true);
         this.setSpacing(true);
         this.setSizeFull();
@@ -55,11 +57,8 @@ public class EmploymentsView extends VerticalLayout {
 
         }
 
-        currentDB = new Label("Current Database:");
-        Connection connect = SQLServerConnection.getInstance();
-        EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
-        List<Employment> listEmployments = daoEmployment.getEmployments();
-        member = listEmployments;
+        currentDB = new Label("Current Database: " + UI.getCurrent().getSession().getAttribute("databaseName"));
+        member = deletingEmploymentsPresenter.getEmploymentsFromDAO();
 
 
         container =new BeanItemContainer<Employment>(Employment.class, member);
@@ -113,7 +112,7 @@ public class EmploymentsView extends VerticalLayout {
             // checking if there are some  selected employments
             if(membersGrid.getSelectedRows().size() > 0){
 
-                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel,membersGrid)  );
+                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel,membersGrid, deletingEmploymentsPresenter));
             }
             else
 

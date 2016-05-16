@@ -49,7 +49,7 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
         OKButton.addClickListener(new Button.ClickListener() {
             //TODO: Do not proceed if no databases are chosen
             public void buttonClick(Button.ClickEvent event) {
-                DBselectionPresenter.handleSelectedDB( databaseCombobox.getValue());
+                DBselectionPresenter.handleSelectedDB(databaseCombobox.getValue());
             }
 
         });
@@ -79,22 +79,29 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
 
     @Override
     public void enter(ViewChangeEvent event) {
-
-    if(getUI().getSession().getAttribute("user")!=null){
-        addWindowComponents();
+        if (getUI().getSession().getAttribute("user") != null) {
+            addWindowComponents();
+        } else {
+            getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
+        }
     }
-        else
-        getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
-}
     
     public void showDBSelectionErrorMessage() {
         new Notification("No Database selected", Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
     }
-    public void getDeletingEmploymentsWindow (Object selectedDB){
-        getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME+"/"+selectedDB);
+
+    public void showDeletingEmploymentsWindow(String databaseName, String connectionString){
+        // Create a Session Variable containing the connection string to create the DAO from it
+        getUI().getSession().setAttribute("databaseName", databaseName);
+        getUI().getSession().setAttribute("connectionString", connectionString);
+        getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME);
     }
 
+    /**
+     * Method called bu the presenter to add a database to the selection
+     * @param databaseName the name of the database
+     */
     public void addDatabaseToSelection(String databaseName) {
         databaseCombobox.addItem(databaseName);
     }

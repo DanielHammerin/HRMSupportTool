@@ -9,14 +9,10 @@ import java.sql.SQLException;
  */
 public class SQLServerConnection {
 
-    // Used only for test on a local computer
-    // private static String urlWithWindowsAuthentification = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;databaseName=bddvadin;integratedSecurity=true";
-    // The URL connection string
-    // private static String url = "jdbc:sqlserver://SIMON-PC\\HRMINSTANCE;DatabaseName=bddvadin;";
-    private static Connection connect;
-    private static String connectionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788";
-    private static String user = "HRMTEST223_SQLLogin_1";
-    private static String password = "anpkc9z788";
+
+    //private static String connectionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788";
+    private String connectionString;
+    private Connection connect;
 
     /*
     // This is just a main method to test the connection in an easier way
@@ -41,13 +37,17 @@ public class SQLServerConnection {
     }
     */
 
+    public SQLServerConnection(String connectionString) {
+        this.connectionString = connectionString;
+    }
+
 
     /**
      * Method to get a connection with this SQLServer Database.
-     * Singleton class, create a connection if it's null, or return teh existing instance of it
+     * Create a connection if it's null, or return teh existing instance of it
      * @return a connection object for this database
      */
-    public static Connection getInstance(){
+    public Connection getInstance(){
         try {
             if(connect == null || connect.isClosed() ){
                 try {
