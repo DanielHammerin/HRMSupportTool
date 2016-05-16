@@ -34,6 +34,8 @@ public class EmploymentInfo extends Window {
         Label rowID = new Label("RowID : " + member.getRowID());
         Label firstName = new Label("FirstName : " + member.getFirstName());
         Label lastName = new Label("LastName : " + member.getLastName());
+        Label startDate = new Label("StartDate : " + member.getStartDate());
+        Label endDate = new Label("EndDate : " + member.getEndDate());
 
         // Close the pop-ip window
         closeButton.addClickListener(e -> {
@@ -42,7 +44,7 @@ public class EmploymentInfo extends Window {
 
         // Add the label created before
         content.addComponents(new Label("Personal Information"), companyID, personID,
-                employmentID, rowID, firstName, lastName);
+                employmentID, rowID, firstName, lastName, startDate, endDate);
         content.setSpacing(true);
         content.addComponent(action);
         setContent(content);

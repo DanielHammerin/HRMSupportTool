@@ -12,7 +12,6 @@ public class LoginPresenter {
 
     private LoginWindow loginWindow;
     private UserModel loginDb;
-    private DatabaseSelectionWindow DBselectionWindow;
 
     public LoginPresenter(LoginWindow currentWindow){
         loginWindow = currentWindow;

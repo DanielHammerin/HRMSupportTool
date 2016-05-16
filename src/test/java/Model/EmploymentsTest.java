@@ -26,7 +26,9 @@ public class EmploymentsTest {
     private String EmploymentId = "0123Cs4";
     private String lastName = "Lyconhold";
     private String firstName ="Markus";
-    private Employment employments = new Employment(companyId, personId, EmploymentId, rowID, lastName, firstName);
+    private String startDate ="2000/10/10";
+    private String endDate ="-";
+    private Employment employments = new Employment(companyId, personId, EmploymentId, rowID, lastName, firstName, startDate, endDate);
 	@Test
 	public void CompanyIdTest() {
             Assert.assertTrue(employments.getCompanyID().equals(companyId));
