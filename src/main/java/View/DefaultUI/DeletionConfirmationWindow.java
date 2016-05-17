@@ -22,7 +22,7 @@ public class DeletionConfirmationWindow extends Window {
     private Employment selectedEmployment;
     private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
 
-    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid, DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
+    public DeletionConfirmationWindow( Grid grid, DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
         super("Delete employments"); // Set window caption;
         this.deletingEmploymentsPresenter = deletingEmploymentsPresenter;
         init(grid);
@@ -37,18 +37,11 @@ public class DeletionConfirmationWindow extends Window {
                 deletingEmploymentsPresenter.deleteEmploymentFromDAO(selectedEmployment);
                 grid.getContainerDataSource().removeItem(itemId);
                 // create log when the employment is deleted
-                if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())){
-                   // showing error  notification when error happens in saving deletion log
-                    new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
-                            .show(getUI().getPage());
-                    return;
-                }
-
+                deletingEmploymentsPresenter.createLog(selectedEmployment);
             }
             grid.getSelectionModel().reset();
             close();
 
-            Notification.show("Deletion is done successfully");
 
         });
 
@@ -71,6 +64,7 @@ public class DeletionConfirmationWindow extends Window {
             grid.getSelectionModel().reset();
         });
     }
+
 
 }
 

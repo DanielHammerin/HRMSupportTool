@@ -30,7 +30,7 @@ public class LogWindow extends VerticalLayout implements View {
     private void init() throws IOException {
         //TODO: Change the session of the user to thread
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
-        logGrid = new LogGrid();
+     //   logGrid = new LogGrid(d);
         setSpacing(true);
         setMargin(true);
 

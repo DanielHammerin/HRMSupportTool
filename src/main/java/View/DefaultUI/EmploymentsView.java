@@ -32,7 +32,7 @@ import java.util.List;
 @UIScope
 public class EmploymentsView extends VerticalLayout {
     final private int WIDTH = 11;
-    private DeletionLogModel logModel ;
+  //  private DeletionLogModel logModel ;
     private TextField searchField ;
     private BeanItemContainer<Employment> container;
     private Collection<Employment>  member = new ArrayList<>();
@@ -50,12 +50,6 @@ public class EmploymentsView extends VerticalLayout {
         this.setMargin(true);
         this.setSpacing(true);
         this.setSizeFull();
-        try {
-            logModel = new DeletionLogModel();
-        } catch (IOException e) {
-            Notification.show(e.getMessage());
-
-        }
 
         currentDB = new Label("Current Database: " + UI.getCurrent().getSession().getAttribute("databaseName"));
         member = deletingEmploymentsPresenter.getEmploymentsFromDAO();
@@ -112,7 +106,7 @@ public class EmploymentsView extends VerticalLayout {
             // checking if there are some  selected employments
             if(membersGrid.getSelectedRows().size() > 0){
 
-                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(logModel,membersGrid, deletingEmploymentsPresenter));
+                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(membersGrid, deletingEmploymentsPresenter));
             }
             else
 

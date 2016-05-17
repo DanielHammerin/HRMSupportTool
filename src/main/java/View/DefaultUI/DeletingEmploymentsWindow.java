@@ -26,7 +26,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private Button viewDatabaseSeletionButton;
     private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
 
-    public DeletingEmploymentsWindow() {
+    public DeletingEmploymentsWindow() throws IOException {
         System.out.println("TEST");
         ButtonsLayout = new HorizontalLayout();
         panel = new Panel();
@@ -37,7 +37,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         deletingEmploymentsPresenter = new DeletingEmploymentsPresenter(this);
     }
     private void addWindowComponents (){
-        // we should add the selected db as a field in the EmploymentView constructor
+
         panel.setContent( new EmploymentsView(deletingEmploymentsPresenter));
         viewEmploymentsButton.setVisible(false);
         viewDatabaseSeletionButton.setVisible(true);
@@ -47,7 +47,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         });
         viewlogButton.addClickListener(e -> {
             try {
-                panel.setContent( new LogGrid());
+                panel.setContent( new LogGrid(deletingEmploymentsPresenter));
                 viewlogButton.setVisible(false);
                 viewEmploymentsButton.setVisible(true);
             } catch (IOException e1) {
@@ -69,6 +69,15 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         addComponents( logoutHLayout,ButtonsLayout, panel);
         setComponentAlignment(logoutHLayout, Alignment.BOTTOM_RIGHT);
     }
+    public void ShowErrorNotification(String msg){
+        new Notification(msg, Notification.TYPE_ERROR_MESSAGE)
+                .show(getUI().getPage());
+        return;
+    }
+
+    public void showSuccessNotification(String msg){
+        Notification.show(msg);
+    }
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         System.out.println("TEST 2");
@@ -76,7 +85,8 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
          if((getUI().getSession().getAttribute("user")==null)){
              System.out.println("Not connected");
              getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
-         } else {
+         } else
+         {
              System.out.println("Connected");
              addWindowComponents();
              /*

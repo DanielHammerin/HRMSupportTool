@@ -3,6 +3,7 @@ package View.LogUI;
 import Model.DeletionLogModel;
 import Model.Entity.DeletionLog;
 import Model.FileRepo.logFileRepository;
+import Presenter.DeletingEmploymentsPresenter;
 import View.DefaultUI.DeletionLogInfo;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
@@ -31,17 +32,16 @@ import java.util.Collection;
 @UIScope
 public class LogGrid extends VerticalLayout {
 
-    private DeletionLogModel logModel;
     private  Collection collection =  new ArrayList<>();
     private  Grid grid;
     private  BeanItemContainer<DeletionLog> container;
     private GeneratedPropertyContainer gpc;
-
+    private DeletingEmploymentsPresenter detetingEmployemtsPresenter;
 
     @Autowired
-    public LogGrid () throws IOException {
-          logModel = new DeletionLogModel();
-          collection = logModel.readLogs();
+    public LogGrid (DeletingEmploymentsPresenter detetingEmployemtsPresenter) throws IOException {
+        this.detetingEmployemtsPresenter = detetingEmployemtsPresenter;
+        collection = detetingEmployemtsPresenter.readDeletionLog();
         // BeanItemContainer contains deletionlog collection
           container = new BeanItemContainer<DeletionLog>(DeletionLog.class,collection);
         //  container is wrapped into GeneratedPropertyContainer
