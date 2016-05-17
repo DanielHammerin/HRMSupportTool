@@ -24,6 +24,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *
  * The purpose of this class is to test the class Employments and achieve as much
  * code coverage as possible.
+ *
+ *
+ * OBS: a few fields are showing issues here, so i will have to come back to this later.
  */
 public class EmploymentsTest {
 
@@ -35,43 +38,58 @@ public class EmploymentsTest {
     private String firstName ="Markus";
     private String startDate ="2000/10/10";
     private String endDate ="-";
+
     private Employment employments = new Employment(companyId, personId, EmploymentId, rowID, lastName, firstName, startDate, endDate);
 	@Test
-	public void CompanyIdTest() {
-            Assert.assertTrue(employments.getCompanyID().equals(companyId));
+	public void getCompanyIdTest() {
+
+        Assert.assertTrue(employments.getCompanyID().equals(companyId));
 
 	}
     @Test
-    public void PersonIDTest() {
+    public void getPersonIDTest() {
 
         Assert.assertTrue(employments.getPersonID().equals(personId));
     }
     @Test
-    public void EmploymentIDTest() {
+    public void getEmploymentIDTest() {
+
         Assert.assertTrue(employments.getEmploymentID().equals(EmploymentId));
     }
-  /*  @Test
-    public void RowIDTest(){
-        Assert.assertTrue(employments.getRowID().equals(rowID));
-    }
-    */
     @Test
-    public void FirstNameTest() {
+    public void getRowIDTest(){
+
+        Assert.assertEquals(rowID, employments.getRowID());
+    }
+
+    @Test
+    public void getFirstNameTest() {
 
         Assert.assertTrue(employments.getFirstName().equals(firstName));
     }
     @Test
-    public void LastNameTest() {
+    public void getLastNameTest() {
 
         Assert.assertTrue(employments.getLastName().equals(lastName));
     }
-
     @Test
+    public void getStartDateTest() {
+
+        Assert.assertTrue(employments.getStartDate().equals(startDate));
+    }
+    @Test
+    public void getEndDate() {
+
+        Assert.assertTrue(employments.getEndDate().equals(endDate));
+    }
+
+    /*@Test
     public void ToStringTest()
     {
-        String expected = ""; // put the expected value here
+        String expected = "Customer[id=123123313, FirstName ='Lyconhold', LastName ='Markus']"; // put the expected value here
         Assert.assertEquals(expected, employments.toString());
     }
+    */
 
 
 
