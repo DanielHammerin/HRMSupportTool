@@ -3,6 +3,7 @@ import Model.*;
 import Model.Entity.Employment;
 import Model.SQlRepo.EmploymentDAO;
 import Model.SQlRepo.SQLServerConnection;
+import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.ui.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,45 +15,40 @@ import java.util.Date;
  */
 public class DeletionConfirmationWindow extends Window {
 
-    Button yesButton = new Button("Yes");
-    Button noButton = new Button("No");
-    HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
-    VerticalLayout content = new VerticalLayout();
+    private Button yesButton = new Button("Yes");
+    private Button noButton = new Button("No");
+    private HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
+    private VerticalLayout content = new VerticalLayout();
     private Employment selectedEmployment;
+    private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
 
-    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid) {
+    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid, DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
         super("Delete employments"); // Set window caption;
+        this.deletingEmploymentsPresenter = deletingEmploymentsPresenter;
         init(grid);
 
         yesButton.addClickListener(e -> {
 
             Grid.MultiSelectionModel selection = (Grid.MultiSelectionModel) grid.getSelectionModel();
 
-            try {
-                Connection connect = SQLServerConnection.getInstance();
-                EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
-                for (Object itemId: selection.getSelectedRows()) {
-                    selectedEmployment = (Employment)itemId;
-                    // delete employment from db
-                    daoEmployment.delete(selectedEmployment);
-                    grid.getContainerDataSource().removeItem(itemId);
-                    // create log when the employment is deleted
-                    if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())){
-                       // showing error  notification when error happens in saving deletion log
-                        new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
-                                .show(getUI().getPage());
-                        return;
-                    }
-
+            for (Object itemId: selection.getSelectedRows()) {
+                selectedEmployment = (Employment)itemId;
+                // delete employment from db
+                deletingEmploymentsPresenter.deleteEmploymentFromDAO(selectedEmployment);
+                grid.getContainerDataSource().removeItem(itemId);
+                // create log when the employment is deleted
+                if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())){
+                   // showing error  notification when error happens in saving deletion log
+                    new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
+                            .show(getUI().getPage());
+                    return;
                 }
-                grid.getSelectionModel().reset();
-                close();
 
-                Notification.show("Deletion is done successfully");
-                connect.close();
-            } catch (SQLException sqle) {
-                sqle.printStackTrace();
             }
+            grid.getSelectionModel().reset();
+            close();
+
+            Notification.show("Deletion is done successfully");
 
         });
 
