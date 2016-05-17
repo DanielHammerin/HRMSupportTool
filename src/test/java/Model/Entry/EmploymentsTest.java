@@ -18,6 +18,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = DemoApplication.class)
 @WebAppConfiguration
+
+/*
+* Created by Markus Lyconhold on 12/05/16.
+ *
+ * The purpose of this class is to test the class Employments and achieve as much
+ * code coverage as possible.
+ */
 public class EmploymentsTest {
 
     private String companyId = "3251x5";
