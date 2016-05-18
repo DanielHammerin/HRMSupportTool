@@ -34,7 +34,6 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         viewEmploymentsButton = new Button("view Current Employments");
         viewDatabaseSeletionButton = new Button("view Database Seletion");
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
-        deletingEmploymentsPresenter = new DeletingEmploymentsPresenter(this);
     }
     private void addWindowComponents (){
 
@@ -85,9 +84,17 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
          if((getUI().getSession().getAttribute("user")==null)){
              System.out.println("Not connected");
              getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
-         } else
+         } else if ((getUI().getSession().getAttribute("databaseName")==null))
          {
-             System.out.println("Connected");
+             System.out.println("Connected but no DB selected");
+             getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
+         } else {
+             System.out.println("Connected & DB selected");
+             try {
+                 deletingEmploymentsPresenter = new DeletingEmploymentsPresenter(this);
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
              addWindowComponents();
              /*
              if (event.getParameters() == null || event.getParameters().isEmpty()) {
