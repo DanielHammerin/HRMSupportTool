@@ -27,7 +27,6 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
 
     public DeletingEmploymentsWindow() throws IOException {
-        System.out.println("TEST");
         ButtonsLayout = new HorizontalLayout();
         panel = new Panel();
         viewlogButton = new Button("View Log");
@@ -79,7 +78,6 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     }
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-        System.out.println("TEST 2");
         // checking if the user is logged in and the database is selected before showing the window
          if((getUI().getSession().getAttribute("user")==null)){
              System.out.println("Not connected");
@@ -105,6 +103,4 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
              }*/
          }
     }
-
-
 }

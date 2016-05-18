@@ -38,6 +38,8 @@ public class LogoutConfirmationWindow extends Window  {
         yesButton.addClickListener(e -> {
             // close the session and  move to login window
             getUI().getSession().setAttribute("user", null);
+            getUI().getSession().setAttribute("databaseName", null);
+            getUI().getSession().setAttribute("connectionString", null);
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
             close();
 
