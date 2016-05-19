@@ -2,9 +2,7 @@ package View.DefaultUI;
 
 import Model.*;
 import Model.Entity.Employment;
-import Model.SQlRepo.EmploymentDAO;
-import Model.SQlRepo.SQLServerConnection;
-import Presenter.DeletingEmploymentsPresenter;
+import Presenter.EmploymentsPresenter;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
@@ -30,7 +28,7 @@ import java.util.List;
  */
 @SpringComponent
 @UIScope
-public class EmploymentsView extends VerticalLayout {
+public class EmploymentsGrid extends VerticalLayout {
     final private int WIDTH = 11;
   //  private DeletionLogModel logModel ;
     private TextField searchField ;
@@ -40,19 +38,20 @@ public class EmploymentsView extends VerticalLayout {
     private Grid membersGrid;
     private Button deleteSelected;
     private Label currentDB;
-    private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
+    private EmploymentsPresenter employmentsPresenter;
+    private boolean isAdmin ;
     /**
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
     @Autowired
-    public EmploymentsView(DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
-        this.deletingEmploymentsPresenter = deletingEmploymentsPresenter;
+    public EmploymentsGrid(EmploymentsPresenter employmentsPresenter) {
+        this.employmentsPresenter = employmentsPresenter;
         this.setMargin(true);
         this.setSpacing(true);
         this.setSizeFull();
-
+       this.isAdmin=  true;
         currentDB = new Label("Current Database: " + UI.getCurrent().getSession().getAttribute("databaseName"));
-        member = deletingEmploymentsPresenter.getEmploymentsFromDAO();
+        member = employmentsPresenter.getEmploymentsFromDAO();
 
 
         container =new BeanItemContainer<Employment>(Employment.class, member);
@@ -95,7 +94,7 @@ public class EmploymentsView extends VerticalLayout {
                 .setRenderer(new ButtonRenderer(e ->{
                     Employment emp = (Employment)e.getItemId();
                     // adding sub window to show employment info
-                    UI.getCurrent().addWindow(new EmploymentInfo(emp));
+                    UI.getCurrent().addWindow(new EmploymentInfo(emp, employmentsPresenter));
                 }
                 ));
 
@@ -106,7 +105,7 @@ public class EmploymentsView extends VerticalLayout {
             // checking if there are some  selected employments
             if(membersGrid.getSelectedRows().size() > 0){
 
-                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(membersGrid, deletingEmploymentsPresenter));
+                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(membersGrid, employmentsPresenter));
             }
             else
 

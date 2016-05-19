@@ -3,7 +3,7 @@ import Model.*;
 import Model.Entity.Employment;
 import Model.SQlRepo.EmploymentDAO;
 import Model.SQlRepo.SQLServerConnection;
-import Presenter.DeletingEmploymentsPresenter;
+import Presenter.EmploymentsPresenter;
 import com.vaadin.ui.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,11 +20,11 @@ public class DeletionConfirmationWindow extends Window {
     private HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     private VerticalLayout content = new VerticalLayout();
     private Employment selectedEmployment;
-    private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
+    private EmploymentsPresenter employmentsPresenter;
 
-    public DeletionConfirmationWindow( Grid grid, DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
+    public DeletionConfirmationWindow( Grid grid, EmploymentsPresenter employmentsPresenter) {
         super("Delete employments"); // Set window caption;
-        this.deletingEmploymentsPresenter = deletingEmploymentsPresenter;
+        this.employmentsPresenter = employmentsPresenter;
         init(grid);
 
         yesButton.addClickListener(e -> {
@@ -34,10 +34,10 @@ public class DeletionConfirmationWindow extends Window {
             for (Object itemId: selection.getSelectedRows()) {
                 selectedEmployment = (Employment)itemId;
                 // delete employment from db
-                deletingEmploymentsPresenter.deleteEmploymentFromDAO(selectedEmployment);
+                employmentsPresenter.deleteEmploymentFromDAO(selectedEmployment);
                 grid.getContainerDataSource().removeItem(itemId);
                 // create log when the employment is deleted
-                deletingEmploymentsPresenter.createLog(selectedEmployment);
+                employmentsPresenter.createLog(selectedEmployment);
             }
             grid.getSelectionModel().reset();
             close();

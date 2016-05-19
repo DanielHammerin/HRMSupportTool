@@ -95,6 +95,7 @@ public class DatabaseSelectionWindow extends VerticalLayout implements View{
         // Create a Session Variable containing the connection string to create the DAO from it
         getUI().getSession().setAttribute("databaseName", databaseName);
         getUI().getSession().setAttribute("connectionString", connectionString);
+
         getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME);
     }
 

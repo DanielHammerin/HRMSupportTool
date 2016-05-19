@@ -14,8 +14,8 @@ public class UserTest {
 
         // create users
         System.out.println("********create users********:");
-        System.out.println("is user created: "+userModel.createUser("Abeer", "Alkhars", "cc223de",
-                "123123", "null", false));
+        System.out.println("is user created: "+userModel.createUser("Abeer", "Alkhars", "cc223dd",
+                "123123", "null", true));
       //  System.out.println("is user created: "+userModel.createUser("firstName", "LastnName", "bb123de",
              //   "123123", "null", false));
 

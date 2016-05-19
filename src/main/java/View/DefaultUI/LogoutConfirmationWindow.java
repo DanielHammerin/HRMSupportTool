@@ -40,6 +40,7 @@ public class LogoutConfirmationWindow extends Window  {
             getUI().getSession().setAttribute("user", null);
             getUI().getSession().setAttribute("databaseName", null);
             getUI().getSession().setAttribute("connectionString", null);
+            getUI().getSession().setAttribute("isAdmin",null);
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
             close();
 

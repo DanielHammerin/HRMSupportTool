@@ -77,8 +77,9 @@ public class LoginWindow extends GridLayout implements View {
     /**
      * A method to open the Database Selection window when the login credentials are correct
      */
-    public void showDatabaseSelectionWindow(){
+    public void showDatabaseSelectionWindow(boolean isAdmin){
         getUI().getSession().setAttribute("user", userField.getValue());
+        getUI().getSession().setAttribute("isAdmin",isAdmin);
         getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
     }
 

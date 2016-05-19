@@ -90,10 +90,12 @@ public class EmploymentDAO extends DAO<Employment> {
             }
         } catch (SQLException e) {
             System.err.println("Error during the create process.");
-            e.printStackTrace();
+           e.printStackTrace();
+           return false;
         } catch (Exception e) {
             System.err.println("Error during the create process. Not a valid number of rows created");
             e.printStackTrace();
+           return false;
         }
         return true;
     }
