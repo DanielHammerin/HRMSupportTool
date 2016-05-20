@@ -14,7 +14,7 @@ import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * Created by Abeer on 5/19/2016.
- * Edited by Hatem Houssein on 20/5/2016
+ *
  */
 public class UserInfoView extends Window  {
     private VerticalLayout content;
@@ -36,7 +36,7 @@ public class UserInfoView extends Window  {
     private Button cancel;
     private Button delete;
 
-    protected Validator NameValidator;
+    protected Validator NameValidator,passwordValdiator;
     private User user;
 
    public UserInfoView (User user ,UserPresenter userPresenter){
@@ -92,12 +92,8 @@ public class UserInfoView extends Window  {
 
     public boolean isValid(Object value) {
 
-        if (value==null){
+        if (value==null||value.toString().trim().isEmpty()){
             return false;}
-        else
-
-        if(value.toString().trim().isEmpty())
-        {    return false;}
         else
             return true;
 
@@ -106,9 +102,12 @@ public class UserInfoView extends Window  {
   private void addValidators(){
           NameValidator =new StringLengthValidator(
                   "Name must be 3-25 characters", 3, 25, true);
+     passwordValdiator=new StringLengthValidator(
+             "Name must be 6-10 characters", 6, 10, true);
 
-          firstName.addValidator(NameValidator);
-          lastName.addValidator(NameValidator);
+      firstName.addValidator(NameValidator);
+      lastName.addValidator(NameValidator);
+      password.addValidator(passwordValdiator);
 
           firstName.setRequired(true);firstName.setImmediate(true);
           lastName.setRequired(true);lastName.setImmediate(true);

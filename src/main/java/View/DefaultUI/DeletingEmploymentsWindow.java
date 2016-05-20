@@ -10,6 +10,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import View.Buttons.LogoutOption;
+import com.vaadin.ui.themes.ValoTheme;
 
 import java.io.IOException;
 /**
@@ -83,8 +84,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         buttonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
                 viewEmploymentsButton,viewUser);
-
-        buttonsLayout.setSpacing(true);
+        buttonsLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         setSpacing(true);
         setMargin(true);
         addComponents( logoutHLayout, buttonsLayout, panel);
