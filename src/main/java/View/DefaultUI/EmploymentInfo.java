@@ -1,8 +1,6 @@
 package View.DefaultUI;
 
 import Model.Entity.Employment;
-import Presenter.EmploymentsPresenter;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 
 /**

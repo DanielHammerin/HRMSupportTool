@@ -21,26 +21,32 @@ import java.io.IOException;
 @SpringView(name = DeletingEmploymentsWindow.VIEW_NAME)
 public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     public static final String VIEW_NAME = "default";
-    private HorizontalLayout ButtonsLayout;
+
+    private HorizontalLayout buttonsLayout;
     private Panel panel;
     private LogoutOption logoutHLayout;
+
     private Button viewlogButton;
     private Button viewEmploymentsButton;
     private Button viewDatabaseSelectionButton;
     private Button addNewUser;
+
     private boolean isAdmin ;
+
     private DeletingEmploymentsPresenter employmentsPresenter;
 
     public DeletingEmploymentsWindow() throws IOException {
-        ButtonsLayout = new HorizontalLayout();
+        buttonsLayout = new HorizontalLayout();
         panel = new Panel();
         panel.setSizeFull();
+
         // adding view buttons to the window
         viewlogButton = new Button("View Log");
         viewEmploymentsButton = new Button("View Current Employments");
         viewDatabaseSelectionButton = new Button("View Database Selection");
-
         addNewUser = new Button("Add New User");
+
+
         // adding layout for logout option
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
     }
@@ -75,12 +81,13 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         });
 
-        ButtonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
+        buttonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
                 viewEmploymentsButton,addNewUser);
 
+        buttonsLayout.setSpacing(true);
         setSpacing(true);
         setMargin(true);
-        addComponents( logoutHLayout,ButtonsLayout, panel);
+        addComponents( logoutHLayout, buttonsLayout, panel);
         setComponentAlignment(logoutHLayout, Alignment.BOTTOM_RIGHT);
     }
 
@@ -89,8 +96,8 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     public void ShowErrorNotification(String msg){
         new Notification(msg, Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
-        return;
     }
+
     public void showSuccessNotification(String msg){
         Notification.show(msg);
     }

@@ -11,22 +11,37 @@ import com.vaadin.ui.*;
 
 /**
  * Created by Abeer on 5/19/2016.
+ * Edited by Hatem Houssein on 20/5/2016
  */
 public class UserInfoView extends Window  {
     private VerticalLayout content;
-    private TextField firstName,lastName,userName,password,email;
+
+    private TextField firstName;
+    private TextField lastName;
+    private TextField userName;
+    private TextField password;
+    private TextField email;
+
     private CheckBox isAdmin;
-    private HorizontalLayout userInfolayout1,userInfolayout2,userInfolayout3,actions;
-    private Button save , cancel,delete ;
+
+    private HorizontalLayout userInfolayout1;
+    private HorizontalLayout userInfolayout2;
+    private HorizontalLayout userInfolayout3;
+    private HorizontalLayout actions;
+
+    private Button save;
+    private Button cancel;
+    private Button delete;
+
     protected Validator NameValidator;
-    private UserPresenter userPresenter;
     private User user;
 
-   public UserInfoView ( User user , UserPresenter userPresenter){
+   public UserInfoView (User user ,UserPresenter userPresenter){
        super("Edit User");
        init();
        addValidators();
        this.user=user;
+
        if (user.getId()!=-1) {
            BeanFieldGroup.bindFieldsUnbuffered(user, this);
            isAdmin.setValue(user.isAdmin());
@@ -98,16 +113,20 @@ public class UserInfoView extends Window  {
           password.setRequired(true);password.setImmediate(true);
           email.setRequired(true);password.setImmediate(true);
       }
+
     private void init(){
         content = new VerticalLayout();
+
         firstName = new TextField("FirstName");
         lastName = new TextField("lastName");
         userName = new TextField("Username");
         password = new TextField("Password");
         email= new TextField("Email");
+
         isAdmin = new CheckBox("Admin");
         isAdmin.isEmpty();
         isAdmin.setImmediate(true);
+
         cancel= new Button("Cancel");
         save = new Button("Save");
         delete = new Button("delete");
@@ -117,14 +136,19 @@ public class UserInfoView extends Window  {
         userInfolayout2 = new HorizontalLayout(userName,password);
         userInfolayout3 = new HorizontalLayout(email,isAdmin);
                 actions = new HorizontalLayout(save, cancel,delete);
+
         userInfolayout1.setSpacing(true);
         userInfolayout2.setSpacing(true);
+        userInfolayout3.setSpacing(true);
+        actions.setSpacing(true);
+
         setModal(true);
         center();
         setClosable(true);
         setResizable(true);
         setWidth("40%");
         setHeight("60%");
+
         cancel.addClickListener(e -> {
             close();
         });
@@ -132,7 +156,6 @@ public class UserInfoView extends Window  {
         content.setMargin(true);
         content.addComponents(userInfolayout1,userInfolayout2,userInfolayout3,actions);
         setContent(content);
-
     }
   }
 
