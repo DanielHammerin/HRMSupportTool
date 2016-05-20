@@ -5,7 +5,10 @@ import Presenter.UserPresenter;
 import com.vaadin.data.Validator;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.data.validator.StringLengthValidator;
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 
 ;
 
@@ -128,14 +131,17 @@ public class UserInfoView extends Window  {
         isAdmin.setImmediate(true);
 
         cancel= new Button("Cancel");
-        save = new Button("Save");
-        delete = new Button("delete");
+        save = new Button("Save", FontAwesome.EDIT);
+        delete = new Button("Delete",FontAwesome.TRASH_O);
+        save.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
 
         userInfolayout1 = new HorizontalLayout(firstName,lastName);
         userInfolayout2 = new HorizontalLayout(userName,password);
         userInfolayout3 = new HorizontalLayout(email,isAdmin);
                 actions = new HorizontalLayout(save, cancel,delete);
+        actions.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 
         userInfolayout1.setSpacing(true);
         userInfolayout2.setSpacing(true);

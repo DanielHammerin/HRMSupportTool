@@ -29,7 +29,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private Button viewlogButton;
     private Button viewEmploymentsButton;
     private Button viewDatabaseSelectionButton;
-    private Button addNewUser;
+    private Button viewUser;
 
     private boolean isAdmin ;
 
@@ -44,7 +44,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         viewlogButton = new Button("View Log");
         viewEmploymentsButton = new Button("View Current Employments");
         viewDatabaseSelectionButton = new Button("View Database Selection");
-        addNewUser = new Button("Add New User");
+        viewUser = new Button("View Users");
 
 
         // adding layout for logout option
@@ -55,12 +55,12 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         panel.setContent( new EmploymentsGrid(employmentsPresenter));
         viewEmploymentsButton.setVisible(false);
         viewDatabaseSelectionButton.setVisible(true);
-        addNewUser.setVisible(isAdmin);
+        viewUser.setVisible(isAdmin);
 
         viewDatabaseSelectionButton.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
         });
-        addNewUser.addClickListener(e -> {
+        viewUser.addClickListener(e -> {
            getUI().getNavigator().navigateTo(UsersWindow.VIEW_NAME);
         });
 
@@ -82,7 +82,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         });
 
         buttonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
-                viewEmploymentsButton,addNewUser);
+                viewEmploymentsButton,viewUser);
 
         buttonsLayout.setSpacing(true);
         setSpacing(true);

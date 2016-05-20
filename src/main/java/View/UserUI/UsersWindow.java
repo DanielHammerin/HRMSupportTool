@@ -32,7 +32,7 @@ public class UsersWindow extends VerticalLayout implements View {
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
         viewDatabaseSelection= new Button("View Database Selection");
         viewEmploymentsButton = new Button("View Current Employments");
-        addUser = new Button("Create new user");
+        addUser = new Button("New user");
         viewsLayout= new HorizontalLayout();
         buttonsLayout= new HorizontalLayout();
         content=new Panel();
@@ -79,14 +79,17 @@ public class UsersWindow extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        if ((getUI().getSession().getAttribute("user") == null)) {
+        if ((getUI().getSession().getAttribute("user") == null)||getUI().getSession().getAttribute("isAdmin")==null) {
             System.out.println("Not connected");
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
-        } else {
-
-            addWindowComponents();
+        } else { boolean isAdmin =(boolean)getUI().getSession().getAttribute("isAdmin");
+             if(isAdmin){
+            addWindowComponents();}
+            else
+                 getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
         }
     }}
+
 
 
 
