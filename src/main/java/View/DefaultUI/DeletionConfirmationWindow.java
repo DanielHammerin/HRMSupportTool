@@ -3,7 +3,7 @@ import Model.*;
 import Model.Entity.Employment;
 import Model.SQlRepo.EmploymentDAO;
 import Model.SQlRepo.SQLServerConnection;
-import Presenter.EmploymentsPresenter;
+import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.ui.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,9 +20,9 @@ public class DeletionConfirmationWindow extends Window {
     private HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     private VerticalLayout content = new VerticalLayout();
     private Employment selectedEmployment;
-    private EmploymentsPresenter employmentsPresenter;
+    private DeletingEmploymentsPresenter employmentsPresenter;
 
-    public DeletionConfirmationWindow( Grid grid, EmploymentsPresenter employmentsPresenter) {
+    public DeletionConfirmationWindow( Grid grid, DeletingEmploymentsPresenter employmentsPresenter) {
         super("Delete employments"); // Set window caption;
         this.employmentsPresenter = employmentsPresenter;
         init(grid);

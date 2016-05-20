@@ -18,18 +18,16 @@ import java.util.List;
  * the MVP (Model-View-Presenter) pattern.
  * updated by Abeer adding addNewEmployment, createLog , readLog,  updateEmployment methods
  */
-public class EmploymentsPresenter {
+public class DeletingEmploymentsPresenter {
     private DeletingEmploymentsWindow view;
     private EmploymentDAO employmentDAO;
     private String databaseName;
     private DeletionLogModel deletionLogModel;
-    private boolean isUserAdmin ;
 
 
-    public EmploymentsPresenter(DeletingEmploymentsWindow currentWindow,boolean isUserAdmin) throws IOException {
+    public DeletingEmploymentsPresenter(DeletingEmploymentsWindow currentWindow) throws IOException {
         view = currentWindow;
         deletionLogModel = new DeletionLogModel();
-        this.isUserAdmin = isUserAdmin;
         // Create the DAO from the connection string registred in the session variable (set in the DBSelectionPresenter)
         System.out.println("DB name --> " + UI.getCurrent().getSession().getAttribute("databaseName"));
         System.out.println("Connection String --> " + UI.getCurrent().getSession().getAttribute("connectionString"));
@@ -45,14 +43,8 @@ public class EmploymentsPresenter {
         return employmentDAO.getEmployments();
     }
 
-    public void setUserAdmin(boolean userAdmin) {
-        isUserAdmin = userAdmin;
-    }
 
-    public boolean isUserAdmin() {
 
-        return isUserAdmin;
-    }
 
     public void deleteEmploymentFromDAO(Employment employment) {
         if (employmentDAO == null) {
@@ -76,42 +68,8 @@ public class EmploymentsPresenter {
     public Collection readDeletionLog() {
         return deletionLogModel.readLogs();
     }
-    public void addNewEmployment(String companyID, String personID, String employmentID, int rowID,
-                                 String firstName, String lastName, String startDate, String endDate){
-
-        Employment newEmployment = new Employment(companyID,personID,employmentID,rowID,firstName,
-                lastName,startDate,endDate);
- /*
-        there is an error when calling employmentDAO create method
-         */
-     //  if(employmentDAO.create(newEmployment))
-      //    {
-        //   view.showSuccessNotification("Employment is created successfully ");
-   //  }
-      // else
-      //   view.ShowErrorNotification("Error, employment is not created");
-
-    }
 
 
-    public void updateEmployment(Employment employment, String companyID, String personID, String employmentID,
-                                 int rowID, String firstName, String lastName) {
-        employment.setCompanyID(companyID);
-        employment.setPersonID(personID);
-        employment.setEmploymentID(employmentID);
-        employment.setRowID(rowID);
-        employment.setFirstName(firstName);
-        employment.setLastName(lastName);
-
-        /*
-        there is an error when calling employmentDAO  update method
-         */
-       // if (employmentDAO.update(employment)) {
-       //     view.showSuccessNotification("Employment is updated successfully");}
-      //      else{
-       //     view.showSuccessNotification("Error, employment is not updated");
-    //    }
-        }
 
     }
 

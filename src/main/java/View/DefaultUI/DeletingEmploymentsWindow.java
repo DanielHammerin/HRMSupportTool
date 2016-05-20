@@ -1,9 +1,10 @@
 package View.DefaultUI;
 
-import Presenter.EmploymentsPresenter;
+import Presenter.DeletingEmploymentsPresenter;
 import View.DatabaseSelection.DatabaseSelectionWindow;
 import View.LogUI.LogGrid;
 import View.LoginUI.LoginWindow;
+import View.UserUI.UsersWindow;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -14,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by Abeer on 5/10/2016.
  * DeletingEmploymentWindow show the main window for deleting employment, show employment info,
- * edit employment and delete employment
+ * add  new User  for admin
  * edition and adding employment is only enabled for admin user.
  */
 @SpringView(name = DeletingEmploymentsWindow.VIEW_NAME)
@@ -26,18 +27,20 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
     private Button viewlogButton;
     private Button viewEmploymentsButton;
     private Button viewDatabaseSelectionButton;
-    private Button addNewEmploymentButton;
+    private Button addNewUser;
     private boolean isAdmin ;
-    private EmploymentsPresenter employmentsPresenter;
+    private DeletingEmploymentsPresenter employmentsPresenter;
 
     public DeletingEmploymentsWindow() throws IOException {
         ButtonsLayout = new HorizontalLayout();
         panel = new Panel();
+        panel.setSizeFull();
         // adding view buttons to the window
         viewlogButton = new Button("View Log");
         viewEmploymentsButton = new Button("View Current Employments");
         viewDatabaseSelectionButton = new Button("View Database Selection");
-        addNewEmploymentButton = new Button("Add New Employment");
+
+        addNewUser = new Button("Add New User");
         // adding layout for logout option
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
     }
@@ -46,41 +49,35 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         panel.setContent( new EmploymentsGrid(employmentsPresenter));
         viewEmploymentsButton.setVisible(false);
         viewDatabaseSelectionButton.setVisible(true);
-        //making adding employment only visible for admin
-        addNewEmploymentButton.setVisible(isAdmin);
+        addNewUser.setVisible(isAdmin);
 
         viewDatabaseSelectionButton.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
         });
-        addNewEmploymentButton.addClickListener(e -> {
-            // set  AddEmployment object
-           panel.setContent(new AddingEmployment(employmentsPresenter));
-            viewDatabaseSelectionButton.setVisible(true);
-            viewlogButton.setVisible(true);
-            viewEmploymentsButton.setVisible(true);
-            addNewEmploymentButton.setVisible(false);
+        addNewUser.addClickListener(e -> {
+           getUI().getNavigator().navigateTo(UsersWindow.VIEW_NAME);
         });
+
         viewlogButton.addClickListener(e -> {
-            try { //set LogGrid object
+            try {
                 panel.setContent( new LogGrid(employmentsPresenter));
                 viewlogButton.setVisible(false);
                 viewEmploymentsButton.setVisible(true);
-                addNewEmploymentButton.setVisible(isAdmin);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
 
         viewEmploymentsButton.addClickListener(e -> {
-          // set EmploymentGrid
             panel.setContent( new EmploymentsGrid(employmentsPresenter));
             viewlogButton.setVisible(true);
             viewEmploymentsButton.setVisible(false);
-            addNewEmploymentButton.setVisible(isAdmin);
 
         });
 
-        ButtonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,viewEmploymentsButton,addNewEmploymentButton);
+        ButtonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
+                viewEmploymentsButton,addNewUser);
+
         setSpacing(true);
         setMargin(true);
         addComponents( logoutHLayout,ButtonsLayout, panel);
@@ -116,8 +113,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
              try {
 
                  isAdmin= (boolean)getUI().getSession().getAttribute("isAdmin");
-                 employmentsPresenter = new EmploymentsPresenter(this, isAdmin);
-                 System.out.print(isAdmin);
+                 employmentsPresenter = new DeletingEmploymentsPresenter(this);
              } catch (IOException e) {
                  e.printStackTrace();
              }

@@ -7,7 +7,7 @@ import com.vaadin.ui.*;
 
 /**
  * Created by Abeer on 4/13/2016.
- * sub window shows  employments information, altering employment info is enabled for admin user
+ * sub window shows  employments information
  * modified by Simon on 2016/04/28 to make it work with Employment (without s) class
  */
 public class EmploymentInfo extends Window {
@@ -15,69 +15,57 @@ public class EmploymentInfo extends Window {
 
     Button save = new Button("save");
     Button closeButton = new Button("Close");
-    HorizontalLayout action = new HorizontalLayout(closeButton,save);
     VerticalLayout content = new VerticalLayout();
-    private EmploymentInfoForm employmentInfoForm;
-    private EmploymentsPresenter presenter ;
-    private Button saveButton , colseButton;
-    boolean enableEditorMode;
+
+    protected TextField firstName,lastName, personID , companyID,EmploymentID,rowID, startDate ,endDate;
+    protected HorizontalLayout employmentNameLayout,dateLayout,IDlayout1,IDlayout2,action;
 
 
-    public EmploymentInfo(Employment member, EmploymentsPresenter presenter) {
+
+    public EmploymentInfo(Employment member) {
         super("Employment Information"); // Set window caption
-        this.presenter=presenter;
-        enableEditorMode= presenter.isUserAdmin();
         center();
-        action.setSpacing(true);
         setModal(true);
         setClosable(true);
         content.setMargin(true);
         content.setSizeFull();
-        // create employment info form
-        employmentInfoForm= new EmploymentInfoForm();
-        // bind employment data to text field
-        employmentInfoForm.firstName.setValue(member.getFirstName());
-        employmentInfoForm.lastName.setValue(member.getLastName());
-        employmentInfoForm.companyID.setValue(member.getCompanyID());
-        employmentInfoForm.rowID.setValue(Integer.toString(member.getRowID()));
-        employmentInfoForm.personID.setValue(member.getPersonID());
-        employmentInfoForm.EmploymentID.setValue(member.getEmploymentID());
-        // enable updating employment info if the user is admin
-        employmentInfoForm.firstName.setEnabled(enableEditorMode);
-        employmentInfoForm.lastName.setEnabled(enableEditorMode);
-        employmentInfoForm.startDate.setEnabled(enableEditorMode);
-        employmentInfoForm.endDate.setEnabled(enableEditorMode);
-        employmentInfoForm.companyID.setEnabled(enableEditorMode);
-        employmentInfoForm.rowID.setEnabled(enableEditorMode);
-        employmentInfoForm.EmploymentID.setEnabled(enableEditorMode);
-        employmentInfoForm.personID.setEnabled(enableEditorMode);
 
-        saveButton = new Button("Save", FontAwesome.EDIT);
-        saveButton.setVisible(presenter.isUserAdmin());
-        closeButton= new Button("Close");
-        saveButton.addClickListener(e -> {
-           if( employmentInfoForm.validateEmploymentParameter()){
-              // updating Employment method
-               presenter.updateEmployment(member,employmentInfoForm.companyID.getValue(),
-                       employmentInfoForm.personID.getValue(),
-                       employmentInfoForm.EmploymentID.getValue(), Integer.parseInt(employmentInfoForm.rowID.getValue()),
-                       employmentInfoForm.firstName.getValue(),
-                       employmentInfoForm.lastName.getValue() );
-           }
-            close();
+        firstName = new TextField("FirstName",member.getFirstName());
+        lastName= new TextField("LastName",member.getLastName());
+        companyID = new TextField("Company ID",member.getCompanyID());
+        rowID = new TextField("RowID",Integer.toString(member.getRowID()));
+        personID =new TextField("personID",member.getPersonID());
+        EmploymentID= new TextField("EmploymentID",member.getEmploymentID());
+        startDate = new TextField("Start Date ",member.getStartDate());
+        endDate= new TextField("End Date",member.getEndDate());
 
-                });
+       firstName.setEnabled(false);lastName.setEnabled(false);
+       startDate.setEnabled(false);endDate.setEnabled(false);
+        companyID.setEnabled(false);rowID.setEnabled(false);
+        EmploymentID.setEnabled(false);personID.setEnabled(false);
+
+        employmentNameLayout= new HorizontalLayout(firstName, lastName);
+        dateLayout=new HorizontalLayout( startDate ,endDate);
+        IDlayout1 = new HorizontalLayout(personID,EmploymentID);
+        IDlayout2 = new HorizontalLayout(rowID, companyID);
+        employmentNameLayout.setSpacing(true);
+        dateLayout.setSpacing(true);
+        IDlayout1.setSpacing(true);
+        IDlayout2.setSpacing(true);
+
+        action = new HorizontalLayout(closeButton);
+
         closeButton.addClickListener(e -> {
          close();
         });
-        employmentInfoForm.actions.addComponents(saveButton,closeButton);
-        content.addComponents(employmentInfoForm);
+
+        content.addComponents(employmentNameLayout,dateLayout,IDlayout1,IDlayout2,action);
         content.setSpacing(true);
 
 
         setContent(content);
         setResizable(true);
-        setWidth("35%");
+        setWidth("50%");
         setHeight("70%");
 
     }

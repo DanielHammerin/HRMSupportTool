@@ -2,7 +2,7 @@ package View.DefaultUI;
 
 import Model.*;
 import Model.Entity.Employment;
-import Presenter.EmploymentsPresenter;
+import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
@@ -29,8 +29,7 @@ import java.util.List;
 @SpringComponent
 @UIScope
 public class EmploymentsGrid extends VerticalLayout {
-    final private int WIDTH = 11;
-  //  private DeletionLogModel logModel ;
+
     private TextField searchField ;
     private BeanItemContainer<Employment> container;
     private Collection<Employment>  member = new ArrayList<>();
@@ -38,18 +37,16 @@ public class EmploymentsGrid extends VerticalLayout {
     private Grid membersGrid;
     private Button deleteSelected;
     private Label currentDB;
-    private EmploymentsPresenter employmentsPresenter;
-    private boolean isAdmin ;
+    private DeletingEmploymentsPresenter employmentsPresenter;
     /**
      *A constructor for the table tree full of the staff members (could be current or deleted members)
      */
     @Autowired
-    public EmploymentsGrid(EmploymentsPresenter employmentsPresenter) {
+    public EmploymentsGrid(DeletingEmploymentsPresenter employmentsPresenter) {
         this.employmentsPresenter = employmentsPresenter;
         this.setMargin(true);
         this.setSpacing(true);
         this.setSizeFull();
-       this.isAdmin=  true;
         currentDB = new Label("Current Database: " + UI.getCurrent().getSession().getAttribute("databaseName"));
         member = employmentsPresenter.getEmploymentsFromDAO();
 
@@ -82,7 +79,8 @@ public class EmploymentsGrid extends VerticalLayout {
     private void initGird() {
         membersGrid = new Grid(gpc);
         // Column should fetch the Employment class attribute names
-        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName", "lastName", "startDate", "endDate");
+        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName",
+                "lastName", "startDate", "endDate");
         membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         membersGrid.setHeight(300, Unit.PIXELS);
@@ -94,7 +92,7 @@ public class EmploymentsGrid extends VerticalLayout {
                 .setRenderer(new ButtonRenderer(e ->{
                     Employment emp = (Employment)e.getItemId();
                     // adding sub window to show employment info
-                    UI.getCurrent().addWindow(new EmploymentInfo(emp, employmentsPresenter));
+                    UI.getCurrent().addWindow(new EmploymentInfo(emp));
                 }
                 ));
 
