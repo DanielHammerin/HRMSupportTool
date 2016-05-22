@@ -16,6 +16,7 @@ import java.util.Collection;
 
 /**
  * Created by Abeer on 5/20/2016.
+ * class that init HRM users in a grid
  */
 public class UserGrid extends VerticalLayout {
     private Collection collection =  new ArrayList<>();
@@ -24,6 +25,7 @@ public class UserGrid extends VerticalLayout {
     private GeneratedPropertyContainer gpc;
 
     public UserGrid (UserPresenter userPresenter){
+        // read  users objects
         collection = userPresenter.readUsers();
 
         container = new BeanItemContainer<User>(User.class,collection);

@@ -2,6 +2,7 @@ package View.LoginUI;
 
 import Presenter.LoginPresenter;
 import View.DatabaseSelection.DatabaseSelectionWindow;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
@@ -49,7 +50,7 @@ public class LoginWindow extends GridLayout implements View {
 
             }
         });
-
+        loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         //Create and set internal layouts for user and password components
         userHlayout = new HorizontalLayout(userLabel, userField);
         passHlayout = new HorizontalLayout(passLabel, passField);

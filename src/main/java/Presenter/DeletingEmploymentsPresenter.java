@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Hatem on 10-May-16.
  * A class that acts as the presenter for the Adding, Deleting ,updating Employments window according to
  * the MVP (Model-View-Presenter) pattern.
- * updated by Abeer adding addNewEmployment, createLog , readLog,  updateEmployment methods
+ * updated by Abeer adding createLog , readLog methods
  */
 public class DeletingEmploymentsPresenter {
     private DeletingEmploymentsWindow view;

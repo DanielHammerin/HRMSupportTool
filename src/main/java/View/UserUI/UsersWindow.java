@@ -29,17 +29,20 @@ public class UsersWindow extends VerticalLayout implements View {
 
     public  UsersWindow(){
         userPresenter = new UserPresenter(this);
+        // logout layout
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
+        // navigation buttons for the window
         viewDatabaseSelection= new Button("View Database Selection");
         viewEmploymentsButton = new Button("View Current Employments");
         addUser = new Button("New user");
         viewsLayout= new HorizontalLayout();
         buttonsLayout= new HorizontalLayout();
+        // for the window content
         content=new Panel();
     }
 
     private void addWindowComponents() {
-
+     // set actions to the view buttons
         viewDatabaseSelection.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
         });
@@ -64,7 +67,7 @@ public class UsersWindow extends VerticalLayout implements View {
 
     }
 
-    public void updateUserGrid(){
+    public void updateUsersGrid(){
         content.setContent(new UserGrid(userPresenter));
     }
 
