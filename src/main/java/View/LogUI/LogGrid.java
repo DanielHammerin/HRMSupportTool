@@ -1,8 +1,6 @@
 package View.LogUI;
 
-import Model.DeletionLogModel;
 import Model.Entity.DeletionLog;
-import Model.FileRepo.logFileRepository;
 import Presenter.DeletingEmploymentsPresenter;
 import View.DefaultUI.DeletionLogInfo;
 import com.vaadin.data.Item;
@@ -36,20 +34,21 @@ public class LogGrid extends VerticalLayout {
     private  Grid grid;
     private  BeanItemContainer<DeletionLog> container;
     private GeneratedPropertyContainer gpc;
-    private DeletingEmploymentsPresenter employemtsPresenter;
 
+    /**
+     * The contructor for the log grid
+     * @param employemtsPresenter the presenter of the window that use this grid
+     * @throws IOException
+     */
     @Autowired
     public LogGrid (DeletingEmploymentsPresenter employemtsPresenter) throws IOException {
-        this.employemtsPresenter =employemtsPresenter;
         collection = employemtsPresenter.readDeletionLog();
         // BeanItemContainer contains deletionlog collection
           container = new BeanItemContainer<DeletionLog>(DeletionLog.class,collection);
         //  container is wrapped into GeneratedPropertyContainer
           gpc = new GeneratedPropertyContainer(container);
-
           gpc.addGeneratedProperty("Show Information",
                 new PropertyValueGenerator<String>() {
-
 
                     @Override
                     public Class<String> getType() {
@@ -66,10 +65,12 @@ public class LogGrid extends VerticalLayout {
         initFilters();
         setSpacing(true);
         this.addComponent(grid);
-
-
     }
-   private void initGrid(){
+
+    /**
+     * Method to init the grid
+     */
+    private void initGrid(){
        grid = new Grid(gpc);
        grid.setSelectionMode(Grid.SelectionMode.NONE);
        grid.focus();
@@ -82,7 +83,11 @@ public class LogGrid extends VerticalLayout {
                }
                ));
    }
-   private void initFilters(){
+
+    /**
+     * Method to init the filters
+     */
+    private void initFilters(){
        // Create a header row to hold column filters
        Grid.HeaderRow filterRow = grid.appendHeaderRow();
 
@@ -111,7 +116,5 @@ public class LogGrid extends VerticalLayout {
            cell.setComponent(filterField);
              grid.setWidth("100%");
        }
-
-   }
-
+    }
 }

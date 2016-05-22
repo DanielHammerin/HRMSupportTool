@@ -19,12 +19,16 @@ import java.util.List;
  * updated by Abeer adding createLog , readLog methods
  */
 public class DeletingEmploymentsPresenter {
+
     private DeletingEmploymentsWindow view;
     private EmploymentDAO employmentDAO;
-    private String databaseName;
     private DeletionLogModel deletionLogModel;
 
-
+    /**
+     * Contructor the the Presenter
+     * @param currentWindow the currentWindow calling the presenter (DeletingEmploymentsWindow)
+     * @throws IOException
+     */
     public DeletingEmploymentsPresenter(DeletingEmploymentsWindow currentWindow) throws IOException {
         view = currentWindow;
         deletionLogModel = new DeletionLogModel();
@@ -36,6 +40,10 @@ public class DeletingEmploymentsPresenter {
 
     }
 
+    /**
+     * Method to get the list of employments from the model to populate the grid
+     * @return the list of employments of teh current DB
+     */
     public List<Employment> getEmploymentsFromDAO() {
         if (employmentDAO == null) {
             return null;
@@ -43,9 +51,10 @@ public class DeletingEmploymentsPresenter {
         return employmentDAO.getEmployments();
     }
 
-
-
-
+    /**
+     * Method to delete a employment from the model
+     * @param employment the employment to delete
+     */
     public void deleteEmploymentFromDAO(Employment employment) {
         if (employmentDAO == null) {
             return;
@@ -57,19 +66,22 @@ public class DeletingEmploymentsPresenter {
         }
     }
 
+    /**
+     * Method to create a log
+     * @param selectedEmployment the employment to register on the log
+     */
     public void createLog(Employment selectedEmployment) {
         if (!deletionLogModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())) {
-
             view.ShowErrorNotification("Error, deletion log is not saved!");
-            return;
         }
-
     }
+
+    /**
+     * Method to read the deletion logs to populate the view
+     * @return a collection of logs
+     */
     public Collection readDeletionLog() {
         return deletionLogModel.readLogs();
     }
-
-
-
-    }
+}
 

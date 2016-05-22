@@ -24,13 +24,12 @@ import java.util.List;
 /**
  * A tab for the current staff members
  * Created by Abeer  5/13/2016
- * modified by Simon on 2016/04/28 to make the table get real employment from online DB
+ * Modified by Simon on 2016/04/28 to make the table get real employment from online DB
  */
 @SpringComponent
 @UIScope
 public class EmploymentsGrid extends VerticalLayout {
 
-    private TextField searchField ;
     private BeanItemContainer<Employment> container;
     private Collection<Employment>  member = new ArrayList<>();
     private GeneratedPropertyContainer gpc;
@@ -38,8 +37,10 @@ public class EmploymentsGrid extends VerticalLayout {
     private Button deleteSelected;
     private Label currentDB;
     private DeletingEmploymentsPresenter employmentsPresenter;
+
     /**
-     *A constructor for the table tree full of the staff members (could be current or deleted members)
+     * Constructor of the the table tree full of the staff members (could be current or deleted members)
+     * @param employmentsPresenter the presenter of the window that contains this grid
      */
     @Autowired
     public EmploymentsGrid(DeletingEmploymentsPresenter employmentsPresenter) {
@@ -50,14 +51,12 @@ public class EmploymentsGrid extends VerticalLayout {
         currentDB = new Label("Current Database: " + UI.getCurrent().getSession().getAttribute("databaseName"));
         member = employmentsPresenter.getEmploymentsFromDAO();
 
-
         container =new BeanItemContainer<Employment>(Employment.class, member);
 
         gpc = new GeneratedPropertyContainer(container);
 
         gpc.addGeneratedProperty("Show Information",
                 new PropertyValueGenerator<String>() {
-
 
                     @Override
                     public Class<String> getType() {
@@ -76,6 +75,9 @@ public class EmploymentsGrid extends VerticalLayout {
         this.addComponents( currentDB, membersGrid, deleteSelected);
     }
 
+    /**
+     * Method to init the grid (or table)
+     */
     private void initGird() {
         membersGrid = new Grid(gpc);
         // Column should fetch the Employment class attribute names
@@ -102,16 +104,16 @@ public class EmploymentsGrid extends VerticalLayout {
         deleteSelected = new Button("Delete Selected", e -> {
             // checking if there are some  selected employments
             if(membersGrid.getSelectedRows().size() > 0){
-
-                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(membersGrid, employmentsPresenter));
-            }
-            else
-
+                UI.getCurrent().addWindow(new DeletionConfirmationWindow(membersGrid, employmentsPresenter));
+            } else {
                 Notification.show("Nothing selected");
+            }
         });
-
     }
 
+    /**
+     * Method to init the filters in the grid (one filter by column)
+     */
     private void initFilters(){
 
         // Create a header row to hold column filters
@@ -132,7 +134,6 @@ public class EmploymentsGrid extends VerticalLayout {
             filterField.addTextChangeListener(change -> {
                 // Can't modify filters so need to replace
                 container.removeContainerFilters(pid);
-
                 // (Re)create the filter if necessary
                 if (! change.getText().isEmpty())
                     container.addContainerFilter(

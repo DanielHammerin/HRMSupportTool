@@ -21,6 +21,7 @@ import java.io.IOException;
  */
 @SpringView(name = DeletingEmploymentsWindow.VIEW_NAME)
 public class DeletingEmploymentsWindow extends VerticalLayout implements View {
+
     public static final String VIEW_NAME = "default";
 
     private HorizontalLayout buttonsLayout;
@@ -36,6 +37,10 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
     private DeletingEmploymentsPresenter employmentsPresenter;
 
+    /**
+     * Constructor of the window
+     * @throws IOException
+     */
     public DeletingEmploymentsWindow() throws IOException {
         buttonsLayout = new HorizontalLayout();
         panel = new Panel();
@@ -51,6 +56,10 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         // adding layout for logout option
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
     }
+
+    /**
+     * Method called when we enter in the view, add the components to this window
+     */
     private void addWindowComponents (){
        // adding employmentGrid as thr default view
         panel.setContent( new EmploymentsGrid(employmentsPresenter));
@@ -91,20 +100,25 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         setComponentAlignment(logoutHLayout, Alignment.BOTTOM_RIGHT);
     }
 
-
-     // method for generating error notification
+    /**
+     * Method a show a notification when an error occured
+     */
     public void ShowErrorNotification(String msg){
-        new Notification(msg, Notification.TYPE_ERROR_MESSAGE)
-                .show(getUI().getPage());
+        new Notification(msg, Notification.TYPE_ERROR_MESSAGE).show(getUI().getPage());
     }
 
+    /**
+     * Mzthod to show a success notification
+     * @param msg the notification message to display
+     */
     public void showSuccessNotification(String msg){
         Notification.show(msg);
     }
 
-
-
-
+    /**
+     * Method called when we naviguate to this view
+     * @param event
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
         // checking if the user is logged in and the database is selected before showing the window
@@ -118,14 +132,12 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
          } else {
              System.out.println("Connected & DB selected");
              try {
-
                  isAdmin= (boolean)getUI().getSession().getAttribute("isAdmin");
                  employmentsPresenter = new DeletingEmploymentsPresenter(this);
              } catch (IOException e) {
                  e.printStackTrace();
              }
              addWindowComponents();
-
          }
     }
 }

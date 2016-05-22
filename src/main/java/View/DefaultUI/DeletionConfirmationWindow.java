@@ -20,17 +20,18 @@ public class DeletionConfirmationWindow extends Window {
     private HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
     private VerticalLayout content = new VerticalLayout();
     private Employment selectedEmployment;
-    private DeletingEmploymentsPresenter employmentsPresenter;
 
+    /**
+     * Constructor of the confirmation window for employment deletion
+     * @param grid
+     * @param employmentsPresenter the presenter of the window that called that "subwindow"
+     */
     public DeletionConfirmationWindow( Grid grid, DeletingEmploymentsPresenter employmentsPresenter) {
         super("Delete employments"); // Set window caption;
-        this.employmentsPresenter = employmentsPresenter;
         init(grid);
 
         yesButton.addClickListener(e -> {
-
             Grid.MultiSelectionModel selection = (Grid.MultiSelectionModel) grid.getSelectionModel();
-
             for (Object itemId: selection.getSelectedRows()) {
                 selectedEmployment = (Employment)itemId;
                 // delete employment from db
@@ -41,16 +42,16 @@ public class DeletionConfirmationWindow extends Window {
             }
             grid.getSelectionModel().reset();
             close();
-
-
         });
 
-
-        content.addComponents(new Label("Are you sure you want to delete the selected employees?"), actions);
-
+        content.addComponents(new Label("Are you sure you want to delete the selected employments?"), actions);
         setContent(content);
     }
 
+    /**
+     * Method to init the grid
+     * @param grid teh grid to init
+     */
     private void init(Grid grid) {
         center();
         actions.setSpacing(true);
@@ -64,8 +65,6 @@ public class DeletionConfirmationWindow extends Window {
             grid.getSelectionModel().reset();
         });
     }
-
-
 }
 
 

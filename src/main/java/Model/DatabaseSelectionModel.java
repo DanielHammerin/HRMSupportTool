@@ -110,7 +110,6 @@ public class DatabaseSelectionModel {
         public String getDatabaseName() { return databaseName; }
         public String getConnectionString() { return connectionString; }
 
-
     }
 }
 

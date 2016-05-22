@@ -142,8 +142,8 @@ public class EmploymentDAO extends DAO<Employment> {
                     " , " + COLUMN_EMPLOYMENTID  + " = '" + obj.getEmploymentID() + "'" +
                     " , " + COLUMN_FIRSTNAME  + " = '" + obj.getFirstName() + "'" +
                     " , " + COLUMN_LASTNAME  + " = '" + obj.getLastName() + "'" +
-                    " , " + COLUMN_LASTNAME  + " = '" + obj.getStartDate() + "'" +
-                    " , " + COLUMN_LASTNAME  + " = '" + obj.getEndDate() +
+                    " , " + COLUMN_STARTDATE  + " = '" + obj.getStartDate() + "'" +
+                    " , " + COLUMN_ENDDATE  + " = '" + obj.getEndDate() +
                     "' WHERE " + COLUMN_ROWID + " = " + obj.getRowID();
             PreparedStatement statement = this.connect.prepareStatement(query);
             int rowUpdated = statement.executeUpdate();
@@ -160,7 +160,7 @@ public class EmploymentDAO extends DAO<Employment> {
         return true;
     }
 
-    /** @TODO should return boolean to know if process has suceeded
+    /**
      * To delete an employment row in the database
      * @param obj the object to delete in the database
      * @return true if deletion has succeeded, false otherwise

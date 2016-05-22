@@ -23,14 +23,21 @@ public class LogWindow extends VerticalLayout implements View {
     private LogoutOption logoutHLayout;
     private LogGrid logGrid;
 
+    /**
+     * Constructor of the log window
+     * @throws IOException
+     */
     public LogWindow () throws IOException {
     init();
     }
 
+    /**
+     * Method called by the constructor to init the log window
+     * @throws IOException
+     */
     private void init() throws IOException {
-        //TODO: Change the session of the user to thread
         logoutHLayout = new LogoutOption(String.valueOf(UI.getCurrent().getSession().getAttribute("user")));
-     //   logGrid = new LogGrid(d);
+        //logGrid = new LogGrid(d); //@TODO loggrid still used here ?
         setSpacing(true);
         setMargin(true);
 
@@ -44,24 +51,31 @@ public class LogWindow extends VerticalLayout implements View {
         setComponentAlignment(logoutHLayout, Alignment.TOP_RIGHT);
         setComponentAlignment(logGrid, Alignment.MIDDLE_CENTER);
     }
+
+    /**
+     * Method called when we naviguate to this view
+     * @param event
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
-
         if(getUI().getSession().getAttribute("user")!=null){
-
             try {
                 new LogWindow();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-        }
-        else
+        } else {
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
-
-
+        }
     }
 
+    //@TODO make the javadoc of this methid
+    /**
+     * Description
+     * @param caption
+     * @param viewName
+     * @return
+     */
     private Button viewNewPage(String caption, final String viewName) {
         Button button = new Button(caption);
         button.addStyleName(ValoTheme.BUTTON_SMALL);

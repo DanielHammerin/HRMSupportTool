@@ -9,6 +9,10 @@ import java.util.ArrayList;
  */
 public class UserTest {
 
+    /**
+     * Main method to test a user
+     * @param args
+     */
     public static void main(String[] args) {
         UserModel userModel = new UserModel();
 

@@ -10,16 +10,17 @@ import com.vaadin.ui.*;
  */
 public class EmploymentInfo extends Window {
 
-
-    Button save = new Button("save");
-    Button closeButton = new Button("Close");
-    VerticalLayout content = new VerticalLayout();
+    private Button closeButton = new Button("Close");
+    private VerticalLayout content = new VerticalLayout();
 
     protected TextField firstName,lastName, personID , companyID,EmploymentID,rowID, startDate ,endDate;
     protected HorizontalLayout employmentNameLayout,dateLayout,IDlayout1,IDlayout2,action;
 
 
-
+    /**
+     * Constructor of the employment info window
+     * @param member the member to display in the window
+     */
     public EmploymentInfo(Employment member) {
         super("Employment Information"); // Set window caption
         center();
@@ -37,8 +38,8 @@ public class EmploymentInfo extends Window {
         startDate = new TextField("Start Date ",member.getStartDate());
         endDate= new TextField("End Date",member.getEndDate());
 
-       firstName.setEnabled(false);lastName.setEnabled(false);
-       startDate.setEnabled(false);endDate.setEnabled(false);
+        firstName.setEnabled(false);lastName.setEnabled(false);
+        startDate.setEnabled(false);endDate.setEnabled(false);
         companyID.setEnabled(false);rowID.setEnabled(false);
         EmploymentID.setEnabled(false);personID.setEnabled(false);
 
@@ -60,11 +61,9 @@ public class EmploymentInfo extends Window {
         content.addComponents(employmentNameLayout,dateLayout,IDlayout1,IDlayout2,action);
         content.setSpacing(true);
 
-
         setContent(content);
         setResizable(true);
         setWidth("50%");
         setHeight("70%");
-
     }
 }

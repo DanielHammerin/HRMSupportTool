@@ -9,17 +9,18 @@ import View.LoginUI.LoginWindow;
 
 /**
  * Created by Abeer on 04.06.16.
- *  sub window to confirm user logout
- *
+ * Sub window to confirm user logout
  */
 public class LogoutConfirmationWindow extends Window  {
 
+    private Button yesButton = new Button("Yes");
+    private Button noButton = new Button("No");
+    private HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
+    private VerticalLayout content = new VerticalLayout();
 
-    Button yesButton = new Button("Yes");
-    Button noButton = new Button("No");
-    HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
-    VerticalLayout content = new VerticalLayout();
-
+    /**
+     * Constructor of the Logout confirmation window
+     */
     public LogoutConfirmationWindow() {
         super("Logout  person"); // Set window caption
         center();
@@ -29,11 +30,7 @@ public class LogoutConfirmationWindow extends Window  {
         setResizable(false);
         content.setMargin(true);
         content.setSpacing(true);
-
         Label configuration  = new Label("Are you sure you want to log out ");
-
-
-
 
         yesButton.addClickListener(e -> {
             // close the session and  move to login window
@@ -43,15 +40,13 @@ public class LogoutConfirmationWindow extends Window  {
             getUI().getSession().setAttribute("isAdmin",null);
             getUI().getNavigator().navigateTo(LoginWindow.VIEW_NAME);
             close();
-
         });
+
         noButton.addClickListener(e -> {
             close();
         });
 
         content.addComponents(configuration, actions);
-
         setContent(content);
-
     }
 }
