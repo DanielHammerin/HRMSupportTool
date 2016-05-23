@@ -1,4 +1,7 @@
-package Model;
+package Model.SQlRepo;
+
+import Model.Entity.Employment;
+import Model.SQlRepo.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +21,8 @@ public class EmploymentDAO extends DAO<Employment> {
     public static final String COLUMN_ROWID = "RowID";
     public static final String COLUMN_FIRSTNAME = "FirstName";
     public static final String COLUMN_LASTNAME = "LastName";
+    public static final String COLUMN_STARTDATE = "StartDate";
+    public static final String COLUMN_ENDDATE = "EndDate";
 
     /**
      * Constructor implementing the super class constructor
@@ -45,7 +50,9 @@ public class EmploymentDAO extends DAO<Employment> {
                         resultSet.getString(COLUMN_EMPLOYMENTID),
                         resultSet.getInt(COLUMN_ROWID),
                         resultSet.getString(COLUMN_FIRSTNAME),
-                        resultSet.getString(COLUMN_LASTNAME)
+                        resultSet.getString(COLUMN_LASTNAME),
+                        resultSet.getString(COLUMN_STARTDATE),
+                        resultSet.getString(COLUMN_ENDDATE)
                 );
                 list.add(employment);
             }
@@ -66,7 +73,7 @@ public class EmploymentDAO extends DAO<Employment> {
             String query = "INSERT INTO " + TABLE_NAME + " (" + COLUMN_ROWID + ", " +
                     COLUMN_COMPANYID + ", " + COLUMN_PERSONID + ", " +
                     COLUMN_EMPLOYMENTID + ", " + COLUMN_FIRSTNAME + ", " +
-                    COLUMN_LASTNAME + ") VALUES(?, ?, ?, ?, ?, ?)";
+                    COLUMN_LASTNAME + ", " + COLUMN_STARTDATE + ", " + COLUMN_ENDDATE + ") VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = this.connect.prepareStatement(query);
             statement.setInt(1, obj.getRowID());
             statement.setString(2, obj.getCompanyID());
@@ -74,6 +81,8 @@ public class EmploymentDAO extends DAO<Employment> {
             statement.setString(4, obj.getEmploymentID());
             statement.setString(5, obj.getFirstName());
             statement.setString(6, obj.getLastName());
+            statement.setString(7, obj.getStartDate());
+            statement.setString(8, obj.getEndDate());
 
             int rowCreated = statement.executeUpdate();
             if (rowCreated != 1) {
@@ -81,10 +90,12 @@ public class EmploymentDAO extends DAO<Employment> {
             }
         } catch (SQLException e) {
             System.err.println("Error during the create process.");
-            e.printStackTrace();
+           e.printStackTrace();
+           return false;
         } catch (Exception e) {
             System.err.println("Error during the create process. Not a valid number of rows created");
             e.printStackTrace();
+           return false;
         }
         return true;
     }
@@ -107,7 +118,9 @@ public class EmploymentDAO extends DAO<Employment> {
                         resultSet.getString(COLUMN_EMPLOYMENTID),
                         id,
                         resultSet.getString(COLUMN_FIRSTNAME),
-                        resultSet.getString(COLUMN_LASTNAME)
+                        resultSet.getString(COLUMN_LASTNAME),
+                        resultSet.getString(COLUMN_STARTDATE),
+                        resultSet.getString(COLUMN_ENDDATE)
                 );
             }
         } catch (SQLException e) {
@@ -128,7 +141,9 @@ public class EmploymentDAO extends DAO<Employment> {
                     " , " + COLUMN_PERSONID  + " = '" + obj.getCompanyID() + "'" +
                     " , " + COLUMN_EMPLOYMENTID  + " = '" + obj.getEmploymentID() + "'" +
                     " , " + COLUMN_FIRSTNAME  + " = '" + obj.getFirstName() + "'" +
-                    " , " + COLUMN_LASTNAME  + " = '" + obj.getLastName() +
+                    " , " + COLUMN_LASTNAME  + " = '" + obj.getLastName() + "'" +
+                    " , " + COLUMN_STARTDATE  + " = '" + obj.getStartDate() + "'" +
+                    " , " + COLUMN_ENDDATE  + " = '" + obj.getEndDate() +
                     "' WHERE " + COLUMN_ROWID + " = " + obj.getRowID();
             PreparedStatement statement = this.connect.prepareStatement(query);
             int rowUpdated = statement.executeUpdate();
@@ -145,7 +160,7 @@ public class EmploymentDAO extends DAO<Employment> {
         return true;
     }
 
-    /** @TODO should return boolean to know if process has suceeded
+    /**
      * To delete an employment row in the database
      * @param obj the object to delete in the database
      * @return true if deletion has succeeded, false otherwise

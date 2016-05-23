@@ -1,5 +1,9 @@
 package View.DefaultUI;
 import Model.*;
+import Model.Entity.Employment;
+import Model.SQlRepo.EmploymentDAO;
+import Model.SQlRepo.SQLServerConnection;
+import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.ui.*;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,58 +15,43 @@ import java.util.Date;
  */
 public class DeletionConfirmationWindow extends Window {
 
-    Button yesButton = new Button("Yes");
-    Button noButton = new Button("No");
-    HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
-    VerticalLayout content = new VerticalLayout();
+    private Button yesButton = new Button("Yes");
+    private Button noButton = new Button("No");
+    private HorizontalLayout actions = new HorizontalLayout(yesButton, noButton);
+    private VerticalLayout content = new VerticalLayout();
     private Employment selectedEmployment;
 
-    public DeletionConfirmationWindow(DeletionLogModel logModel, Grid grid) {
+    /**
+     * Constructor of the confirmation window for employment deletion
+     * @param grid
+     * @param employmentsPresenter the presenter of the window that called that "subwindow"
+     */
+    public DeletionConfirmationWindow( Grid grid, DeletingEmploymentsPresenter employmentsPresenter) {
         super("Delete employments"); // Set window caption;
         init(grid);
 
         yesButton.addClickListener(e -> {
-
             Grid.MultiSelectionModel selection = (Grid.MultiSelectionModel) grid.getSelectionModel();
-
-
-            try {
-                Connection connect = SQLServerConnection.getInstance();
-                EmploymentDAO daoEmployment = new EmploymentDAO(SQLServerConnection.getInstance());
-                for (Object itemId: selection.getSelectedRows()) {
-                    selectedEmployment = (Employment)itemId;
-                    daoEmployment.delete(selectedEmployment);
-                    grid.getContainerDataSource().removeItem(itemId);
-                    //TODO: Change the session of the user to thread
-                    if(!logModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")),
-                            selectedEmployment.getFirstName()+" "+
-                                    selectedEmployment.getLastName(), new Date())){
-
-                        new Notification("Deletion log is not saved", Notification.TYPE_ERROR_MESSAGE)
-                                .show(getUI().getPage());
-                        return;
-                    }
-
-                }
-
-
-                // Otherwise out of sync with container
-                grid.getSelectionModel().reset();
-                close();
-                Notification.show("Deletion is done successfully");
-                connect.close();
-            } catch (SQLException sqle) {
-                sqle.printStackTrace();
+            for (Object itemId: selection.getSelectedRows()) {
+                selectedEmployment = (Employment)itemId;
+                // delete employment from db
+                employmentsPresenter.deleteEmploymentFromDAO(selectedEmployment);
+                grid.getContainerDataSource().removeItem(itemId);
+                // create log when the employment is deleted
+                employmentsPresenter.createLog(selectedEmployment);
             }
-
+            grid.getSelectionModel().reset();
+            close();
         });
 
-
-        content.addComponents(new Label("Are you sure you want to delete the selected employees?"), actions);
-
+        content.addComponents(new Label("Are you sure you want to delete the selected employments?"), actions);
         setContent(content);
     }
 
+    /**
+     * Method to init the grid
+     * @param grid teh grid to init
+     */
     private void init(Grid grid) {
         center();
         actions.setSpacing(true);
@@ -76,7 +65,6 @@ public class DeletionConfirmationWindow extends Window {
             grid.getSelectionModel().reset();
         });
     }
-
 }
 
 

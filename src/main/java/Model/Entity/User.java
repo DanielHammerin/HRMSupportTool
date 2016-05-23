@@ -1,9 +1,10 @@
-package Model;
+package Model.Entity;
 
 import java.io.Serializable;
 
 /**
  * Created by Abeer on 4/21/2016.
+ * Class User representing the web users ( HRM support stuff)
  */
 public class User implements Serializable {
 

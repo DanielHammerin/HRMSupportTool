@@ -1,6 +1,6 @@
 package Model.FileRepo;
 
-import Model.User;
+import Model.Entity.User;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class UserFileRepository implements IRepository{
    // private final String prefixPath = "D:\\HRM_SupportTool_Users\\";
-    private final String UserFilePath = "LocalDatabase\\Users_DB.ser";
+    private final String UserFilePath = "LocalDatabase" + File.separator + "Users_DB.ser";
 
     public UserFileRepository() {
         try {

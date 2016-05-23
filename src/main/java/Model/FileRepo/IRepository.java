@@ -1,6 +1,6 @@
 package Model.FileRepo;
 
-import Model.User;
+import Model.Entity.User;
 
 import java.util.List;
 

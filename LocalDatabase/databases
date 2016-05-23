@@ -1,2 +1,3 @@
-HRM Database:::jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788
+HRM Database 1:::jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788
+HRM Database 2:::jdbc:sqlserver://hrmdatabase2.mssql.somee.com;DatabaseName=hrmdatabase2;User=HRMTEST_SQLLogin_1;Password=5mrx1ubbaf
 Non valid Database:::jdbc:sqlserver://wrongdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788
