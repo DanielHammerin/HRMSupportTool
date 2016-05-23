@@ -3,6 +3,7 @@ package Model;
 import Model.Entity.User;
 import Model.FileRepo.IRepository;
 import Model.FileRepo.UserFileRepository;
+import org.apache.commons.codec.digest.Crypt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,9 @@ public class UserModel {
      */
     public UserModel() {
         super();
-        this.repo = new UserFileRepository();}
+        this.repo = new UserFileRepository();
+        createUser("Thorvald", "Gudjonsson", "Admin", "123", "email", true);
+    }
 
     /**
      * Method to create a user
@@ -35,11 +38,12 @@ public class UserModel {
     public boolean createUser(String firstName, String lastName ,String userName, String password,
                               String email , boolean isAdmin) {
 
-        User foundUser = findUser(userName,password);
+        User foundUser = findUserByUserName(userName);
         if (foundUser != null) {
             return false;
         }
-        User member = new User(getNextUserId(), firstName, lastName, userName, password, email, isAdmin);
+        String cryptedPassword = Crypt.crypt(password);
+        User member = new User(getNextUserId(), firstName, lastName, userName, cryptedPassword, email, isAdmin);
         return repo.createUser(member);
     }
 

@@ -3,6 +3,7 @@ package Presenter;
 import Model.Entity.User;
 import Model.UserModel;
 import View.LoginUI.LoginWindow;
+import org.apache.commons.codec.digest.Crypt;
 
 /**
  * Created by Hatem Houssein on 04-May-16.
@@ -28,12 +29,16 @@ public class LoginPresenter {
      */
     public void loginUser(String username, String password){
         loginDb = new UserModel();
-        User user = loginDb.findUser(username, password);
+        User user = loginDb.findUserByUserName(username);
         //If the login credentials are correct
-        if(user!= null && !username.equals("") && !password.equals("")){
+        if(user!= null && !username.equals("") && authenticate(password, user.getPassword())){
             loginWindow.showDatabaseSelectionWindow(user.isAdmin());
         } else { //If the login credentials are incorrect
             loginWindow.showLoginErrorMessage();
         }
+    }
+
+    private boolean authenticate(String enteredPassword, String storedPassword){
+        return storedPassword.equals(Crypt.crypt(enteredPassword, storedPassword));
     }
 }

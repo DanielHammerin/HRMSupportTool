@@ -47,7 +47,7 @@ public class LoginWindow extends GridLayout implements View {
         //Button
         loginButton = new Button("Login", new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
-                presenter.loginUser(userField.getValue(), passField.getValue()); //This just show you how to get the data from the input by user
+                presenter.loginUser(userField.getValue(), passField.getValue());
             }
         });
 
