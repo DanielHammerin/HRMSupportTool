@@ -1,8 +1,6 @@
 package View.LogUI;
 
-import Model.DeletionLogModel;
 import Model.Entity.DeletionLog;
-import Model.FileRepo.logFileRepository;
 import Presenter.DeletingEmploymentsPresenter;
 import View.DefaultUI.DeletionLogInfo;
 import com.vaadin.data.Item;
@@ -10,6 +8,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
 import com.vaadin.data.util.PropertyValueGenerator;
 import com.vaadin.data.util.filter.SimpleStringFilter;
+import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Grid;
@@ -17,6 +16,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.renderers.ButtonRenderer;
+import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,20 +36,21 @@ public class LogGrid extends VerticalLayout {
     private  Grid grid;
     private  BeanItemContainer<DeletionLog> container;
     private GeneratedPropertyContainer gpc;
-    private DeletingEmploymentsPresenter detetingEmployemtsPresenter;
 
+    /**
+     * The contructor for the log grid
+     * @param employemtsPresenter the presenter of the window that use this grid
+     * @throws IOException
+     */
     @Autowired
-    public LogGrid (DeletingEmploymentsPresenter detetingEmployemtsPresenter) throws IOException {
-        this.detetingEmployemtsPresenter = detetingEmployemtsPresenter;
-        collection = detetingEmployemtsPresenter.readDeletionLog();
+    public LogGrid (DeletingEmploymentsPresenter employemtsPresenter) throws IOException {
+        collection = employemtsPresenter.readDeletionLog();
         // BeanItemContainer contains deletionlog collection
           container = new BeanItemContainer<DeletionLog>(DeletionLog.class,collection);
         //  container is wrapped into GeneratedPropertyContainer
           gpc = new GeneratedPropertyContainer(container);
-
           gpc.addGeneratedProperty("Show Information",
                 new PropertyValueGenerator<String>() {
-
 
                     @Override
                     public Class<String> getType() {
@@ -66,14 +67,14 @@ public class LogGrid extends VerticalLayout {
         initFilters();
         setSpacing(true);
         this.addComponent(grid);
-
-
     }
-   private void initGrid(){
+
+    /**
+     * Method to init the grid
+     */
+    private void initGrid(){
        grid = new Grid(gpc);
        grid.setSelectionMode(Grid.SelectionMode.NONE);
-    //   grid.setWidth("500px");
-    //   grid.setWidth(28, Unit.CM);
        grid.focus();
 
        // buttons to show log info
@@ -84,7 +85,11 @@ public class LogGrid extends VerticalLayout {
                }
                ));
    }
-   private void initFilters(){
+
+    /**
+     * Method to init the filters
+     */
+    private void initFilters(){
        // Create a header row to hold column filters
        Grid.HeaderRow filterRow = grid.appendHeaderRow();
 
@@ -112,8 +117,10 @@ public class LogGrid extends VerticalLayout {
            });
            cell.setComponent(filterField);
              grid.setWidth("100%");
+          grid. setHeightMode(HeightMode.ROW);
+
+
+
        }
-
-   }
-
+    }
 }

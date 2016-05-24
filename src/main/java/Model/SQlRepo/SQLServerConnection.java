@@ -9,34 +9,13 @@ import java.sql.SQLException;
  */
 public class SQLServerConnection {
 
-
-    //private static String connectionString = "jdbc:sqlserver://hrmdatabase.mssql.somee.com;DatabaseName=hrmdatabase;User=HRMTEST223_SQLLogin_1;Password=anpkc9z788";
     private String connectionString;
     private Connection connect;
 
-    /*
-    // This is just a main method to test the connection in an easier way
-    public static void main(String[] args) {
-        System.err.println("Program start.");
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connect = DriverManager.getConnection(connectionString);
-        } catch (SQLException e) {
-            System.err.println("Error : Can't connect to database.");
-            e.printStackTrace();
-        } catch (Exception ec) {
-            System.err.println("Error : Unknown error.");
-            ec.printStackTrace();
-        }
-        if (connect != null) {
-            System.out.println("OK !");
-        } else {
-            System.out.println("Not OK !");
-        }
-        System.out.println("Program end.");
-    }
-    */
-
+    /**
+     * Constructor of the SQLServerConnection
+     * @param connectionString the connection string to create the connection
+     */
     public SQLServerConnection(String connectionString) {
         this.connectionString = connectionString;
     }

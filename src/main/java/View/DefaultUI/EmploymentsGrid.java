@@ -2,8 +2,6 @@ package View.DefaultUI;
 
 import Model.*;
 import Model.Entity.Employment;
-import Model.SQlRepo.EmploymentDAO;
-import Model.SQlRepo.SQLServerConnection;
 import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
@@ -26,34 +24,32 @@ import java.util.List;
 /**
  * A tab for the current staff members
  * Created by Abeer  5/13/2016
- * modified by Simon on 2016/04/28 to make the table get real employment from online DB
+ * Modified by Simon on 2016/04/28 to make the table get real employment from online DB
  */
 @SpringComponent
 @UIScope
-public class EmploymentsView extends VerticalLayout {
-    final private int WIDTH = 11;
-  //  private DeletionLogModel logModel ;
-    private TextField searchField ;
+public class EmploymentsGrid extends VerticalLayout {
+
     private BeanItemContainer<Employment> container;
     private Collection<Employment>  member = new ArrayList<>();
     private GeneratedPropertyContainer gpc;
     private Grid membersGrid;
     private Button deleteSelected;
     private Label currentDB;
-    private DeletingEmploymentsPresenter deletingEmploymentsPresenter;
+    private DeletingEmploymentsPresenter employmentsPresenter;
+
     /**
-     *A constructor for the table tree full of the staff members (could be current or deleted members)
+     * Constructor of the the table tree full of the staff members (could be current or deleted members)
+     * @param employmentsPresenter the presenter of the window that contains this grid
      */
     @Autowired
-    public EmploymentsView(DeletingEmploymentsPresenter deletingEmploymentsPresenter) {
-        this.deletingEmploymentsPresenter = deletingEmploymentsPresenter;
+    public EmploymentsGrid(DeletingEmploymentsPresenter employmentsPresenter) {
+        this.employmentsPresenter = employmentsPresenter;
         this.setMargin(true);
         this.setSpacing(true);
         this.setSizeFull();
-
         currentDB = new Label("Current Database: " + UI.getCurrent().getSession().getAttribute("databaseName"));
-        member = deletingEmploymentsPresenter.getEmploymentsFromDAO();
-
+        member = employmentsPresenter.getEmploymentsFromDAO();
 
         container =new BeanItemContainer<Employment>(Employment.class, member);
 
@@ -61,7 +57,6 @@ public class EmploymentsView extends VerticalLayout {
 
         gpc.addGeneratedProperty("Show Information",
                 new PropertyValueGenerator<String>() {
-
 
                     @Override
                     public Class<String> getType() {
@@ -80,10 +75,14 @@ public class EmploymentsView extends VerticalLayout {
         this.addComponents( currentDB, membersGrid, deleteSelected);
     }
 
+    /**
+     * Method to init the grid (or table)
+     */
     private void initGird() {
         membersGrid = new Grid(gpc);
         // Column should fetch the Employment class attribute names
-        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName", "lastName", "startDate", "endDate");
+        membersGrid.setColumnOrder("companyID", "personID", "employmentID", "rowID", "firstName",
+                "lastName", "startDate", "endDate");
         membersGrid.setSelectionMode(Grid.SelectionMode.MULTI);
 
         membersGrid.setHeight(300, Unit.PIXELS);
@@ -105,16 +104,16 @@ public class EmploymentsView extends VerticalLayout {
         deleteSelected = new Button("Delete Selected", e -> {
             // checking if there are some  selected employments
             if(membersGrid.getSelectedRows().size() > 0){
-
-                UI.getCurrent().addWindow(  new DeletionConfirmationWindow(membersGrid, deletingEmploymentsPresenter));
-            }
-            else
-
+                UI.getCurrent().addWindow(new DeletionConfirmationWindow(membersGrid, employmentsPresenter));
+            } else {
                 Notification.show("Nothing selected");
+            }
         });
-
     }
 
+    /**
+     * Method to init the filters in the grid (one filter by column)
+     */
     private void initFilters(){
 
         // Create a header row to hold column filters
@@ -135,7 +134,6 @@ public class EmploymentsView extends VerticalLayout {
             filterField.addTextChangeListener(change -> {
                 // Can't modify filters so need to replace
                 container.removeContainerFilters(pid);
-
                 // (Re)create the filter if necessary
                 if (! change.getText().isEmpty())
                     container.addContainerFilter(

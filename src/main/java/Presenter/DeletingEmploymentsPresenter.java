@@ -14,17 +14,21 @@ import java.util.List;
 
 /**
  * Created by Hatem on 10-May-16.
- * A class that acts as the presenter for the Deleting Employments window according to
+ * A class that acts as the presenter for the Adding, Deleting ,updating Employments window according to
  * the MVP (Model-View-Presenter) pattern.
- * Modified by Abeer removing deletionLogModel from the view and adding it to the presenter
+ * updated by Abeer adding createLog , readLog methods
  */
 public class DeletingEmploymentsPresenter {
+
     private DeletingEmploymentsWindow view;
     private EmploymentDAO employmentDAO;
-    private String databaseName;
     private DeletionLogModel deletionLogModel;
 
-
+    /**
+     * Contructor the the Presenter
+     * @param currentWindow the currentWindow calling the presenter (DeletingEmploymentsWindow)
+     * @throws IOException
+     */
     public DeletingEmploymentsPresenter(DeletingEmploymentsWindow currentWindow) throws IOException {
         view = currentWindow;
         deletionLogModel = new DeletionLogModel();
@@ -33,8 +37,13 @@ public class DeletingEmploymentsPresenter {
         System.out.println("Connection String --> " + UI.getCurrent().getSession().getAttribute("connectionString"));
         SQLServerConnection connection = new SQLServerConnection(UI.getCurrent().getSession().getAttribute("connectionString").toString());
         employmentDAO = new EmploymentDAO(connection.getInstance());
+
     }
 
+    /**
+     * Method to get the list of employments from the model to populate the grid
+     * @return the list of employments of teh current DB
+     */
     public List<Employment> getEmploymentsFromDAO() {
         if (employmentDAO == null) {
             return null;
@@ -42,6 +51,10 @@ public class DeletingEmploymentsPresenter {
         return employmentDAO.getEmployments();
     }
 
+    /**
+     * Method to delete a employment from the model
+     * @param employment the employment to delete
+     */
     public void deleteEmploymentFromDAO(Employment employment) {
         if (employmentDAO == null) {
             return;
@@ -49,20 +62,26 @@ public class DeletingEmploymentsPresenter {
             view.showSuccessNotification("Deletion is done successfully");
         }
         else{
-            view.ShowErrorNotification("Error in deleting employments!");
+            view.ShowErrorNotification("Error,  employments is not deleted");
         }
     }
 
+    /**
+     * Method to create a log
+     * @param selectedEmployment the employment to register on the log
+     */
     public void createLog(Employment selectedEmployment) {
         if (!deletionLogModel.createLog(String.valueOf(UI.getCurrent().getSession().getAttribute("user")), selectedEmployment, new Date())) {
-
-            view.ShowErrorNotification("Deletion log is not saved!");
-            return;
+            view.ShowErrorNotification("Error, deletion log is not saved!");
         }
-
     }
+
+    /**
+     * Method to read the deletion logs to populate the view
+     * @return a collection of logs
+     */
     public Collection readDeletionLog() {
         return deletionLogModel.readLogs();
     }
-
 }
+

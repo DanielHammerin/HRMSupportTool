@@ -9,13 +9,17 @@ import java.util.ArrayList;
  */
 public class UserTest {
 
+    /**
+     * Main method to test a user
+     * @param args
+     */
     public static void main(String[] args) {
         UserModel userModel = new UserModel();
 
         // create users
         System.out.println("********create users********:");
-        System.out.println("is user created: "+userModel.createUser("Abeer", "Alkhars", "cc223de",
-                "123123", "null", false));
+        System.out.println("is user created: "+userModel.createUser("Abeer", "Alkhars", "cc223ddd",
+                "123123", "null", true));
       //  System.out.println("is user created: "+userModel.createUser("firstName", "LastnName", "bb123de",
              //   "123123", "null", false));
 

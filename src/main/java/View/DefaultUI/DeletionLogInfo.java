@@ -8,12 +8,18 @@ import com.vaadin.ui.*;
  * sub window to show deletion log information
  */
 public class DeletionLogInfo  extends Window {
+
     Button closeButton = new Button("Close");
     HorizontalLayout action = new HorizontalLayout(closeButton);
     VerticalLayout content = new VerticalLayout();
+
+    /**
+     * Constructor of the deletion log info window
+     * @param log the deletion log to display
+     */
     public DeletionLogInfo(DeletionLog log){
          // Set window caption
-        super("log Information");
+        super("Log Information");
         center();
         action.setSpacing(true);
         setModal(true);
@@ -29,7 +35,8 @@ public class DeletionLogInfo  extends Window {
         Label deletedPersonID = new Label("Deleted Person ID : " + log.getDeletedId());
         Label deletedFirstName = new Label("Deleted Last Name: " + log.getDeletedFirstName());
         Label deletedLastName = new Label("Deleted last Name : " + log.getDeletedLastName());
-       Label deletionDate = new Label ("Deletion Date: "+log.getDate());
+        Label deletionDate = new Label ("Deletion Date: "+log.getDate());
+
         // Close the pop-ip window
         closeButton.addClickListener(e -> {
             close();
@@ -42,5 +49,4 @@ public class DeletionLogInfo  extends Window {
         content.addComponent(action);
         setContent(content);
     }
-
 }

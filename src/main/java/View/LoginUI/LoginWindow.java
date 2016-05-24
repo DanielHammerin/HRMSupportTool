@@ -2,10 +2,14 @@ package View.LoginUI;
 
 import Presenter.LoginPresenter;
 import View.DatabaseSelection.DatabaseSelectionWindow;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.themes.ValoTheme;
+
 
 /**
  * Created by totte on 04.04.16.
@@ -31,8 +35,9 @@ public class LoginWindow extends GridLayout implements View {
     private HorizontalLayout userHlayout;
     private HorizontalLayout passHlayout;
 
-    //@PostConstruct
-    //void init() {
+    /**
+     * Constructor of the login window
+     */
     public LoginWindow(){
 
         presenter = new LoginPresenter(this);
@@ -45,20 +50,25 @@ public class LoginWindow extends GridLayout implements View {
         //Button
         loginButton = new Button("Login", new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
-                presenter.loginEmployee(userField.getValue(), passField.getValue()); //This just show you how to get the data from the input by user
-
+                presenter.loginUser(userField.getValue(), passField.getValue());
             }
         });
 
+        loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        loginButton.setStyleName(Reindeer.BUTTON_DEFAULT);
+
         //Create and set internal layouts for user and password components
         userHlayout = new HorizontalLayout(userLabel, userField);
+
         passHlayout = new HorizontalLayout(passLabel, passField);
+
 
         //Size and position of components
         space(); space(); space(); space(); space(); space(); //a very ugly solution to move down all components on page
         addComponents(userHlayout, passHlayout, loginButton);
 
         setWidth("100%");
+
         setComponentAlignment(userHlayout, Alignment.MIDDLE_CENTER);
         setComponentAlignment(passHlayout, Alignment.MIDDLE_CENTER);
         setComponentAlignment(loginButton, Alignment.MIDDLE_CENTER);
@@ -66,19 +76,24 @@ public class LoginWindow extends GridLayout implements View {
         setSpacing(true);
         userHlayout.setSpacing(true);
         passHlayout.setSpacing(true);
-
     }
 
+    /**
+     * Method called when we naviguate to this view
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
+        // void
     }
 
     /**
      * A method to open the Database Selection window when the login credentials are correct
+     * @param isAdmin boolean true if the user is admin, false otherwise
      */
-    public void showDatabaseSelectionWindow(){
+    public void showDatabaseSelectionWindow(boolean isAdmin){
         getUI().getSession().setAttribute("user", userField.getValue());
+        getUI().getSession().setAttribute("isAdmin",isAdmin);
         getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
     }
 
@@ -89,6 +104,5 @@ public class LoginWindow extends GridLayout implements View {
         passField.clear();
         new Notification("Incorrect username/password", Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
-
     }
 }
