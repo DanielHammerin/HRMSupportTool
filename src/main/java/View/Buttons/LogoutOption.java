@@ -19,7 +19,7 @@ public class LogoutOption extends HorizontalLayout {
     @Autowired
     public LogoutOption(String currentUser){
 
-        Label CurrentUserLabel = new Label("You are logged in as " + currentUser);
+        Label CurrentUserLabel = new Label("Logged in as " + currentUser);
         Button logoutButton = new Button("Logout", new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
                 UI.getCurrent().addWindow(new LogoutConfirmationWindow());
