@@ -22,7 +22,7 @@ public class UserModel {
     public UserModel() {
         super();
         this.repo = new UserFileRepository();
-        createUser("Thorvald", "Gudjonsson", "Admin", "123", "email", true);
+        createUser("Thorvald", "Gudjonsson", "Admin", "123123", "email", true);
     }
 
     /**
@@ -43,6 +43,7 @@ public class UserModel {
             return false;
         }
         String cryptedPassword = Crypt.crypt(password);
+
         User member = new User(getNextUserId(), firstName, lastName, userName, cryptedPassword, email, isAdmin);
         return repo.createUser(member);
     }

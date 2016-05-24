@@ -102,7 +102,7 @@ public class UserInfoView extends Window  {
     }
     public boolean validateUserParameter() {
         return (firstName.isValid()&&lastName.isValid()& userName.isValid()&&
-                isValid(email.getValue())&&isValid(password.getValue()));
+                isValid(email.getValue())&&password.isValid());
     }
 
 
@@ -119,7 +119,7 @@ public class UserInfoView extends Window  {
           NameValidator =new StringLengthValidator(
                   "Name must be 3-25 characters", 3, 25, true);
      passwordValdiator=new StringLengthValidator(
-             "Name must be 6-10 characters", 6, 10, true);
+             "Password must be 6-10 characters", 6, 10, true);
 
       firstName.addValidator(NameValidator);
       lastName.addValidator(NameValidator);
