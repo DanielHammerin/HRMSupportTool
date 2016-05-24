@@ -7,6 +7,9 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.themes.ValoTheme;
+
 
 /**
  * Created by totte on 04.04.16.
@@ -52,15 +55,20 @@ public class LoginWindow extends GridLayout implements View {
         });
 
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        loginButton.setStyleName(Reindeer.BUTTON_DEFAULT);
+
         //Create and set internal layouts for user and password components
         userHlayout = new HorizontalLayout(userLabel, userField);
+
         passHlayout = new HorizontalLayout(passLabel, passField);
+
 
         //Size and position of components
         space(); space(); space(); space(); space(); space(); //a very ugly solution to move down all components on page
         addComponents(userHlayout, passHlayout, loginButton);
 
         setWidth("100%");
+
         setComponentAlignment(userHlayout, Alignment.MIDDLE_CENTER);
         setComponentAlignment(passHlayout, Alignment.MIDDLE_CENTER);
         setComponentAlignment(loginButton, Alignment.MIDDLE_CENTER);

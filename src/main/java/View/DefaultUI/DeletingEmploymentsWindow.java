@@ -45,7 +45,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
         buttonsLayout = new HorizontalLayout();
         panel = new Panel();
         panel.setSizeFull();
-
+    //    panel.setStyleName(ValoTheme.PANEL_WELL);
         // adding view buttons to the window
         viewlogButton = new Button("View Log");
         viewEmploymentsButton = new Button("View Current Employments");
@@ -93,7 +93,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         buttonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
                 viewEmploymentsButton,viewUser);
-        buttonsLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+     //   buttonsLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         setSpacing(true);
         setMargin(true);
         addComponents( logoutHLayout, buttonsLayout, panel);

@@ -8,6 +8,7 @@ import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.themes.ValoTheme;
 
 ;
@@ -147,7 +148,9 @@ public class UserInfoView extends Window  {
         save = new Button("Save", FontAwesome.EDIT);
         delete = new Button("Delete",FontAwesome.TRASH_O);
         save.setStyleName(ValoTheme.BUTTON_PRIMARY);
+        delete.setStyleName(ValoTheme.BUTTON_FRIENDLY);
         save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+
 
 
         userInfolayout1 = new HorizontalLayout(firstName,lastName);
@@ -174,6 +177,7 @@ public class UserInfoView extends Window  {
         content.setSpacing(true);
         content.setMargin(true);
         content.addComponents(userInfolayout1,userInfolayout2,userInfolayout3,actions);
+
         setContent(content);
     }
   }

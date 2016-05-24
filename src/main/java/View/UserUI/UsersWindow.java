@@ -9,6 +9,8 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.Reindeer;
+import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * Created by Abeer on 5/19/2016.
@@ -46,7 +48,6 @@ public class UsersWindow extends VerticalLayout implements View {
         viewDatabaseSelection.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
         });
-
         viewEmploymentsButton.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME);
 

@@ -6,10 +6,12 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.GeneratedPropertyContainer;
 import com.vaadin.data.util.PropertyValueGenerator;
+import com.vaadin.shared.ui.grid.HeightMode;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.renderers.ButtonRenderer;
+import com.vaadin.ui.themes.Reindeer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,6 +58,7 @@ public class UserGrid extends VerticalLayout {
                     UI.getCurrent().addWindow(new UserInfoView(user,userPresenter));
                 }
                 ));
+        grid. setHeightMode(HeightMode.ROW);
         addComponent(grid);
 
     }

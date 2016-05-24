@@ -22,7 +22,7 @@ public class LogoutConfirmationWindow extends Window  {
      * Constructor of the Logout confirmation window
      */
     public LogoutConfirmationWindow() {
-        super("Logout  person"); // Set window caption
+        super("User Logout "); // Set window caption
         center();
         actions.setSpacing(true);
         setModal(true);
