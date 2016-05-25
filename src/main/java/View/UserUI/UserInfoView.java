@@ -8,10 +8,8 @@ import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.themes.ValoTheme;
-
-;
+import org.apache.commons.codec.digest.Crypt;
 
 /**
  * Created by Abeer on 5/19/2016.
@@ -38,16 +36,19 @@ public class UserInfoView extends Window  {
     private Button cancel;
     private Button delete;
     private Validator NameValidator,passwordValdiator;
-    private User user;
 
-   public UserInfoView (User user ,UserPresenter userPresenter){
+    /**
+     * Constructor of the user info view (Edit)
+     * @param user the user to display
+     * @param userPresenter the presenter of the view that called this sub window (UserPresenter)
+     */
+   public UserInfoView (User user, UserPresenter userPresenter){
        super("Edit User");
 
        // init fields and buttons
        init();
        // add validators to the fields
        addValidators();
-       this.user=user;
         // binds the user parameters  to the fields
        if (user.getId()!=-1) {
            BeanFieldGroup.bindFieldsUnbuffered(user, this);
@@ -59,7 +60,7 @@ public class UserInfoView extends Window  {
            if(validateUserParameter())
                // call userPresenter to update the user info
            {  userPresenter.updateUser(user.getId(),firstName.getValue(),lastName.getValue(),
-                       userName.getValue(),password.getValue(),
+                       userName.getValue(), Crypt.crypt(password.getValue()),
                        email.getValue(),(boolean)isAdmin.getValue()); close();}
            else{// show error if the parameters are not valid
                new Notification("Enter required parameters", Notification.TYPE_ERROR_MESSAGE)
@@ -75,8 +76,11 @@ public class UserInfoView extends Window  {
        });
    }
 
-
-    public UserInfoView( UserPresenter userPresenter){
+    /**
+     * Constructor of the userInfoView (Creation)
+     * @param userPresenter the presenter of the view that called this sub window (UserPresenter)
+     */
+    public UserInfoView(UserPresenter userPresenter){
         super("New User");
 
         // init fields and buttons
@@ -98,40 +102,49 @@ public class UserInfoView extends Window  {
                         .show(getUI().getPage());
             }
                });
-
     }
+
+    /**
+     * Method to validate the user parameters
+     * @return true if the parameters are correct, false otherwise
+     */
     public boolean validateUserParameter() {
         return (firstName.isValid()&&lastName.isValid()& userName.isValid()&&
                 isValid(email.getValue())&&password.isValid());
     }
 
-
+    /**
+     * Method to check if the oject is valid
+     * @param value the object to check
+     * @return true if teh object is valid, false otherwise
+     */
     public boolean isValid(Object value) {
-
         if (value==null||value.toString().trim().isEmpty()){
-            return false;}
-        else
+            return false;
+        } else {
             return true;
-
-
+        }
     }
-  private void addValidators(){
-          NameValidator =new StringLengthValidator(
-                  "Name must be 3-25 characters", 3, 25, true);
-     passwordValdiator=new StringLengthValidator(
-             "Password must be 6-10 characters", 6, 10, true);
 
-      firstName.addValidator(NameValidator);
-      lastName.addValidator(NameValidator);
-      password.addValidator(passwordValdiator);
+    /* Method to add validators */
+    private void addValidators(){
+        NameValidator =new StringLengthValidator("Name must be 3-25 characters", 3, 25, true);
+        passwordValdiator=new StringLengthValidator("Password must be 6-10 characters", 6, 10, true);
 
-          firstName.setRequired(true);firstName.setImmediate(true);
-          lastName.setRequired(true);lastName.setImmediate(true);
-          userName.setRequired(true);userName.setImmediate(true);
-          password.setRequired(true);password.setImmediate(true);
-          email.setRequired(true);password.setImmediate(true);
-      }
+        firstName.addValidator(NameValidator);
+        lastName.addValidator(NameValidator);
+        password.addValidator(passwordValdiator);
 
+        firstName.setRequired(true);firstName.setImmediate(true);
+        lastName.setRequired(true);lastName.setImmediate(true);
+        userName.setRequired(true);userName.setImmediate(true);
+        password.setRequired(true);password.setImmediate(true);
+        email.setRequired(true);password.setImmediate(true);
+    }
+
+    /**
+     * Method to init the view (called when launched)
+     */
     private void init(){
         content = new VerticalLayout();
 
@@ -151,12 +164,10 @@ public class UserInfoView extends Window  {
         delete.setStyleName(ValoTheme.BUTTON_FRIENDLY);
         save.setClickShortcut(ShortcutAction.KeyCode.ENTER);
 
-
-
         userInfolayout1 = new HorizontalLayout(firstName,lastName);
         userInfolayout2 = new HorizontalLayout(userName,password);
         userInfolayout3 = new HorizontalLayout(email,isAdmin);
-                actions = new HorizontalLayout(save, delete,cancel);
+        actions = new HorizontalLayout(save, delete,cancel);
         actions.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 
         userInfolayout1.setSpacing(true);
@@ -177,8 +188,7 @@ public class UserInfoView extends Window  {
         content.setSpacing(true);
         content.setMargin(true);
         content.addComponents(userInfolayout1,userInfolayout2,userInfolayout3,actions);
-
         setContent(content);
     }
-  }
+}
 

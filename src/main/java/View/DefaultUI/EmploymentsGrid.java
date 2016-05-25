@@ -1,6 +1,5 @@
 package View.DefaultUI;
 
-import Model.*;
 import Model.Entity.Employment;
 import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.data.Item;
@@ -15,11 +14,8 @@ import com.vaadin.ui.renderers.ButtonRenderer;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.IOException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * A tab for the current staff members

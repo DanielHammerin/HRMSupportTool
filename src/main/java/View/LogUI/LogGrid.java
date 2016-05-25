@@ -118,9 +118,6 @@ public class LogGrid extends VerticalLayout {
            cell.setComponent(filterField);
              grid.setWidth("100%");
           grid. setHeightMode(HeightMode.ROW);
-
-
-
        }
     }
 }

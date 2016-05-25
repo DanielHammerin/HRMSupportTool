@@ -55,7 +55,6 @@ public class LoginWindow extends GridLayout implements View {
         });
 
         loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        loginButton.setStyleName(Reindeer.BUTTON_DEFAULT);
 
         //Create and set internal layouts for user and password components
         userHlayout = new HorizontalLayout(userLabel, userField);

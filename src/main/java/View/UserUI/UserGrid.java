@@ -26,6 +26,10 @@ public class UserGrid extends VerticalLayout {
     private BeanItemContainer container;
     private GeneratedPropertyContainer gpc;
 
+    /**
+     * Constructor of the user grid
+     * @param userPresenter the presenter of the view that called this grid (UserPresenter)
+     */
     public UserGrid (UserPresenter userPresenter){
         // read  users objects
         collection = userPresenter.readUsers();
@@ -35,7 +39,6 @@ public class UserGrid extends VerticalLayout {
 
         gpc.addGeneratedProperty("Edit",
                 new PropertyValueGenerator<String>() {
-
 
                     @Override
                     public Class<String> getType() {
@@ -48,6 +51,7 @@ public class UserGrid extends VerticalLayout {
                         return "Edit";
                     }
                 });
+
         grid = new Grid(gpc);
         grid.setColumnOrder("id","firstName","lastName","username","password","email");
         grid.setSizeFull();
@@ -60,6 +64,5 @@ public class UserGrid extends VerticalLayout {
                 ));
         grid. setHeightMode(HeightMode.ROW);
         addComponent(grid);
-
     }
 }

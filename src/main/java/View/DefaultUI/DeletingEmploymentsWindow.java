@@ -93,7 +93,7 @@ public class DeletingEmploymentsWindow extends VerticalLayout implements View {
 
         buttonsLayout.addComponents(viewDatabaseSelectionButton,viewlogButton,
                 viewEmploymentsButton,viewUser);
-     //   buttonsLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+        buttonsLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         setSpacing(true);
         setMargin(true);
         addComponents( logoutHLayout, buttonsLayout, panel);

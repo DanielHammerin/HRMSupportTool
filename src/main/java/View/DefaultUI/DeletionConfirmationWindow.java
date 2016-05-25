@@ -1,13 +1,7 @@
 package View.DefaultUI;
-import Model.*;
 import Model.Entity.Employment;
-import Model.SQlRepo.EmploymentDAO;
-import Model.SQlRepo.SQLServerConnection;
 import Presenter.DeletingEmploymentsPresenter;
 import com.vaadin.ui.*;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Date;
 
 /**
  * Created by Abeer on 4/13/2016.

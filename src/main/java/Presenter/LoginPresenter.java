@@ -38,6 +38,12 @@ public class LoginPresenter {
         }
     }
 
+    /**
+     * Method to check if a entered password match with the hashed stored password
+     * @param enteredPassword the entered password
+     * @param storedPassword teh stored password
+     * @return true if the two password match, false otherwise
+     */
     private boolean authenticate(String enteredPassword, String storedPassword){
         return storedPassword.equals(Crypt.crypt(enteredPassword, storedPassword));
     }
