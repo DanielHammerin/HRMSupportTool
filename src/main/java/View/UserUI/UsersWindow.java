@@ -17,6 +17,7 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 @SpringView(name =UsersWindow.VIEW_NAME)
 public class UsersWindow extends VerticalLayout implements View {
+
     public static final String VIEW_NAME = "users";
     private Panel content;
     private LogoutOption logoutHLayout;
@@ -29,6 +30,9 @@ public class UsersWindow extends VerticalLayout implements View {
 
     private UserPresenter userPresenter;
 
+    /**
+     * Constructor of the user window
+     */
     public  UsersWindow(){
         userPresenter = new UserPresenter(this);
         // logout layout
@@ -43,16 +47,19 @@ public class UsersWindow extends VerticalLayout implements View {
         content=new Panel();
     }
 
+    /**
+     * Method to add components to window
+     */
     private void addWindowComponents() {
-     // set actions to the view buttons
+        // set actions to the view buttons
         viewDatabaseSelection.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DatabaseSelectionWindow.VIEW_NAME);
         });
+
         viewEmploymentsButton.addClickListener(e -> {
             getUI().getNavigator().navigateTo(DeletingEmploymentsWindow.VIEW_NAME);
-
-
         });
+
         addUser.addClickListener(e -> {
             UI.getCurrent().addWindow(new UserInfoView(userPresenter));
         });
@@ -65,22 +72,36 @@ public class UsersWindow extends VerticalLayout implements View {
         content.setContent(new UserGrid(userPresenter));
         addComponents( logoutHLayout,buttonsLayout,content);
         setComponentAlignment(logoutHLayout, Alignment.BOTTOM_RIGHT);
-
     }
 
+    /**
+     * Method to update the grid of users
+     */
     public void updateUsersGrid(){
         content.setContent(new UserGrid(userPresenter));
     }
 
+    /**
+     * Method to show a success notification
+     * @param msg the notification to display
+     */
     public void showSuccessNotification(String msg){
         Notification.show(msg);
     }
 
+    /**
+     * Method to show a error notification
+     * @param msg the notification to display
+     */
     public void showErrorNotification(String msg){
         new Notification(msg, Notification.TYPE_ERROR_MESSAGE)
                 .show(getUI().getPage());
     }
 
+    /**
+     * Method called when the window is created
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         if ((getUI().getSession().getAttribute("user") == null)||getUI().getSession().getAttribute("isAdmin")==null) {

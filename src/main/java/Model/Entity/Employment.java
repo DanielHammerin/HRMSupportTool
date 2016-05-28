@@ -14,6 +14,17 @@ public class Employment {
 	private String startDate;
 	private String endDate;
 
+	/**
+	 * Constructor of a employment
+	 * @param companyID the company id
+	 * @param personID the person id
+	 * @param employmentID the employment id
+	 * @param rowID the row id
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param startDate the start date of the employment
+     * @param endDate the end date of the employment ( "-" if current)
+     */
 	public Employment(String companyID, String personID, String employmentID, int rowID, String firstName, String lastName, String startDate, String endDate) {
 		this.companyID = companyID;
 		this.personID = personID;

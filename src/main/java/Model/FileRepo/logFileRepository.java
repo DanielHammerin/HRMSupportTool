@@ -17,9 +17,12 @@ import java.util.logging.Logger;
  */
 public class logFileRepository {
 
-   // private final String prefixPath = "D:\\DeletionLog\\";
     private final String logFilePath = "LocalDatabase" + File.separator + "DeletionLog_DB.ser";
 
+    /**
+     * Constructor of the log file repository
+     * @throws IOException
+     */
     public logFileRepository() throws IOException {
         try {
             Path path = Paths.get(logFilePath);
@@ -34,21 +37,40 @@ public class logFileRepository {
         }
     }
 
+    /**
+     * Method to check if the log file exists
+     * @param path the file path
+     * @return true if the file exists, false otherwise
+     */
     private boolean isFileExist(String path) {
-
         return new File(path).exists();
     }
 
+    /**
+     * Methdo to check if the log file is empty
+     * @param path the file path
+     * @return true if the file exists, false otherwise
+     */
     private boolean isEmptyFile(String path) {
         return new File(path).length() == 0;
     }
 
+    /**
+     * Method to create a deletion log
+     * @param log the log to registred
+     * @return true if the creation has suceeded, false otherwise
+     */
     public boolean createDeletionLog(DeletionLog log){
         List<DeletionLog> logs =readDeletionLogs();
         logs.add(log);
         return overwriteRecord(logs);
     }
 
+    /**
+     * Method to overwrite a list of logs
+     * @param logs the list of logs to overwrite
+     * @return true if the overwrite has suceeded, false otherwise
+     */
     private boolean overwriteRecord(List<DeletionLog> logs) {
         if (isFileExist(logFilePath)) {
             try {
@@ -60,13 +82,15 @@ public class logFileRepository {
             } catch (IOException i) {
                 return false;
             }
-
             return true;
         }
-
         return false;
     }
 
+    /**
+     * Methdo to get all deletion logs
+     * @return the list of all logs registred
+     */
     public List<DeletionLog> readDeletionLogs() {
         List<DeletionLog> records = new ArrayList<>();
 
@@ -80,7 +104,6 @@ public class logFileRepository {
             } catch (Exception i) {
             }
         }
-
         return records;
     }
 }

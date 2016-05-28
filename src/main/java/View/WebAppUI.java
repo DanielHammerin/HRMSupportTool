@@ -6,7 +6,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.Reindeer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -16,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * modified by Abeer , changed the style of web
  */
 
-
+@Theme("valo")
 @SpringUI
 public class WebAppUI extends UI{
 
@@ -34,19 +33,14 @@ public class WebAppUI extends UI{
 
         final Panel viewContainer = new Panel();
         viewContainer.setSizeFull();
-        root.setStyleName(Reindeer.LAYOUT_BLUE);
         root.addComponent(viewContainer);
-        root.setExpandRatio(viewContainer, 2.0f);
+        root.setExpandRatio(viewContainer, 1.0f);
 
         Navigator navigator = new Navigator(this, viewContainer);
         navigator.addProvider(viewProvider);
 
     }
-
-    public void showWindow(String viewName){
-
-    }
-    }
+}
 
 
 
