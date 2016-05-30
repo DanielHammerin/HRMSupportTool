@@ -65,6 +65,7 @@ public class UsersWindow extends VerticalLayout implements View {
         });
 
         buttonsLayout.addComponents(viewDatabaseSelection,viewEmploymentsButton, addUser);
+        buttonsLayout.setSpacing(true);
         viewsLayout.setSpacing(true);
         setSpacing(true);
         setMargin(true);

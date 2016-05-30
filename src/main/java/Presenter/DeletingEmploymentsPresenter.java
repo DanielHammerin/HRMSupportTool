@@ -57,7 +57,7 @@ public class DeletingEmploymentsPresenter {
      */
     public void deleteEmploymentFromDAO(Employment employment) {
         if (employmentDAO == null) {
-            return;
+
         } else if (employmentDAO.delete(employment)) {
             view.showSuccessNotification("Deletion is done successfully");
         }
