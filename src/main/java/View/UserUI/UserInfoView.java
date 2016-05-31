@@ -35,7 +35,8 @@ public class UserInfoView extends Window  {
     private Button save;
     private Button cancel;
     private Button delete;
-    private Validator NameValidator,passwordValdiator;
+    private Validator NameValidator;
+    private Validator passwordValdiator;
 
     /**
      * Constructor of the user info view (Edit)

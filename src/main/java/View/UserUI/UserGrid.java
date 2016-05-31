@@ -17,14 +17,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Created by Abeer on 5/20/2016.
+ * Created by Abeer on 20/5/2016.
+ * Edited by Hatem on 31/5/2016
  * class that init HRM users in a grid
  */
 public class UserGrid extends VerticalLayout {
-    private Collection collection =  new ArrayList<>();
-    private Grid grid;
-    private BeanItemContainer container;
-    private GeneratedPropertyContainer gpc;
 
     /**
      * Constructor of the user grid
@@ -32,11 +29,10 @@ public class UserGrid extends VerticalLayout {
      */
     public UserGrid (UserPresenter userPresenter){
         // read  users objects
-        collection = userPresenter.readUsers();
+        Collection collection = userPresenter.readUsers();
 
-        container = new BeanItemContainer<User>(User.class,collection);
-        gpc = new GeneratedPropertyContainer(container);
-
+        BeanItemContainer container = new BeanItemContainer<User>(User.class,collection);
+        GeneratedPropertyContainer gpc = new GeneratedPropertyContainer(container);
         gpc.addGeneratedProperty("Edit",
                 new PropertyValueGenerator<String>() {
 
@@ -52,8 +48,10 @@ public class UserGrid extends VerticalLayout {
                     }
                 });
 
-        grid = new Grid(gpc);
-        grid.setColumnOrder("id","firstName","lastName","username","password","email");
+        Grid grid = new Grid(gpc);
+
+        grid.removeColumn("password");
+        grid.setColumnOrder("id","firstName","lastName","username","email");
         grid.setSizeFull();
         grid.setSelectionMode(Grid.SelectionMode.SINGLE);
         grid.getColumn("Edit")
